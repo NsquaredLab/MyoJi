@@ -1,0 +1,239 @@
+{
+  "schema": 1,
+  "frames_per_run": 16,
+  "warmup_frames": 16,
+  "seed": 260923,
+  "board": "NUCLEO-N657X0-Q",
+  "cpu_hz": 600000000,
+  "elf_sha256": "1a43a7c4a70a6d294a3c19b2b52fd84673e786071cfd5e7e8428c34d5d54f857",
+  "selection": "Latest matching attempt per route/channel count, regardless of validation outcome.",
+  "runs": [
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192154.054794Z_learned_1ch",
+      "receipt_sha256": "6d5f6498a13215ea077e57c052377c3ce97a77116b71abad09bd3e529c51985e",
+      "frames_sha256": "e94640fa1d6307b037c7621db268636f9f82c6e86eb9244be0629236c70dbc87"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192259.212123Z_learned_2ch",
+      "receipt_sha256": "3311173703f131ecdbc06b125755e4d9747793e223684d1f717576d2842fdc25",
+      "frames_sha256": "9a9f58aace8faff28d206b4639f9de572981463bcbc0e206625dfa8f1c424f6f"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192308.768178Z_learned_4ch",
+      "receipt_sha256": "8651ba3f5655caf9b23c725b20c01ea8b8651db5bdb286e65dcf97c72bf6755d",
+      "frames_sha256": "905a7e8c057a53947e73f393a73c9dd2b720219a2f3ad51732612316d7089e0f"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192325.326283Z_learned_8ch",
+      "receipt_sha256": "3b495940b9d8ffdebbb24f6690eac64ac08f769d7ed76da88a1c8b1fa1ec6d1a",
+      "frames_sha256": "cb32f613e50f5988c76a1aeb9c4f987f21a618efc6a6fd112c4afd1b3b0756ce"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192355.827186Z_learned_16ch",
+      "receipt_sha256": "a06122fcd16d822ab44ac5dbf501d288e01d855c9461e78f20eeb518a916b45e",
+      "frames_sha256": "d98ceca2cf2a002625b06424ba1c24b373bbaec2b48c8ca6537b5f39dc5c5f49"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192454.009511Z_learned_32ch",
+      "receipt_sha256": "937907c34f46d3a549599ccf55df234185a83b4d03636b422bac3e4621bc3fb0",
+      "frames_sha256": "c99abf71e707677c4917d987b077bb0fb3534fbc85f051fdbf07aa7c68d2f052"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192647.661215Z_learned_64ch",
+      "receipt_sha256": "adf6eb585c438681351606ad2cd36316354198751d96dba681dd4751b5c92980",
+      "frames_sha256": "eb8460bd251e1ac9af9a83604d3e9d4a0600fdfaac82b9eb47590c54cbefefbb"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193032.101367Z_learned_112ch",
+      "receipt_sha256": "5695ae254077478b14988ce59152020ec4102a1354a2b55bb3919c137234b3ef",
+      "frames_sha256": "32eb4d97791900c694df18e353cca957e785be96bb51796b41aa34a1e82e8c50"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193713.517897Z_spar_1ch",
+      "receipt_sha256": "40efa1edcbb776fe4e0f33814835386d8b8a4fbb6ec5a15cc118a8321f94ce14",
+      "frames_sha256": "f98e941c1a14988e3b9a535842b10c81f5c34c91288b2db89b1b152e3921ce90"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193715.384630Z_spar_4ch",
+      "receipt_sha256": "ff7df1529b05f3459f7b8748123c92d0f94593b111b7ce667fd5f50171a8c625",
+      "frames_sha256": "0f932939971cc2d4d61bcd7ed28144f2a397b3ae8832a13a4e148bba2ea4f601"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193717.391052Z_spar_8ch",
+      "receipt_sha256": "62ce390d122614ff260d2b884681425402f15b969d956f9cec125eb6cb96400a",
+      "frames_sha256": "31bec4c2a71378a6343b73fffd72f5e3be08af4d755ae260279eccdadd34ca06"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193719.579435Z_spar_16ch",
+      "receipt_sha256": "ad04778defbb711c9e2d260ec2fbc11a19e71315a6de30a4eb3e40f5005843e2",
+      "frames_sha256": "d876f4ec02eee49cded4b6a892bfb4450841f2577e8611d8c0f7f3ad756e5585"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193721.967972Z_spar_20ch",
+      "receipt_sha256": "4d5c848e16395989d519c714cb82a6146a499cc8f96c6a3a29776129b3593301",
+      "frames_sha256": "5ba235821e8b9ae418aeafe5271dffc52f7c098c79b0930450fba7c89f2a9be3"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193724.339646Z_spar_22ch",
+      "receipt_sha256": "5ff96e619ec482133e74c7946965cc38f016dd33ed153670b611daf2bfe215e7",
+      "frames_sha256": "0de6f588f5d6a1ce2215fc4386f44f233839412f4750e298bf7606b908e571e4"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193726.833865Z_spar_23ch",
+      "receipt_sha256": "ca22ff398da11b6d668277b2d4665e3f2054b18931fbe57143d9fc01853f875d",
+      "frames_sha256": "acfd614ec4faddb971a5321b7a93b57517c0102015ae00d3184e87211f9636f9"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193729.438235Z_spar_24ch",
+      "receipt_sha256": "1f0a31a1d94c8ef07fab91aed70b0213bdc25011e2de3266b27efeeabd2e0d6b",
+      "frames_sha256": "0f08a03b917733f7cd60193fe040d41e86415dd44b9bd034195d0a6cfe642e39"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193732.046321Z_spar_32ch",
+      "receipt_sha256": "2dbbb16a6f50f7baab774d6117559eca5df403918998d4491b2c9a876b8d994b",
+      "frames_sha256": "6d9d274fe705c092ace1dc0c177dd7d73a9a717761d534d0bf7a4301010a8f46"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193734.870135Z_spar_64ch",
+      "receipt_sha256": "e6a2b0089dfc5f9ef92c6a7afa264566dbd3e0bc68fe56e27044059d8948b66a",
+      "frames_sha256": "a4e4126bd9197c805b6cb83889da8bd4a14619c612b64a8b197848163cc2c9b4"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193738.625792Z_spar_128ch",
+      "receipt_sha256": "724a6c1a6fdc9d702be387191e8ca5df318182412f778da24cf4e2477cb9bcb2",
+      "frames_sha256": "c154c6f4d83abadceba5bb5282d72e993fb949e94c56c0c30e051e5a3d8fdd2d"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193744.241526Z_spar_320ch",
+      "receipt_sha256": "43987338e77eeb339e52fea34b2800664eeb12978abce317e5e8474fda18ddd3",
+      "frames_sha256": "026fc118228f85e6f5993edf1bd1c526cdbcb14239f43ce65bc176256eba0c88"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193755.434362Z_spar_640ch",
+      "receipt_sha256": "eb50f6bd1d0ced1d85e05db4df44ac09bd74849da9985d2597ac138b1817c5ff",
+      "frames_sha256": "f54a1b77b36e2695392700191f05ccffc875253596993aa7c9b66f89a05754e1"
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193816.009552Z_spar_1024ch",
+      "receipt_sha256": "6ecd70b62d10cdd51c3130f9208dd2f5c3375e28189e63a2c477e6c6f20d5495",
+      "frames_sha256": "a116cf0845147eb7c7fda7fc6c989cabf77a9f8af8e7455dd197d6e054925f84"
+    }
+  ],
+  "attempts": [
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192108.275049Z_learned_1ch",
+      "complete": false,
+      "output_verified": null
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192154.054794Z_learned_1ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192259.212123Z_learned_2ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192308.768178Z_learned_4ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192325.326283Z_learned_8ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192355.827186Z_learned_16ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192454.009511Z_learned_32ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T192647.661215Z_learned_64ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193032.101367Z_learned_112ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193713.517897Z_spar_1ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193715.384630Z_spar_4ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193717.391052Z_spar_8ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193719.579435Z_spar_16ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193721.967972Z_spar_20ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193724.339646Z_spar_22ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193726.833865Z_spar_23ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193729.438235Z_spar_24ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193732.046321Z_spar_32ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193734.870135Z_spar_64ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193738.625792Z_spar_128ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193744.241526Z_spar_320ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193755.434362Z_spar_640ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_tokenizer_v1/runs/20260923T193816.009552Z_spar_1024ch",
+      "complete": true,
+      "output_verified": true
+    }
+  ]
+}

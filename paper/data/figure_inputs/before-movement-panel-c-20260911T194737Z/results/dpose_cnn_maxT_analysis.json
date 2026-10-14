@@ -1,0 +1,5256 @@
+{
+  "method": "Exploratory participant-paired single-step max-T analysis of all declared CNN-reference, within-decoder token-versus-feature, and between-decoder tokenization-gap contrasts in one family. Average three decoder seeds within each of nine participants. Standardize each mean paired difference by its sample standard error, then enumerate all 512 participant sign vectors, applying each participant sign synchronously to all contrasts. Recompute each t statistic and retain the largest absolute t per sign vector. Each adjusted p is the inclusive tail proportion of this maximum distribution beyond the observed absolute t; no additional Holm correction is applied. Finite-sample strong familywise error control requires independent participants and joint central sign symmetry of their true-null contrast vectors. Marginal symmetry alone is insufficient; these assumptions cannot be established with nine participants. Effects are alternative minus reference error in millimetres; negative favors the alternative. All four direct representation contrasts use tokens minus encoder features, so positive favors features. Gap contrasts subtract proposed's token-minus-feature gap from the other decoder's gap, so positive favors proposed. Exact 95% pointwise location intervals invert the univariate sign-flip test, assuming independent differences symmetric about a common effect, equal to the mean when finite. Intervals are not simultaneous and do not assign stars. All nine leave-one-participant-out mean differences describe influence. Histories, pretraining and some training protocols differ, so these compare fitted systems. The method was amended after earlier results were inspected and fixed before computing max-T outcomes; this is not preregistered confirmation. The previous global Holm analysis is retained as sensitivity output. Non-rejection does not establish equivalence.",
+  "method_id": "exact_paired_single_step_maxT",
+  "alpha": 0.05,
+  "replication_unit": "participant",
+  "seeds_averaged_before_testing": 3,
+  "sources": [
+    "https://doi.org/10.1198/016214504000000539",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4010955/",
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html"
+  ],
+  "comparison_protocol": {
+    "defined_at_utc": "2026-09-11T16:36:29.232604+00:00",
+    "reason": "User requested a better analysis after the exact paired test plus global Holm correction had inadequate resolution for the declared family.",
+    "scope": "Exploratory method amendment after prior results and the Holm limitation were inspected; not preregistered or independent confirmation. Method fixed before computing new max-T outcomes.",
+    "references": [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ]
+    ],
+    "alternatives": [
+      [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ],
+      [
+        "dpose_v20_v1",
+        "tokens"
+      ],
+      [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_bypass"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_random"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ],
+      [
+        "dpose_within_v1",
+        "raw"
+      ],
+      [
+        "dpose_within_v1",
+        "tokens"
+      ],
+      [
+        "dpose_within_v1",
+        "continuous"
+      ],
+      [
+        "dpose_transformer_v1",
+        "tokens"
+      ]
+    ],
+    "planned_contrasts": [
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_bypass"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_random"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_within_v1",
+          "raw"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_within_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_within_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_transformer_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_bypass"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_random"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_within_v1",
+          "raw"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_within_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_within_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_transformer_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_bypass"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_random"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_within_v1",
+          "raw"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_within_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_within_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_transformer_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_matched_v1",
+          "v19"
+        ]
+      ],
+      [
+        [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ]
+      ],
+      [
+        [
+          "representation_gap",
+          "proposed"
+        ],
+        [
+          "representation_gap",
+          "matched_tcn"
+        ]
+      ],
+      [
+        [
+          "representation_gap",
+          "proposed"
+        ],
+        [
+          "representation_gap",
+          "matched_transformer"
+        ]
+      ],
+      [
+        [
+          "representation_gap",
+          "proposed"
+        ],
+        [
+          "representation_gap",
+          "pretrained_qwen"
+        ]
+      ]
+    ],
+    "family_size": 51,
+    "family": "One joint family: 44 CNN-reference contrasts, four within-decoder token-versus-feature contrasts, and three other-minus-proposed tokenization-gap contrasts.",
+    "method": "Single-step exact synchronized participant sign-flip max-|t| test.",
+    "statistic": "Per-contrast mean paired difference divided by its sample SD / sqrt(9). Recompute after each sign pattern.",
+    "randomization": "Enumerate all 512 sign vectors. Flip each participant row synchronously across all 51 contrasts. Include identity and complete reversal; inclusive tails with floating-point tolerance. Do not center observed differences before flipping.",
+    "adjustment": "For each sign vector retain the largest absolute t across all 51 contrasts. Adjusted p for each contrast is the proportion of these joint maxima at least as large as its observed absolute t. No extra Holm correction.",
+    "assumptions": [
+      "Participants are independent analysis units; three seeds are averaged within each participant.",
+      "For finite-sample strong familywise error control, each participant true-null contrast vector is jointly centrally symmetric around zero under independent whole-row sign reversals. Marginal symmetry alone is insufficient.",
+      "For pointwise location confidence intervals, participant differences are independent and symmetric about a common effect (equal to the mean when it exists).",
+      "These distributional assumptions cannot be established from nine participants. Inference is exploratory and conditional on the studied data/protocol and shared frozen representation."
+    ],
+    "effect_direction": "Alternative minus reference error (mm); for CNN comparisons negative favors the alternative. All four representation contrasts use tokens minus encoder features; positive favors features. Gap contrasts subtract the proposed signed token-minus-feature gap from each other decoder gap; positive favors proposed.",
+    "alpha": 0.05,
+    "intervals": "95% pointwise exact sign-flip location intervals obtained by inversion of the univariate two-sided test. Not simultaneous; not used to assign significance stars.",
+    "sensitivity": "Report all nine leave-one-participant-out mean differences and their range. Retain the previous global Holm results as sensitivity output; no method selection by result count.",
+    "no_pseudoreplication": "Do not count 27 seeds or test frames as independent participants.",
+    "minimum_possible_adjusted_p": 0.00390625,
+    "sources": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC4010955/",
+      "https://doi.org/10.1198/016214504000000539",
+      "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html"
+    ],
+    "excluded": [
+      "Old matched-CNN versus old L1/SWA-CNN comparison",
+      "Historical JNE aggregate with no matched participant data",
+      "Resource metrics",
+      "Other comparisons between nonreference models beyond the four within-decoder representation contrasts and three declared other-minus-proposed gap contrasts"
+    ],
+    "previous_analysis_archive": "output/figures/archive/maxT-29-before-tbme-20260911T175420Z",
+    "original_contrast_record": "results/dpose_cnn_reference_comparison_protocol.json",
+    "pre_outcome_review": {
+      "agent": ".",
+      "model": "gpt-6-astra",
+      "result": "Valid under stated joint true-null sign invariance; strong FWER follows maximum monotonicity and exact reduced-data group test. CI inversion endpoints verified algebraically. No new DPose p-values computed during review."
+    },
+    "amended_at_utc": "2026-09-11T17:54:20.629304+00:00",
+    "contrast_amendment": "User authorized adding completed TBME baseline, matching resource measurements and updated paired statistics. Preserve all original29 contrasts; compare TBME against all16 existing models, adding16 hypotheses. Declared before calculating TBME p-values. Same exact joint max-T method; descriptive TBME and prior results were already inspected, so inference remains exploratory.",
+    "holm_analysis_archive": "output/figures/archive/global-holm-statistics-20260911T163629Z",
+    "direct_contrasts": [
+      {
+        "id": "proposed_tokens_vs_features",
+        "alternative": [
+          "dpose_v20_v1",
+          "tokens"
+        ],
+        "reference": [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ],
+        "label": "Proposed network: tokens versus encoder features",
+        "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+      },
+      {
+        "id": "matched_tcn_tokens_vs_features",
+        "kind": "representation",
+        "alternative": [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ],
+        "reference": [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ],
+        "label": "Matched TCN: tokens versus encoder features",
+        "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+      },
+      {
+        "id": "matched_transformer_tokens_vs_features",
+        "kind": "representation",
+        "alternative": [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ],
+        "reference": [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ],
+        "label": "Matched Transformer: tokens versus encoder features",
+        "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+      },
+      {
+        "id": "pretrained_qwen_tokens_vs_features",
+        "kind": "representation",
+        "alternative": [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ],
+        "reference": [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ],
+        "label": "Pretrained Qwen3: tokens versus encoder features",
+        "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+      }
+    ],
+    "historical_holm_protocol": {
+      "defined_at_utc": "2026-09-11T16:09:47.060891+00:00",
+      "reason": "User requested each existing CNN reference against all other experiments, including Qwen and proposed models.",
+      "scope": "Exploratory user-directed change of comparison question after earlier results were inspected; not preregistered.",
+      "references": [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ]
+      ],
+      "alternatives": [
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ],
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_bypass"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_random"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ],
+        [
+          "dpose_within_v1",
+          "raw"
+        ],
+        [
+          "dpose_within_v1",
+          "tokens"
+        ],
+        [
+          "dpose_within_v1",
+          "continuous"
+        ],
+        [
+          "dpose_transformer_v1",
+          "tokens"
+        ]
+      ],
+      "planned_contrasts": [
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_v20_v1",
+            "tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_within_v1",
+            "raw"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_within_v1",
+            "tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_within_v1",
+            "continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          [
+            "dpose_transformer_v1",
+            "tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_v20_v1",
+            "tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_within_v1",
+            "raw"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_within_v1",
+            "tokens"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_within_v1",
+            "continuous"
+          ]
+        ],
+        [
+          [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          [
+            "dpose_transformer_v1",
+            "tokens"
+          ]
+        ]
+      ],
+      "family_size": 28,
+      "family": "One Holm family covering both CNN references and all 14 alternatives across main and supplement.",
+      "test": "Two-sided exact paired sign-flip test of mean error difference; all 512 participant sign patterns.",
+      "pairing_unit": "Nine participants; average three decoder seeds within participant first.",
+      "effect_direction": "Alternative error minus reference error in millimetres; negative favors alternative.",
+      "alpha": 0.05,
+      "minimum_two_sided_raw_p": 0.00390625,
+      "minimum_possible_smallest_holm_p": 0.109375,
+      "equivalence_test": false,
+      "excluded": [
+        "Reference-versus-reference comparison",
+        "Comparisons between nonreference models",
+        "Historical JNE aggregate with no matched participant data",
+        "Resource metrics",
+        "Incomplete archived TBME retraining"
+      ],
+      "previous_analysis_archive": "output/figures/archive/within-family-statistics-20260911T160947Z"
+    },
+    "reference_contrasts": [
+      {
+        "id": "matched_cnn_vs_tbme",
+        "reference": [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        "alternative": [
+          "dpose_matched_v1",
+          "v19"
+        ]
+      },
+      {
+        "id": "l1_swa_cnn_vs_tbme",
+        "reference": [
+          "dpose_tbme2024_v1",
+          "tbme2024_retrained"
+        ],
+        "alternative": [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ]
+      }
+    ],
+    "tbme_pre_outcome_review": {
+      "agent": ".",
+      "model": "gpt-6-astra",
+      "result": "Pass:45 unique unordered hypotheses; draw added16 only on TBME stem,33 main plus12 supplementary. Same joint max-T proof; verify prior29 adjusted p-values do not decrease."
+    },
+    "previous_45_analysis_archive": "output/figures/archive/maxT-45-before-panel-c-20260911T191401Z",
+    "panel_c_amendment": {
+      "defined_at_utc": "2026-09-11T19:14:01.611296+00:00",
+      "reason": "User requested statistics for panel C after viewing its four paired representation effects.",
+      "scope": "Exploratory after inspected descriptive effects and prior 45-contrast outcomes; not preregistered. Add all three missing C contrasts before computing their new max-T results.",
+      "prior_family_size": 45,
+      "added_contrasts": [
+        "matched_tcn_tokens_vs_features",
+        "matched_transformer_tokens_vs_features",
+        "pretrained_qwen_tokens_vs_features"
+      ],
+      "final_family_size": 48,
+      "method_changed": false,
+      "participant_exclusions": 0,
+      "replication_unit": "Nine participants; average three seeds within each participant before subtraction/testing.",
+      "display": "Move the existing proposed direct annotation from A to C; show four C labels plus fourteen adapted-CNN annotations across A and supplement.",
+      "pre_outcome_review": {
+        "agent": ".",
+        "model": "gpt-6-astra",
+        "result": "Pass: 48 unique contrasts; feature reference yields consistent token-minus-feature signs. Preserve prior effects/raw p/intervals; recompute all adjusted p jointly and verify none decrease. Keep off-scale participant and exploratory caveats. No new p-values computed during review."
+      }
+    },
+    "gap_contrasts": [
+      {
+        "id": "matched_tcn_gap_vs_proposed",
+        "alternative": [
+          "representation_gap",
+          "matched_tcn"
+        ],
+        "reference": [
+          "representation_gap",
+          "proposed"
+        ],
+        "alternative_models": {
+          "tokens": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "features": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ]
+        },
+        "reference_models": {
+          "tokens": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "features": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ]
+        },
+        "label": "TCN (matched) token−feature gap versus proposed",
+        "display_label": "TCN",
+        "table_label": "TCN (matched)",
+        "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+      },
+      {
+        "id": "matched_transformer_gap_vs_proposed",
+        "alternative": [
+          "representation_gap",
+          "matched_transformer"
+        ],
+        "reference": [
+          "representation_gap",
+          "proposed"
+        ],
+        "alternative_models": {
+          "tokens": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "features": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ]
+        },
+        "reference_models": {
+          "tokens": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "features": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ]
+        },
+        "label": "Transformer (matched) token−feature gap versus proposed",
+        "display_label": "Transformer",
+        "table_label": "Transformer (matched)",
+        "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+      },
+      {
+        "id": "pretrained_qwen_gap_vs_proposed",
+        "alternative": [
+          "representation_gap",
+          "pretrained_qwen"
+        ],
+        "reference": [
+          "representation_gap",
+          "proposed"
+        ],
+        "alternative_models": {
+          "tokens": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "features": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ]
+        },
+        "reference_models": {
+          "tokens": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "features": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ]
+        },
+        "label": "Qwen3 (pretrained) token−feature gap versus proposed",
+        "display_label": "Qwen3",
+        "table_label": "Qwen3 (pretrained)",
+        "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+      }
+    ],
+    "previous_48_analysis_archive": "output/figures/archive/maxT-48-before-gap-comparison-20260911T192555Z",
+    "gap_comparison_amendment": {
+      "defined_at_utc": "2026-09-11T19:25:55.232945+00:00",
+      "reason": "User explicitly selected: Is proposed decoder token−feature error gap smaller than the other decoder gaps?",
+      "scope": "Exploratory after viewing descriptive gaps and the prior48 outcomes. All three main-figure comparators declared before computing new gap-comparison p-values.",
+      "estimand": "For each participant, (other token error − other feature error) − (proposed token error − proposed feature error), using three-seed means. Signed gaps, not absolute gaps.",
+      "method_changed": false,
+      "test_direction": "Two-sided, same max-|t| procedure; positive observed difference favors proposed.",
+      "prior_family_size": 48,
+      "added_contrasts": [
+        "matched_tcn_gap_vs_proposed",
+        "matched_transformer_gap_vs_proposed",
+        "pretrained_qwen_gap_vs_proposed"
+      ],
+      "final_family_size": 51,
+      "participant_exclusions": 0,
+      "display": "C keeps four decoder gap distributions; shared comparison stem uses proposed as reference and three labels test other-minus-proposed gaps. Four within-decoder tests stay in full table.",
+      "pre_outcome_review": {
+        "agent": ".",
+        "model": "gpt-6-astra",
+        "result": "Pass: positive other-minus-proposed signed gap favors proposed, not necessarily overall or absolute-gap accuracy. Three four-term paired contrasts give51 total; retain48 and all participants, same two-sided joint-symmetry method. C stem compares each gap with proposed; zero remains descriptive. No new p-values computed during review."
+      }
+    }
+  },
+  "groups": [
+    {
+      "id": "cnn_references",
+      "family_size": 51,
+      "participants": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "comparisons": [
+        {
+          "i": 0,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 0.5410704789338282,
+          "effect_alternative_minus_reference_mm": 0.5410704789338282,
+          "participant_differences": {
+            "1": 1.347010612487793,
+            "2": 1.6576226552327462,
+            "3": 0.6850744883219395,
+            "4": -0.3912836710611973,
+            "5": 2.458154678344725,
+            "6": -3.4013913472493496,
+            "7": 1.5403474171956368,
+            "8": 0.4559624989827462,
+            "9": 0.5181369781494141
+          },
+          "p_raw": 0.359375,
+          "p_holm_sensitivity": 0.71875,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.9570933937364169,
+          "p_maxT": 0.98828125,
+          "p_adjusted": 0.98828125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.8152214686075846,
+            1.5852998097737618
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.4403279622395826,
+            "2": 0.40150145689646344,
+            "3": 0.5230699777603143,
+            "4": 0.6576147476832064,
+            "5": 0.3014349540074661,
+            "6": 1.0338782072067254,
+            "7": 0.4161608616511021,
+            "8": 0.5517089764277134,
+            "9": 0.54393716653188
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.3014349540074661,
+            1.0338782072067254
+          ],
+          "participants_favor_alternative": 2,
+          "participants_favor_reference": 7
+        },
+        {
+          "i": 1,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 0.17446984185112827,
+          "effect_alternative_minus_reference_mm": 0.17446984185112827,
+          "participant_differences": {
+            "1": 1.4302066167195626,
+            "2": 0.8306242624918614,
+            "3": 1.200048128763834,
+            "4": -1.229941685994465,
+            "5": 2.146643638610838,
+            "6": -2.904525438944498,
+            "7": 0.8111769358317051,
+            "8": -0.7485459645589181,
+            "9": 0.034542083740234375
+          },
+          "p_raw": 0.71875,
+          "p_holm_sensitivity": 0.71875,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.33372889109728626,
+          "p_maxT": 1.0,
+          "p_adjusted": 1.0,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -1.0466742515563965,
+            1.392438676622178
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.017502744992573982,
+            "2": 0.09245053927103664,
+            "3": 0.046272555987040054,
+            "4": 0.35002128283182743,
+            "5": -0.07205188274383545,
+            "6": 0.5593442519505816,
+            "7": 0.09488145510355617,
+            "8": 0.28984681765238407,
+            "9": 0.19196081161499
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -0.07205188274383545,
+            0.5593442519505816
+          ],
+          "participants_favor_alternative": 3,
+          "participants_favor_reference": 6
+        },
+        {
+          "i": 2,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 4.921896793224193,
+          "effect_alternative_minus_reference_mm": 4.921896793224193,
+          "participant_differences": {
+            "1": 6.025935173034666,
+            "2": 6.377176284790039,
+            "3": 4.52519671122233,
+            "4": 3.989212354024252,
+            "5": 7.585940996805826,
+            "6": -0.6646038691202811,
+            "7": 6.915261268615721,
+            "8": 3.524121602376301,
+            "9": 6.018830617268883
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 5.918084286097697,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.9594494501749673,
+            6.6630174848768435
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.783891995747884,
+            "2": 4.739986856778462,
+            "3": 4.971484303474426,
+            "4": 5.038482348124186,
+            "5": 4.588891267776489,
+            "6": 5.620209376017252,
+            "7": 4.672726233800252,
+            "8": 5.096618692080179,
+            "9": 4.784780065218607
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.588891267776489,
+            5.620209376017252
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 3,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal EMG Transformer + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 4.477052052815756,
+          "effect_alternative_minus_reference_mm": 4.477052052815756,
+          "participant_differences": {
+            "1": 5.72383403778076,
+            "2": 8.486942291259766,
+            "3": 3.5066000620524083,
+            "4": 2.7906401952107753,
+            "5": 6.684181531270346,
+            "6": -0.822633107503254,
+            "7": 5.304174741109213,
+            "8": 3.2633317311604806,
+            "9": 5.3563969930013045
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 5.018231174226101,
+          "p_maxT": 0.01171875,
+          "p_adjusted": 0.01171875,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.441468026902942,
+            6.522391107347278
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.32120430469513,
+            "2": 3.975815773010255,
+            "3": 4.598358551661175,
+            "4": 4.687853535016378,
+            "5": 4.201160868008932,
+            "6": 5.139512697855633,
+            "7": 4.373661716779074,
+            "8": 4.628767093022665,
+            "9": 4.367133935292562
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.975815773010255,
+            5.139512697855633
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 4,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": -1.256911313092267,
+          "effect_alternative_minus_reference_mm": -1.256911313092267,
+          "participant_differences": {
+            "1": -0.39967028299967566,
+            "2": -0.9120674133300781,
+            "3": -1.227168083190918,
+            "4": -0.9129365285237618,
+            "5": -1.154221534729004,
+            "6": -4.539573351542154,
+            "7": -0.548578580220541,
+            "8": -0.8363914489746094,
+            "9": -0.7815945943196603
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": -2.9970032321486326,
+          "p_maxT": 0.1640625,
+          "p_adjusted": 0.1640625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -2.22626961602105,
+            -0.6563034057617188
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": -1.3640664418538408,
+            "2": -1.3000168005625405,
+            "3": -1.2606292168299356,
+            "4": -1.29990816116333,
+            "5": -1.2697475353876748,
+            "6": -0.846578558286031,
+            "7": -1.3454529047012327,
+            "8": -1.3094762961069741,
+            "9": -1.3163259029388428
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -1.3640664418538408,
+            -0.846578558286031
+          ],
+          "participants_favor_alternative": 9,
+          "participants_favor_reference": 0
+        },
+        {
+          "i": 5,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": -1.4831363536693432,
+          "effect_alternative_minus_reference_mm": -1.4831363536693432,
+          "participant_differences": {
+            "1": -0.6526098251342773,
+            "2": -0.8531284332275391,
+            "3": -1.47467041015625,
+            "4": -1.0596516927083321,
+            "5": -1.2350915273030605,
+            "6": -4.516975084940592,
+            "7": -1.268126805623373,
+            "8": -1.2920195261637382,
+            "9": -0.9959538777669259
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": -3.8202732582199164,
+          "p_maxT": 0.06640625,
+          "p_adjusted": 0.06640625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -2.4089123407999673,
+            -0.9246216879950632
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": -1.5869521697362263,
+            "2": -1.5618873437245686,
+            "3": -1.4841945966084797,
+            "4": -1.5360719362894695,
+            "5": -1.5141419569651284,
+            "6": -1.103906512260437,
+            "7": -1.5100125471750894,
+            "8": -1.5070259571075437,
+            "9": -1.5440341631571453
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -1.5869521697362263,
+            -1.103906512260437
+          ],
+          "participants_favor_alternative": 9,
+          "participants_favor_reference": 0
+        },
+        {
+          "i": 6,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Direct pose readout + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 2.1438824787372335,
+          "effect_alternative_minus_reference_mm": 2.1438824787372335,
+          "participant_differences": {
+            "1": 3.7719474518278027,
+            "2": 4.361016851346061,
+            "3": 1.7297338350371412,
+            "4": 1.5384278006831025,
+            "5": 1.4196091950970846,
+            "6": -3.0238538838941924,
+            "7": 2.349725182773959,
+            "8": 2.4722800546007697,
+            "9": 4.676055821163374
+          },
+          "p_raw": 0.03125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 2.8104639612548747,
+          "p_maxT": 0.203125,
+          "p_adjusted": 0.203125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.289345121934554,
+            3.6400944425306485
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 1.9403743571009122,
+            "2": 1.8667406821611299,
+            "3": 2.195651059199745,
+            "4": 2.2195643134939997,
+            "5": 2.234416639192252,
+            "6": 2.7898495240661614,
+            "7": 2.1181521407326427,
+            "8": 2.1028327817542913,
+            "9": 1.8273608109339659
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            1.8273608109339659,
+            2.7898495240661614
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 7,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Qwen3 (random weights) + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 4.669491909200207,
+          "effect_alternative_minus_reference_mm": 4.669491909200207,
+          "participant_differences": {
+            "1": 5.099414638193187,
+            "2": 8.284680278301881,
+            "3": 6.543165651874366,
+            "4": 2.2708427752482745,
+            "5": 4.8261938381062155,
+            "6": -1.6790790979363734,
+            "7": 6.13917120974522,
+            "8": 4.285524406102976,
+            "9": 6.255513483166119
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 4.816556430667226,
+          "p_maxT": 0.0234375,
+          "p_adjusted": 0.0234375,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.28242572015934,
+            6.551346589427488
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.615751568076085,
+            "2": 4.217593363062498,
+            "3": 4.435282691365938,
+            "4": 4.969323050944199,
+            "5": 4.649904168086957,
+            "6": 5.4630632850922805,
+            "7": 4.485781996632081,
+            "8": 4.717487847087362,
+            "9": 4.471239212454469
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.217593363062498,
+            5.4630632850922805
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 8,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Qwen3 (pretrained) + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 3.7745879552478914,
+          "effect_alternative_minus_reference_mm": 3.7745879552478914,
+          "participant_differences": {
+            "1": 4.851450561218032,
+            "2": 7.276688121773191,
+            "3": 4.818804659944588,
+            "4": 3.1040201845723683,
+            "5": 3.5153710946224113,
+            "6": -1.0825032228733704,
+            "7": 5.138017802746658,
+            "8": 1.2002836398478962,
+            "9": 5.149158755379247
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 4.5755688274490645,
+          "p_maxT": 0.03125,
+          "p_adjusted": 0.03125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            1.755646390784591,
+            5.603828810279282
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 3.639980129501624,
+            "2": 3.336825434432229,
+            "3": 3.644060867160804,
+            "4": 3.8584089265823316,
+            "5": 3.8069900628260767,
+            "6": 4.381724352513049,
+            "7": 3.6041592243105454,
+            "8": 4.096375994672891,
+            "9": 3.602766605231472
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.336825434432229,
+            4.381724352513049
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 9,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Qwen3 (pretrained) + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 3.0292462251031425,
+          "effect_alternative_minus_reference_mm": 3.0292462251031425,
+          "participant_differences": {
+            "1": 5.308910066894972,
+            "2": 6.938471908409198,
+            "3": 4.066139475573838,
+            "4": 1.8631655285791169,
+            "5": 3.128133133525333,
+            "6": -2.225112955150337,
+            "7": 3.1026755635232597,
+            "8": 0.7831300954560341,
+            "9": 4.297703209116872
+          },
+          "p_raw": 0.015625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 3.3988804708330482,
+          "p_maxT": 0.11328125,
+          "p_adjusted": 0.11328125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.8873289506025368,
+            5.033302520967266
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 2.744288244879164,
+            "2": 2.5405930146898856,
+            "3": 2.8996345687943057,
+            "4": 3.175006312168646,
+            "5": 3.0168853615503686,
+            "6": 3.6860411226348275,
+            "7": 3.020067557800628,
+            "8": 3.310010741309031,
+            "9": 2.8706891021014265
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            2.5405930146898856,
+            3.6860411226348275
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 10,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "raw"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "raw"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "End-to-end CNN + TCN + raw EMG",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 6.442880524529351,
+          "effect_alternative_minus_reference_mm": 6.442880524529351,
+          "participant_differences": {
+            "1": 6.4659229914347325,
+            "2": 8.440628051757812,
+            "3": 6.905976931254068,
+            "4": 4.0489002863566075,
+            "5": 7.926424980163572,
+            "6": 5.2396990458170585,
+            "7": 6.633779843648275,
+            "8": 5.509267171223957,
+            "9": 6.815325419108074
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 14.291820255254304,
+          "p_maxT": 0.00390625,
+          "p_adjusted": 0.00390625,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            5.357911586761475,
+            7.476702451705933
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 6.440000216166179,
+            "2": 6.1931620836257935,
+            "3": 6.384993473688762,
+            "4": 6.742128054300944,
+            "5": 6.257437467575073,
+            "6": 6.593278209368387,
+            "7": 6.419018109639485,
+            "8": 6.559582193692526,
+            "9": 6.39632491270701
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            6.1931620836257935,
+            6.742128054300944
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 11,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 4.063789614924677,
+          "effect_alternative_minus_reference_mm": 4.063789614924677,
+          "participant_differences": {
+            "1": 4.043719927469889,
+            "2": 7.038121541341145,
+            "3": 5.617180824279783,
+            "4": 2.6973663965861014,
+            "5": 4.338426272074381,
+            "6": 0.08387311299641809,
+            "7": 4.37967332204183,
+            "8": 1.5015201568603516,
+            "9": 6.874224980672203
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 5.221855062875423,
+          "p_maxT": 0.01171875,
+          "p_adjusted": 0.01171875,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.155296484629313,
+            5.893311818440755
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.066298325856526,
+            "2": 3.691998124122619,
+            "3": 3.869615713755289,
+            "4": 4.234592517216999,
+            "5": 4.029460032780965,
+            "6": 4.5612791776657104,
+            "7": 4.024304151535033,
+            "8": 4.384073297182718,
+            "9": 3.712485194206237
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.691998124122619,
+            4.5612791776657104
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 12,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "continuous"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "continuous"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 2.8713769206294306,
+          "effect_alternative_minus_reference_mm": 2.8713769206294306,
+          "participant_differences": {
+            "1": 3.8731114069620762,
+            "2": 6.528297424316406,
+            "3": 4.757814725240072,
+            "4": 1.5202395121256522,
+            "5": 3.212349891662596,
+            "6": -1.033548355102539,
+            "7": 2.901133219401041,
+            "8": 0.8421300252278634,
+            "9": 3.240864435831707
+          },
+          "p_raw": 0.01171875,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 3.8825286303738187,
+          "p_maxT": 0.06640625,
+          "p_adjusted": 0.06640625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            1.103658040364584,
+            4.600021998087565
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 2.7461601098378496,
+            "2": 2.4142618576685586,
+            "3": 2.6355721950531006,
+            "4": 3.040269096692403,
+            "5": 2.828755299250285,
+            "6": 3.3594925800959268,
+            "7": 2.867657383282979,
+            "8": 3.1250327825546265,
+            "9": 2.825190981229146
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            2.4142618576685586,
+            3.3594925800959268
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 13,
+          "j": 0,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_transformer_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "alternative": [
+            "dpose_transformer_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 5.159316628067582,
+          "effect_alternative_minus_reference_mm": 5.159316628067582,
+          "participant_differences": {
+            "1": 5.927413622538248,
+            "2": 8.93217658996582,
+            "3": 6.059364000956217,
+            "4": 3.7480230331420916,
+            "5": 4.522323926289877,
+            "6": 0.08630688985188684,
+            "7": 8.212819099426268,
+            "8": 2.9351336161295585,
+            "9": 6.010288874308269
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 5.710949748002964,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            3.0105764600965714,
+            7.270674546559651
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 5.06330450375875,
+            "2": 4.687709132830303,
+            "3": 5.046810706456504,
+            "4": 5.335728327433269,
+            "5": 5.238940715789796,
+            "6": 5.793442845344545,
+            "7": 4.777628819147747,
+            "8": 5.437339504559835,
+            "9": 5.0529450972874965
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.687709132830303,
+            5.793442845344545
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 0,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 3.6935572447600182,
+          "effect_alternative_minus_reference_mm": 3.6935572447600182,
+          "participant_differences": {
+            "1": 4.240652402242025,
+            "2": 6.297085762023924,
+            "3": 3.2522201538085938,
+            "4": 1.5503012339274083,
+            "5": 4.96356455485026,
+            "6": 0.615667025248209,
+            "7": 4.140851338704426,
+            "8": 3.34710693359375,
+            "9": 4.834565798441568
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 6.322229798158411,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.3765109380086256,
+            5.059016863505045
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 3.625170350074767,
+            "2": 3.36811618010203,
+            "3": 3.7487243811289463,
+            "4": 3.9614642461140948,
+            "5": 3.5348063309987383,
+            "6": 4.078293522198995,
+            "7": 3.6376454830169673,
+            "8": 3.736863533655802,
+            "9": 3.5509311755498247
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.36811618010203,
+            4.078293522198995
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 1,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 3.3269566076773183,
+          "effect_alternative_minus_reference_mm": 3.3269566076773183,
+          "participant_differences": {
+            "1": 4.323848406473795,
+            "2": 5.470087369283039,
+            "3": 3.7671937942504883,
+            "4": 0.7116432189941406,
+            "5": 4.652053515116373,
+            "6": 1.1125329335530605,
+            "7": 3.411680857340494,
+            "8": 2.1425984700520857,
+            "9": 4.350970904032389
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 6.054780798287377,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.0583823521931968,
+            4.560076395670572
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 3.202345132827759,
+            "2": 3.059065262476603,
+            "3": 3.271926959355672,
+            "4": 3.6538707812627154,
+            "5": 3.1613194942474365,
+            "6": 3.60375956694285,
+            "7": 3.3163660764694214,
+            "8": 3.4750013748804722,
+            "9": 3.1989548206329346
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.059065262476603,
+            3.6538707812627154
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 2,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 8.074383559050382,
+          "effect_alternative_minus_reference_mm": 8.074383559050382,
+          "participant_differences": {
+            "1": 8.919576962788899,
+            "2": 11.016639391581217,
+            "3": 7.092342376708984,
+            "4": 5.9307972590128575,
+            "5": 10.091350873311361,
+            "6": 3.3524545033772775,
+            "7": 9.51576519012451,
+            "8": 6.415266036987305,
+            "9": 10.335259437561037
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 9.57156717904188,
+          "p_maxT": 0.00390625,
+          "p_adjusted": 0.00390625,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            6.154523690541584,
+            10.090706666310629
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 7.968734383583069,
+            "2": 7.706601579984029,
+            "3": 8.197138706843058,
+            "4": 8.342331846555073,
+            "5": 7.82226264476776,
+            "6": 8.664624691009521,
+            "7": 7.894210855166117,
+            "8": 8.281773249308268,
+            "9": 7.791774074236551
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            7.706601579984029,
+            8.664624691009521
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 3,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal EMG Transformer + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 7.6295388186419455,
+          "effect_alternative_minus_reference_mm": 7.6295388186419455,
+          "participant_differences": {
+            "1": 8.617475827534992,
+            "2": 13.126405398050943,
+            "3": 6.0737457275390625,
+            "4": 4.732225100199381,
+            "5": 9.18959140777588,
+            "6": 3.1944252649943046,
+            "7": 7.904678662618002,
+            "8": 6.154476165771484,
+            "9": 9.672825813293459
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 7.708253887287981,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            5.443350632985433,
+            9.97337532043457
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 7.506046692530315,
+            "2": 6.942430496215821,
+            "3": 7.824012955029806,
+            "4": 7.9917030334472665,
+            "5": 7.434532245000204,
+            "6": 8.1839280128479,
+            "7": 7.5951463381449384,
+            "8": 7.813921650250753,
+            "9": 7.374127944310507
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            6.942430496215821,
+            8.1839280128479
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 4,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 1.8955754527339232,
+          "effect_alternative_minus_reference_mm": 1.8955754527339232,
+          "participant_differences": {
+            "1": 2.4939715067545567,
+            "2": 3.7273956934610997,
+            "3": 1.3399775822957363,
+            "4": 1.0286483764648438,
+            "5": 1.3511883417765311,
+            "6": -0.5225149790445958,
+            "7": 2.051925341288248,
+            "8": 2.0547529856363944,
+            "9": 3.534834225972494
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 4.352828552080785,
+          "p_maxT": 0.046875,
+          "p_adjusted": 0.046875,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            0.8536287943522142,
+            2.889660517374674
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 1.820775945981344,
+            "2": 1.666597922643026,
+            "3": 1.9650251865386965,
+            "4": 2.003941337267558,
+            "5": 1.9636238416035972,
+            "6": 2.197836756706238,
+            "7": 1.8760317166646325,
+            "8": 1.8756782611211142,
+            "9": 1.6906681060791018
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            1.666597922643026,
+            2.197836756706238
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 5,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 1.669350412156847,
+          "effect_alternative_minus_reference_mm": 1.669350412156847,
+          "participant_differences": {
+            "1": 2.241031964619955,
+            "2": 3.7863346735636387,
+            "3": 1.0924752553304042,
+            "4": 0.8819332122802734,
+            "5": 1.2703183492024746,
+            "6": -0.49991671244303326,
+            "7": 1.332377115885416,
+            "8": 1.5991249084472656,
+            "9": 3.3204749425252285
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 3.859362242723582,
+          "p_maxT": 0.06640625,
+          "p_adjusted": 0.06640625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.6603804694281686,
+            2.692729791005452
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 1.5978902180989585,
+            "2": 1.404727379480998,
+            "3": 1.7414598067601523,
+            "4": 1.7677775621414187,
+            "5": 1.7192294200261435,
+            "6": 1.940508802731832,
+            "7": 1.7114720741907758,
+            "8": 1.6781286001205447,
+            "9": 1.4629598458607993
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            1.404727379480998,
+            1.940508802731832
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 6,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Direct pose readout + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 5.296369244563424,
+          "effect_alternative_minus_reference_mm": 5.296369244563424,
+          "participant_differences": {
+            "1": 6.665589241582035,
+            "2": 9.00047995813724,
+            "3": 4.296879500523795,
+            "4": 3.480012705671708,
+            "5": 3.9250190716026196,
+            "6": 0.9932044886033662,
+            "7": 4.950229104282748,
+            "8": 5.3634244892117735,
+            "9": 8.992484641455528
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 6.111379652062349,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            3.2788805611622824,
+            7.305994557065129
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 5.125216744936098,
+            "2": 4.833355405366697,
+            "3": 5.421305462568378,
+            "4": 5.523413811924888,
+            "5": 5.467788016183524,
+            "6": 5.834264839058431,
+            "7": 5.339636762098508,
+            "8": 5.28798733898238,
+            "9": 4.834354819951911
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.833355405366697,
+            5.834264839058431
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 7,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Qwen3 (random weights) + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 7.821978675026397,
+          "effect_alternative_minus_reference_mm": 7.821978675026397,
+          "participant_differences": {
+            "1": 7.993056427947419,
+            "2": 12.924143385093059,
+            "3": 9.11031131736102,
+            "4": 4.21242768023688,
+            "5": 7.3316037146117505,
+            "6": 2.337979274561185,
+            "7": 8.739675131254009,
+            "8": 7.17666884071398,
+            "9": 10.571942303458274
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 7.425890997331997,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            5.264669877530949,
+            10.258043277902695
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 7.800593955911269,
+            "2": 7.184208086268065,
+            "3": 7.660937094734569,
+            "4": 8.273172549375087,
+            "5": 7.883275545078228,
+            "6": 8.50747860008455,
+            "7": 7.707266617997946,
+            "8": 7.90264240431545,
+            "9": 7.478233221472413
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            7.184208086268065,
+            8.50747860008455
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 8,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Qwen3 (pretrained) + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 6.9270747210740815,
+          "effect_alternative_minus_reference_mm": 6.9270747210740815,
+          "participant_differences": {
+            "1": 7.745092350972264,
+            "2": 11.916151228564368,
+            "3": 7.385950325431242,
+            "4": 5.045605089560974,
+            "5": 6.020780971127946,
+            "6": 2.934555149624188,
+            "7": 7.738521724255447,
+            "8": 4.0914280744589,
+            "9": 9.465587575671401
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 7.512516260359137,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            4.864384659768826,
+            9.133255101264027
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 6.824822517336808,
+            "2": 6.303440157637795,
+            "3": 6.869715270529436,
+            "4": 7.16225842501322,
+            "5": 7.040361439817348,
+            "6": 7.426139667505318,
+            "7": 6.82564384567641,
+            "8": 7.281530551900978,
+            "9": 6.609760614249416
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            6.303440157637795,
+            7.426139667505318
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 9,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Qwen3 (pretrained) + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 6.1817329909293335,
+          "effect_alternative_minus_reference_mm": 6.1817329909293335,
+          "participant_differences": {
+            "1": 8.202551856649205,
+            "2": 11.577935015200376,
+            "3": 6.633285141060492,
+            "4": 3.8047504335677225,
+            "5": 5.633543010030868,
+            "6": 1.7919454173472218,
+            "7": 5.703179485032049,
+            "8": 3.674274530067038,
+            "9": 8.614132029409026
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 6.222471244152953,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            3.7435374665035077,
+            8.608536684880091
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 5.929130632714349,
+            "2": 5.507207737895453,
+            "3": 6.125288972162939,
+            "4": 6.478855810599535,
+            "5": 6.250256738541641,
+            "6": 6.730456437627097,
+            "7": 6.241552179166494,
+            "8": 6.49516529853712,
+            "9": 5.877683111119372
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            5.507207737895453,
+            6.730456437627097
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 10,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "raw"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "raw"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "End-to-end CNN + TCN + raw EMG",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 9.595367290355542,
+          "effect_alternative_minus_reference_mm": 9.595367290355542,
+          "participant_differences": {
+            "1": 9.359564781188965,
+            "2": 13.08009115854899,
+            "3": 9.473122596740723,
+            "4": 5.990485191345213,
+            "5": 10.431834856669107,
+            "6": 9.256757418314617,
+            "7": 9.234283765157064,
+            "8": 8.400411605834961,
+            "9": 11.131754239400228
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 14.879434282930546,
+          "p_maxT": 0.00390625,
+          "p_adjusted": 0.00390625,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            8.194777912563747,
+            11.148709721035429
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 9.624842604001364,
+            "2": 9.15977680683136,
+            "3": 9.610647877057394,
+            "4": 10.045977552731832,
+            "5": 9.490808844566345,
+            "6": 9.637693524360657,
+            "7": 9.640502731005352,
+            "8": 9.744736750920614,
+            "9": 9.403318921724956
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            9.15977680683136,
+            10.045977552731832
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 11,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 7.216276380750868,
+          "effect_alternative_minus_reference_mm": 7.216276380750868,
+          "participant_differences": {
+            "1": 6.937361717224121,
+            "2": 11.677584648132322,
+            "3": 8.184326489766438,
+            "4": 4.638951301574707,
+            "5": 6.843836148579916,
+            "6": 4.100931485493977,
+            "7": 6.980177243550619,
+            "8": 4.392664591471355,
+            "9": 11.190653800964357
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 7.82529188584742,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            5.143652598063151,
+            9.474100271860758
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 7.251140713691711,
+            "2": 6.658612847328186,
+            "3": 7.095270117123922,
+            "4": 7.538442015647888,
+            "5": 7.262831409772237,
+            "6": 7.60569449265798,
+            "7": 7.245788772900899,
+            "8": 7.569227854410807,
+            "9": 6.719479203224182
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            6.658612847328186,
+            7.60569449265798
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 12,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "continuous"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "continuous"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 6.023863686455621,
+          "effect_alternative_minus_reference_mm": 6.023863686455621,
+          "participant_differences": {
+            "1": 6.766753196716309,
+            "2": 11.167760531107584,
+            "3": 7.3249603907267264,
+            "4": 3.461824417114258,
+            "5": 5.717759768168131,
+            "6": 2.9835100173950195,
+            "7": 5.50163714090983,
+            "8": 3.733274459838867,
+            "9": 7.557293256123861
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 7.055983784955915,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            4.072807206047906,
+            8.075563642713758
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 5.931002497673035,
+            "2": 5.3808765808741255,
+            "3": 5.861226598421732,
+            "4": 6.344118595123291,
+            "5": 6.062126676241557,
+            "6": 6.403907895088196,
+            "7": 6.089142004648845,
+            "8": 6.310187339782715,
+            "9": 5.83218499024709
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            5.3808765808741255,
+            6.403907895088196
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 13,
+          "j": 1,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_transformer_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "alternative": [
+            "dpose_transformer_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "mean_difference_a_minus_b": 8.311803393893772,
+          "effect_alternative_minus_reference_mm": 8.311803393893772,
+          "participant_differences": {
+            "1": 8.82105541229248,
+            "2": 13.571639696756998,
+            "3": 8.626509666442871,
+            "4": 5.689607938130697,
+            "5": 7.027733802795412,
+            "6": 4.103365262349445,
+            "7": 10.813323020935057,
+            "8": 5.826278050740562,
+            "9": 10.326717694600424
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": 0.109375,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 8.384595634947733,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            6.0614402294158936,
+            10.834547519683838
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 8.248146891593933,
+            "2": 7.654323856035869,
+            "3": 8.272465109825134,
+            "4": 8.639577825864157,
+            "5": 8.472312092781067,
+            "6": 8.837858160336813,
+            "7": 7.999113440513611,
+            "8": 8.622494061787922,
+            "9": 8.05993910630544
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            7.654323856035869,
+            8.837858160336813
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 0,
+          "j": 3,
+          "contrast_kind": "proposed_representation",
+          "a": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "alternative": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + EMG tokens",
+          "label_b": "Proposed spatial CNN + TCN + encoder features",
+          "mean_difference_a_minus_b": 0.22622504057707615,
+          "effect_alternative_minus_reference_mm": 0.22622504057707615,
+          "participant_differences": {
+            "1": 0.2529395421346017,
+            "2": -0.05893898010253906,
+            "3": 0.24750232696533203,
+            "4": 0.1467151641845703,
+            "5": 0.08086999257405658,
+            "6": -0.0225982666015625,
+            "7": 0.719548225402832,
+            "8": 0.4556280771891288,
+            "9": 0.21435928344726562
+          },
+          "p_raw": 0.01953125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "contrast_id": "proposed_tokens_vs_features",
+          "contrast_label": "Proposed network: tokens versus encoder features",
+          "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features.",
+          "t_observed": 2.806029742802337,
+          "p_maxT": 0.20703125,
+          "p_adjusted": 0.20703125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.055321693420410156,
+            0.41890454292297363
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.22288572788238548,
+            "2": 0.26187054316202807,
+            "3": 0.22356537977854418,
+            "4": 0.2361637751261394,
+            "5": 0.2443944215774536,
+            "6": 0.257327953974406,
+            "7": 0.16455964247385668,
+            "8": 0.1975496610005696,
+            "9": 0.22770826021830248
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.16455964247385668,
+            0.26187054316202807
+          ],
+          "participants_favor_alternative": 2,
+          "participants_favor_reference": 7
+        },
+        {
+          "i": 0,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 0.7039913954558195,
+          "effect_alternative_minus_reference_mm": 0.7039913954558195,
+          "participant_differences": {
+            "1": 2.0751345952351894,
+            "2": 2.9542287190755196,
+            "3": 1.4873971939086914,
+            "4": -0.14853064219156842,
+            "5": 4.166889826456705,
+            "6": -6.073391596476236,
+            "7": 1.7226066589355469,
+            "8": 1.2997945149739571,
+            "9": -1.1482067108154297
+          },
+          "p_raw": 0.49609375,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.7087725294293088,
+          "p_maxT": 1.0,
+          "p_adjusted": 1.0,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -1.7154879040188256,
+            2.7297149499257403
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.5325984954833982,
+            "2": 0.42271173000335693,
+            "3": 0.6060656706492105,
+            "4": 0.8105566501617429,
+            "5": 0.27112909158070875,
+            "6": 1.5511642694473264,
+            "7": 0.5766644875208535,
+            "8": 0.6295160055160522,
+            "9": 0.9355161587397256
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.27112909158070875,
+            1.5511642694473264
+          ],
+          "participants_favor_alternative": 3,
+          "participants_favor_reference": 6
+        },
+        {
+          "i": 1,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 0.33739075837311955,
+          "effect_alternative_minus_reference_mm": 0.33739075837311955,
+          "participant_differences": {
+            "1": 2.158330599466959,
+            "2": 2.127230326334635,
+            "3": 2.002370834350586,
+            "4": -0.987188657124836,
+            "5": 3.8553787867228184,
+            "6": -5.576525688171385,
+            "7": 0.9934361775716152,
+            "8": 0.09528605143229285,
+            "9": -1.6318016052246094
+          },
+          "p_raw": 0.734375,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.3613651135389712,
+          "p_maxT": 1.0,
+          "p_adjusted": 1.0,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -1.8005199432373038,
+            2.28372859954834
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.1097732782363896,
+            "2": 0.11366081237793013,
+            "3": 0.12926824887593624,
+            "4": 0.502963185310364,
+            "5": -0.10235774517059282,
+            "6": 1.0766303141911826,
+            "7": 0.2553850809733076,
+            "8": 0.3676538467407229,
+            "9": 0.5835398038228357
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -0.10235774517059282,
+            1.0766303141911826
+          ],
+          "participants_favor_alternative": 3,
+          "participants_favor_reference": 6
+        },
+        {
+          "i": 2,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 5.084817709746185,
+          "effect_alternative_minus_reference_mm": 5.084817709746185,
+          "participant_differences": {
+            "1": 6.754059155782063,
+            "2": 7.6737823486328125,
+            "3": 5.327519416809082,
+            "4": 4.231965382893881,
+            "5": 9.294676144917807,
+            "6": -3.336604118347168,
+            "7": 7.097520510355631,
+            "8": 4.367953618367512,
+            "9": 4.352486928304039
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 4.230421492769719,
+          "p_maxT": 0.05078125,
+          "p_adjusted": 0.05078125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            2.114467408921984,
+            7.348374605178833
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.876162528991699,
+            "2": 4.761197129885356,
+            "3": 5.054479996363322,
+            "4": 5.191424250602722,
+            "5": 4.5585854053497314,
+            "6": 6.1374954382578535,
+            "7": 4.833229859670004,
+            "8": 5.174425721168518,
+            "9": 5.176359057426453
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.5585854053497314,
+            6.1374954382578535
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 3,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal EMG Transformer + encoder features",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 4.639972969337746,
+          "effect_alternative_minus_reference_mm": 4.639972969337746,
+          "participant_differences": {
+            "1": 6.451958020528156,
+            "2": 9.783548355102539,
+            "3": 4.30892276763916,
+            "4": 3.0333932240804042,
+            "5": 8.392916679382326,
+            "6": -3.494633356730141,
+            "7": 5.486433982849123,
+            "8": 4.1071637471516915,
+            "9": 3.6900533040364607
+          },
+          "p_raw": 0.01171875,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 3.677979572099944,
+          "p_maxT": 0.078125,
+          "p_adjusted": 0.078125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            1.5014475716484934,
+            7.288839446173775
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.413474837938946,
+            "2": 3.9970260461171474,
+            "3": 4.68135424455007,
+            "4": 4.840795437494914,
+            "5": 4.170855005582174,
+            "6": 5.656798760096232,
+            "7": 4.534165342648825,
+            "8": 4.706574122111004,
+            "9": 4.758712927500407
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.9970260461171474,
+            5.656798760096232
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 4,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_v20_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": -1.0939903965702757,
+          "effect_alternative_minus_reference_mm": -1.0939903965702757,
+          "participant_differences": {
+            "1": 0.32845369974772076,
+            "2": 0.3845386505126953,
+            "3": -0.4248453776041661,
+            "4": -0.6701834996541329,
+            "5": 0.5545136133829764,
+            "6": -7.211573600769041,
+            "7": -0.3663193384806309,
+            "8": 0.0074405670166015625,
+            "9": -2.447938283284504
+          },
+          "p_raw": 0.21875,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": -1.3321798372316827,
+          "p_maxT": 0.890625,
+          "p_adjusted": 0.890625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -3.3285299936930324,
+            0.2401443057590059
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": -1.2717959086100252,
+            "2": -1.278806527455647,
+            "3": -1.1776335239410394,
+            "4": -1.1469662586847935,
+            "5": -1.3000533978144322,
+            "6": -0.32929249604543,
+            "7": -1.1849492788314813,
+            "8": -1.2316692670186353,
+            "9": -0.9247469107309971
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -1.3000533978144322,
+            -0.32929249604543
+          ],
+          "participants_favor_alternative": 5,
+          "participants_favor_reference": 4
+        },
+        {
+          "i": 5,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_v20_continuous_v1",
+            "continuous"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Proposed spatial CNN + TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": -1.3202154371473518,
+          "effect_alternative_minus_reference_mm": -1.3202154371473518,
+          "participant_differences": {
+            "1": 0.07551415761311908,
+            "2": 0.4434776306152344,
+            "3": -0.6723477045694981,
+            "4": -0.8168986638387032,
+            "5": 0.47364362080891986,
+            "6": -7.188975334167479,
+            "7": -1.085867563883463,
+            "8": -0.4481875101725272,
+            "9": -2.6622975667317696
+          },
+          "p_raw": 0.06640625,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": -1.6515503211666045,
+          "p_maxT": 0.7109375,
+          "p_adjusted": 0.7109375,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -3.372748851776122,
+            0.04393418629964252
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": -1.4946816364924107,
+            "2": -1.5406770706176751,
+            "3": -1.4011989037195836,
+            "4": -1.383130033810933,
+            "5": -1.5444478193918858,
+            "6": -0.586620450019836,
+            "7": -1.349508921305338,
+            "8": -1.429218928019205,
+            "9": -1.1524551709492996
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -1.5444478193918858,
+            -0.586620450019836
+          ],
+          "participants_favor_alternative": 6,
+          "participants_favor_reference": 3
+        },
+        {
+          "i": 6,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_bypass"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Direct pose readout + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 2.306803395259225,
+          "effect_alternative_minus_reference_mm": 2.306803395259225,
+          "participant_differences": {
+            "1": 4.500071434575199,
+            "2": 5.657622915188835,
+            "3": 2.532056540623893,
+            "4": 1.7811808295527314,
+            "5": 3.128344343209065,
+            "6": -5.695854133121079,
+            "7": 2.531984424513869,
+            "8": 3.3161120705919807,
+            "9": 3.00971213219853
+          },
+          "p_raw": 0.078125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 2.1531034947524814,
+          "p_maxT": 0.41796875,
+          "p_adjusted": 0.41796875,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.2621096534530943,
+            4.1505376908912694
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 2.032644890344728,
+            "2": 1.8879509552680234,
+            "3": 2.2786467520886413,
+            "4": 2.3725062159725363,
+            "5": 2.2041107767654946,
+            "6": 3.307135586306763,
+            "7": 2.278655766602394,
+            "8": 2.18063981084263,
+            "9": 2.2189398031418115
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            1.8879509552680234,
+            3.307135586306763
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 7,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_random"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Qwen3 (random weights) + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 4.832412825722198,
+          "effect_alternative_minus_reference_mm": 4.832412825722198,
+          "participant_differences": {
+            "1": 5.827538620940583,
+            "2": 9.581286342144654,
+            "3": 7.345488357461118,
+            "4": 2.5135958041179034,
+            "5": 6.534928986218196,
+            "6": -4.35107934716326,
+            "7": 6.32143045148513,
+            "8": 5.129356422094187,
+            "9": 4.5891697942012755
+          },
+          "p_raw": 0.01171875,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 3.6699790599799353,
+          "p_maxT": 0.078125,
+          "p_adjusted": 0.078125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            1.4972045051489289,
+            7.35204370723332
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.7080221013199,
+            "2": 4.238803636169392,
+            "3": 4.518278384254833,
+            "4": 5.122264953422735,
+            "5": 4.619598305660198,
+            "6": 5.980349347332881,
+            "7": 4.646285622501832,
+            "8": 4.795294876175699,
+            "9": 4.862818204662314
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.238803636169392,
+            5.980349347332881
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 8,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Qwen3 (pretrained) + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 3.937508871769882,
+          "effect_alternative_minus_reference_mm": 3.937508871769882,
+          "participant_differences": {
+            "1": 5.579574543965428,
+            "2": 8.573294185615964,
+            "3": 5.62112736553134,
+            "4": 3.346773213441997,
+            "5": 5.224106242734392,
+            "6": -3.7545034721002573,
+            "7": 5.320277044486568,
+            "8": 2.044115655839107,
+            "9": 3.4828150664144033
+          },
+          "p_raw": 0.01953125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 3.44796612237476,
+          "p_maxT": 0.1015625,
+          "p_adjusted": 0.1015625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            1.1712394754910804,
+            6.2735682848998255
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 3.7322506627454386,
+            "2": 3.3580357075391216,
+            "3": 3.7270565600496997,
+            "4": 4.011350829060867,
+            "5": 3.776684200399318,
+            "6": 4.899010414753649,
+            "7": 3.7646628501802963,
+            "8": 4.174183023761229,
+            "9": 3.9943455974393167
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.3580357075391216,
+            4.899010414753649
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 9,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Qwen3 (pretrained) + encoder features",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 3.1921671416251347,
+          "effect_alternative_minus_reference_mm": 3.1921671416251347,
+          "participant_differences": {
+            "1": 6.037034049642369,
+            "2": 8.235077972251972,
+            "3": 4.86846218116059,
+            "4": 2.105918557448746,
+            "5": 4.836868281637313,
+            "6": -4.897113204377224,
+            "7": 3.2849348052631697,
+            "8": 1.626962111447245,
+            "9": 2.631359520152028
+          },
+          "p_raw": 0.04296875,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 2.601237203713212,
+          "p_maxT": 0.24609375,
+          "p_adjusted": 0.24609375,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.16458005277823062,
+            5.634490514015456
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 2.8365587781229804,
+            "2": 2.56180328779678,
+            "3": 2.9826302616832026,
+            "4": 3.3279482146471833,
+            "5": 2.9865794991236125,
+            "6": 4.2033271848754294,
+            "7": 3.1805711836703803,
+            "8": 3.387817770397371,
+            "9": 3.262268094309273
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            2.56180328779678,
+            4.2033271848754294
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 10,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "raw"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "raw"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "End-to-end CNN + TCN + raw EMG",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 6.605801441051343,
+          "effect_alternative_minus_reference_mm": 6.605801441051343,
+          "participant_differences": {
+            "1": 7.194046974182129,
+            "2": 9.737234115600586,
+            "3": 7.70829963684082,
+            "4": 4.291653315226236,
+            "5": 9.635160128275553,
+            "6": 2.5676987965901716,
+            "7": 6.816039085388185,
+            "8": 6.353099187215168,
+            "9": 5.14898173014323
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 8.408577742759375,
+          "p_maxT": 0.0078125,
+          "p_adjusted": 0.0078125,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            4.6918689409891785,
+            8.465640544891357
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 6.532270749409994,
+            "2": 6.214372356732687,
+            "3": 6.467989166577658,
+            "4": 6.895069956779481,
+            "5": 6.227131605148316,
+            "6": 7.110564271608989,
+            "7": 6.579521735509237,
+            "8": 6.637389222780865,
+            "9": 6.787903904914856
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            6.214372356732687,
+            7.110564271608989
+          ],
+          "participants_favor_alternative": 0,
+          "participants_favor_reference": 9
+        },
+        {
+          "i": 11,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 4.2267105314466695,
+          "effect_alternative_minus_reference_mm": 4.2267105314466695,
+          "participant_differences": {
+            "1": 4.771843910217285,
+            "2": 8.334727605183918,
+            "3": 6.419503529866535,
+            "4": 2.9401194254557304,
+            "5": 6.047161420186361,
+            "6": -2.5881271362304688,
+            "7": 4.56193256378174,
+            "8": 2.3453521728515625,
+            "9": 5.207881291707359
+          },
+          "p_raw": 0.01171875,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 4.060703006599221,
+          "p_maxT": 0.05859375,
+          "p_adjusted": 0.05859375,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            1.7079453998141823,
+            6.438721232944064
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 4.158568859100343,
+            "2": 3.7132083972295136,
+            "3": 3.9526114066441864,
+            "4": 4.3875344196955375,
+            "5": 3.999154170354208,
+            "6": 5.078565239906312,
+            "7": 4.184807777404786,
+            "8": 4.461880326271058,
+            "9": 4.104064186414083
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            3.7132083972295136,
+            5.078565239906312
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 12,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_within_v1",
+            "continuous"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_within_v1",
+            "continuous"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal TCN + encoder features",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 3.034297837151422,
+          "effect_alternative_minus_reference_mm": 3.034297837151422,
+          "participant_differences": {
+            "1": 4.601235389709473,
+            "2": 7.82490348815918,
+            "3": 5.560137430826824,
+            "4": 1.7629925409952811,
+            "5": 4.921085039774576,
+            "6": -3.705548604329426,
+            "7": 3.083392461140951,
+            "8": 1.6859620412190743,
+            "9": 1.5745207468668632
+          },
+          "p_raw": 0.03515625,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 2.7709143569175194,
+          "p_maxT": 0.20703125,
+          "p_adjusted": 0.20703125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.38027879926893543,
+            5.347379604975383
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 2.8384306430816655,
+            "2": 2.435472130775452,
+            "3": 2.7185678879419966,
+            "4": 3.1932109991709394,
+            "5": 2.7984494368235273,
+            "6": 3.876778642336528,
+            "7": 3.028161009152731,
+            "8": 3.2028398116429653,
+            "9": 3.2167699734369917
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            2.435472130775452,
+            3.876778642336528
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 13,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_transformer_v1",
+            "tokens"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_transformer_v1",
+            "tokens"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 5.322237544589573,
+          "effect_alternative_minus_reference_mm": 5.322237544589573,
+          "participant_differences": {
+            "1": 6.6555376052856445,
+            "2": 10.228782653808594,
+            "3": 6.861686706542969,
+            "4": 3.9907760620117205,
+            "5": 6.231059074401857,
+            "6": -2.585693359375,
+            "7": 8.395078341166178,
+            "8": 3.7789656321207694,
+            "9": 4.343945185343426
+          },
+          "p_raw": 0.0078125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 4.383561655415451,
+          "p_maxT": 0.046875,
+          "p_adjusted": 0.046875,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            2.4747771157158756,
+            7.915335655212402
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 5.1555750370025635,
+            "2": 4.708919405937195,
+            "3": 5.129806399345398,
+            "4": 5.488670229911804,
+            "5": 5.208634853363037,
+            "6": 6.310728907585144,
+            "7": 4.938132445017497,
+            "8": 5.515146533648172,
+            "9": 5.44452408949534
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            4.708919405937195,
+            6.310728907585144
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 14,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "v19"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "CNN (Sîmpetru 2023 and 2024, adapted), Matched training; raw EMG and 20-Hz LP",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": 0.16292091652199125,
+          "effect_alternative_minus_reference_mm": 0.16292091652199125,
+          "participant_differences": {
+            "1": 0.7281239827473964,
+            "2": 1.2966060638427734,
+            "3": 0.8023227055867519,
+            "4": 0.2427530288696289,
+            "5": 1.7087351481119804,
+            "6": -2.672000249226887,
+            "7": 0.18225924173991004,
+            "8": 0.8438320159912109,
+            "9": -1.6663436889648438
+          },
+          "p_raw": 0.73828125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.3428706242538531,
+          "p_maxT": 1.0,
+          "p_adjusted": 1.0,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.9783329168955479,
+            1.1339469750722255
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.09227053324381562,
+            "2": 0.021210273106893496,
+            "3": 0.08299569288889619,
+            "4": 0.15294190247853656,
+            "5": -0.03030586242675737,
+            "6": 0.517286062240601,
+            "7": 0.16050362586975142,
+            "8": 0.07780702908833881,
+            "9": 0.39157899220784564
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -0.03030586242675737,
+            0.517286062240601
+          ],
+          "participants_favor_alternative": 2,
+          "participants_favor_reference": 7
+        },
+        {
+          "i": 15,
+          "j": 2,
+          "contrast_kind": "cnn_reference",
+          "a": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "b": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "alternative": [
+            "dpose_raulnet_v1",
+            "raulnet_v19_q32"
+          ],
+          "reference": [
+            "dpose_tbme2024_v1",
+            "tbme2024_retrained"
+          ],
+          "label_a": "CNN (Sîmpetru 2023 and 2024, adapted), L1 + weight averaging; raw EMG and 20-Hz LP",
+          "label_b": "CNN (Sîmpetru 2024, TBME; retrained)",
+          "mean_difference_a_minus_b": -2.9895658493041983,
+          "effect_alternative_minus_reference_mm": -2.9895658493041983,
+          "participant_differences": {
+            "1": -2.165517807006836,
+            "2": -3.3428570429484044,
+            "3": -1.7648229598999023,
+            "4": -1.6988318761189767,
+            "5": -0.7966747283935547,
+            "6": -6.689058621724445,
+            "7": -2.418244679768879,
+            "8": -2.047312418619793,
+            "9": -5.982772509256998
+          },
+          "p_raw": 0.00390625,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": -4.440274872127714,
+          "p_maxT": 0.04296875,
+          "p_adjusted": 0.04296875,
+          "significant": true,
+          "effect_ci95_pointwise_mm": [
+            -4.608233213424682,
+            -1.6064618428548174
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": -3.0925718545913687,
+            "2": -2.945404450098673,
+            "3": -3.1426587104797354,
+            "4": -3.150907595952351,
+            "5": -3.263677239418029,
+            "6": -2.5271292527516676,
+            "7": -3.0609809954961134,
+            "8": -3.107347528139749,
+            "9": -2.6154150168100987
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            -3.263677239418029,
+            -2.5271292527516676
+          ],
+          "participants_favor_alternative": 9,
+          "participants_favor_reference": 0
+        },
+        {
+          "i": 1,
+          "j": 3,
+          "contrast_kind": "representation",
+          "a": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "tcn_tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "tcn_continuous"
+          ],
+          "label_a": "Causal TCN + EMG tokens",
+          "label_b": "Causal TCN + encoder features",
+          "mean_difference_a_minus_b": 0.3666006370826999,
+          "effect_alternative_minus_reference_mm": 0.3666006370826999,
+          "participant_differences": {
+            "1": -0.08319600423176965,
+            "2": 0.8269983927408848,
+            "3": -0.5149736404418945,
+            "4": 0.8386580149332676,
+            "5": 0.3115110397338867,
+            "6": -0.49686590830485144,
+            "7": 0.7291704813639317,
+            "8": 1.2045084635416643,
+            "9": 0.4835948944091797
+          },
+          "p_raw": 0.11328125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "contrast_id": "matched_tcn_tokens_vs_features",
+          "contrast_label": "Matched TCN: tokens versus encoder features",
+          "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features.",
+          "t_observed": 1.7929421110581318,
+          "p_maxT": 0.61328125,
+          "p_adjusted": 0.61328125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.09555286831325915,
+            0.8384399414062491
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.4228252172470086,
+            "2": 0.3090509176254268,
+            "3": 0.4767974217732742,
+            "4": 0.30759346485137895,
+            "5": 0.37348683675130157,
+            "6": 0.47453395525614384,
+            "7": 0.32127940654754594,
+            "8": 0.26186215877532937,
+            "9": 0.35197635491688994
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.26186215877532937,
+            0.4767974217732742
+          ],
+          "participants_favor_alternative": 3,
+          "participants_favor_reference": 6
+        },
+        {
+          "i": 2,
+          "j": 3,
+          "contrast_kind": "representation",
+          "a": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "b": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "alternative": [
+            "dpose_matched_v1",
+            "transformer_tokens"
+          ],
+          "reference": [
+            "dpose_matched_v1",
+            "transformer_continuous"
+          ],
+          "label_a": "Causal EMG Transformer + EMG tokens",
+          "label_b": "Causal EMG Transformer + encoder features",
+          "mean_difference_a_minus_b": 0.4448447404084376,
+          "effect_alternative_minus_reference_mm": 0.4448447404084376,
+          "participant_differences": {
+            "1": 0.30210113525390625,
+            "2": -2.1097660064697266,
+            "3": 1.0185966491699219,
+            "4": 1.1985721588134766,
+            "5": 0.9017594655354806,
+            "6": 0.1580292383829729,
+            "7": 1.611086527506508,
+            "8": 0.2607898712158203,
+            "9": 0.6624336242675781
+          },
+          "p_raw": 0.24609375,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "contrast_id": "matched_transformer_tokens_vs_features",
+          "contrast_label": "Matched Transformer: tokens versus encoder features",
+          "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features.",
+          "t_observed": 1.246080312969136,
+          "p_maxT": 0.9140625,
+          "p_adjusted": 0.9140625,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.42976771460639185,
+            1.1226722399393712
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.462687691052754,
+            "2": 0.7641710837682081,
+            "3": 0.373125751813252,
+            "4": 0.3506288131078077,
+            "5": 0.3877303997675572,
+            "6": 0.48069667816162065,
+            "7": 0.29906451702117876,
+            "8": 0.4678515990575147,
+            "9": 0.417646129926045
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.29906451702117876,
+            0.7641710837682081
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 3,
+          "j": 3,
+          "contrast_kind": "representation",
+          "a": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "b": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "alternative": [
+            "dpose_llm_full_v1",
+            "tokens_pretrained"
+          ],
+          "reference": [
+            "dpose_llm_full_v1",
+            "continuous_pretrained"
+          ],
+          "label_a": "Qwen3 (pretrained) + EMG tokens",
+          "label_b": "Qwen3 (pretrained) + encoder features",
+          "mean_difference_a_minus_b": 0.7453417301447482,
+          "effect_alternative_minus_reference_mm": 0.7453417301447482,
+          "participant_differences": {
+            "1": -0.4574595056769404,
+            "2": 0.3382162133639923,
+            "3": 0.7526651843707501,
+            "4": 1.2408546559932514,
+            "5": 0.3872379610970782,
+            "6": 1.1426097322769664,
+            "7": 2.0353422392233984,
+            "8": 0.41715354439186214,
+            "9": 0.8514555462623754
+          },
+          "p_raw": 0.01953125,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "contrast_id": "pretrained_qwen_tokens_vs_features",
+          "contrast_label": "Pretrained Qwen3: tokens versus encoder features",
+          "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features.",
+          "t_observed": 3.1913930656597955,
+          "p_maxT": 0.13671875,
+          "p_adjusted": 0.13671875,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            0.22748121326362933,
+            1.2928679529660916
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.8956918846224593,
+            "2": 0.7962324197423427,
+            "3": 0.744426298366498,
+            "4": 0.6834026144136853,
+            "5": 0.790104701275707,
+            "6": 0.695683229878221,
+            "7": 0.584091666509917,
+            "8": 0.786365253363859,
+            "9": 0.7320775031300448
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.584091666509917,
+            0.8956918846224593
+          ],
+          "participants_favor_alternative": 1,
+          "participants_favor_reference": 8
+        },
+        {
+          "i": 0,
+          "j": 4,
+          "contrast_kind": "representation_gap",
+          "contrast_id": "matched_tcn_gap_vs_proposed",
+          "contrast_label": "TCN (matched) token−feature gap versus proposed",
+          "display_label": "TCN",
+          "table_label": "TCN (matched)",
+          "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed.",
+          "a": [
+            "representation_gap",
+            "matched_tcn"
+          ],
+          "b": [
+            "representation_gap",
+            "proposed"
+          ],
+          "alternative": [
+            "representation_gap",
+            "matched_tcn"
+          ],
+          "reference": [
+            "representation_gap",
+            "proposed"
+          ],
+          "label_a": "TCN (matched) token−feature gap",
+          "label_b": "Proposed token−feature gap",
+          "alternative_models": {
+            "tokens": [
+              "dpose_matched_v1",
+              "tcn_tokens"
+            ],
+            "features": [
+              "dpose_matched_v1",
+              "tcn_continuous"
+            ]
+          },
+          "reference_models": {
+            "tokens": [
+              "dpose_v20_v1",
+              "tokens"
+            ],
+            "features": [
+              "dpose_v20_continuous_v1",
+              "continuous"
+            ]
+          },
+          "mean_difference_a_minus_b": 0.14037559650562376,
+          "effect_alternative_minus_reference_mm": 0.14037559650562376,
+          "participant_differences": {
+            "1": -0.33613554636637133,
+            "2": 0.8859373728434239,
+            "3": -0.7624759674072266,
+            "4": 0.6919428507486973,
+            "5": 0.23064104715983014,
+            "6": -0.47426764170328894,
+            "7": 0.009622255961099668,
+            "8": 0.7488803863525355,
+            "9": 0.26923561096191406
+          },
+          "p_raw": 0.47265625,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.7259449749379191,
+          "p_maxT": 1.0,
+          "p_adjusted": 1.0,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.3355595270792642,
+            0.6157052781846785
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.19993948936462314,
+            "2": 0.04718037446339873,
+            "3": 0.25323204199473004,
+            "4": 0.07142968972523955,
+            "5": 0.12909241517384795,
+            "6": 0.21720600128173784,
+            "7": 0.15671976407368926,
+            "8": 0.06431249777475978,
+            "9": 0.12426809469858746
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.04718037446339873,
+            0.25323204199473004
+          ],
+          "participants_favor_alternative": 3,
+          "participants_favor_reference": 6
+        },
+        {
+          "i": 1,
+          "j": 4,
+          "contrast_kind": "representation_gap",
+          "contrast_id": "matched_transformer_gap_vs_proposed",
+          "contrast_label": "Transformer (matched) token−feature gap versus proposed",
+          "display_label": "Transformer",
+          "table_label": "Transformer (matched)",
+          "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed.",
+          "a": [
+            "representation_gap",
+            "matched_transformer"
+          ],
+          "b": [
+            "representation_gap",
+            "proposed"
+          ],
+          "alternative": [
+            "representation_gap",
+            "matched_transformer"
+          ],
+          "reference": [
+            "representation_gap",
+            "proposed"
+          ],
+          "label_a": "Transformer (matched) token−feature gap",
+          "label_b": "Proposed token−feature gap",
+          "alternative_models": {
+            "tokens": [
+              "dpose_matched_v1",
+              "transformer_tokens"
+            ],
+            "features": [
+              "dpose_matched_v1",
+              "transformer_continuous"
+            ]
+          },
+          "reference_models": {
+            "tokens": [
+              "dpose_v20_v1",
+              "tokens"
+            ],
+            "features": [
+              "dpose_v20_continuous_v1",
+              "continuous"
+            ]
+          },
+          "mean_difference_a_minus_b": 0.2186196998313614,
+          "effect_alternative_minus_reference_mm": 0.2186196998313614,
+          "participant_differences": {
+            "1": 0.04916159311930457,
+            "2": -2.0508270263671875,
+            "3": 0.7710943222045898,
+            "4": 1.0518569946289062,
+            "5": 0.820889472961424,
+            "6": 0.1806275049845354,
+            "7": 0.891538302103676,
+            "8": -0.19483820597330848,
+            "9": 0.4480743408203125
+          },
+          "p_raw": 0.52734375,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 0.6904159784248228,
+          "p_maxT": 1.0,
+          "p_adjusted": 1.0,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.5796443621317557,
+            0.8278406990898967
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.2398019631703685,
+            "2": 0.50230054060618,
+            "3": 0.14956037203470784,
+            "4": 0.1144650379816683,
+            "5": 0.14333597819010357,
+            "6": 0.22336872418721465,
+            "7": 0.13450487454732207,
+            "8": 0.27030193805694513,
+            "9": 0.1899378697077425
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.1144650379816683,
+            0.50230054060618
+          ],
+          "participants_favor_alternative": 2,
+          "participants_favor_reference": 7
+        },
+        {
+          "i": 2,
+          "j": 4,
+          "contrast_kind": "representation_gap",
+          "contrast_id": "pretrained_qwen_gap_vs_proposed",
+          "contrast_label": "Qwen3 (pretrained) token−feature gap versus proposed",
+          "display_label": "Qwen3",
+          "table_label": "Qwen3 (pretrained)",
+          "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed.",
+          "a": [
+            "representation_gap",
+            "pretrained_qwen"
+          ],
+          "b": [
+            "representation_gap",
+            "proposed"
+          ],
+          "alternative": [
+            "representation_gap",
+            "pretrained_qwen"
+          ],
+          "reference": [
+            "representation_gap",
+            "proposed"
+          ],
+          "label_a": "Qwen3 (pretrained) token−feature gap",
+          "label_b": "Proposed token−feature gap",
+          "alternative_models": {
+            "tokens": [
+              "dpose_llm_full_v1",
+              "tokens_pretrained"
+            ],
+            "features": [
+              "dpose_llm_full_v1",
+              "continuous_pretrained"
+            ]
+          },
+          "reference_models": {
+            "tokens": [
+              "dpose_v20_v1",
+              "tokens"
+            ],
+            "features": [
+              "dpose_v20_continuous_v1",
+              "continuous"
+            ]
+          },
+          "mean_difference_a_minus_b": 0.5191166895676721,
+          "effect_alternative_minus_reference_mm": 0.5191166895676721,
+          "participant_differences": {
+            "1": -0.7103990478115421,
+            "2": 0.3971551934665314,
+            "3": 0.5051628574054181,
+            "4": 1.094139491808681,
+            "5": 0.3063679685230216,
+            "6": 1.1652079988785289,
+            "7": 1.3157940138205664,
+            "8": -0.03847453279726665,
+            "9": 0.6370962628151098
+          },
+          "p_raw": 0.0546875,
+          "p_holm_sensitivity": null,
+          "n_participants": 9,
+          "n_seeds_per_participant": 3,
+          "permutations": 512,
+          "t_observed": 2.432302929445011,
+          "p_maxT": 0.3125,
+          "p_adjusted": 0.3125,
+          "significant": false,
+          "effect_ci95_pointwise_mm": [
+            -0.011337604654813926,
+            0.9953882900348378
+          ],
+          "leave_one_participant_out_effects_mm": {
+            "1": 0.6728061567400738,
+            "2": 0.5343618765803146,
+            "3": 0.5208609185879538,
+            "4": 0.44723883928754593,
+            "5": 0.5457102796982534,
+            "6": 0.43835527590381496,
+            "7": 0.41953202403606027,
+            "8": 0.5888155923632894,
+            "9": 0.5043692429117423
+          },
+          "leave_one_participant_out_effect_range_mm": [
+            0.41953202403606027,
+            0.6728061567400738
+          ],
+          "participants_favor_alternative": 2,
+          "participants_favor_reference": 7
+        }
+      ],
+      "label": "CNN references, within-decoder representations and between-decoder gaps"
+    }
+  ],
+  "minimum_possible_raw_p": 0.00390625,
+  "minimum_possible_adjusted_p": 0.00390625,
+  "minimum_observed_adjusted_p": 0.00390625,
+  "significant_comparisons": 23,
+  "can_reject_at_alpha_given_resolution": true,
+  "maxT_reference_distribution": [
+    14.879434282930546,
+    3.567958103946875,
+    3.9526690357629852,
+    2.019432771047853,
+    3.438711745257746,
+    1.943443758108509,
+    2.1886665860239467,
+    1.4200429254165883,
+    8.849666163384228,
+    4.249447675741576,
+    4.5633572840060985,
+    2.9567814290922,
+    3.648392275261393,
+    3.8048261140470516,
+    2.5963022330204337,
+    2.511913642136092,
+    3.687594481220349,
+    1.7912591922393528,
+    2.519291941422618,
+    1.2323035665404611,
+    2.367539985554104,
+    1.2633181487821565,
+    1.6926483616213752,
+    1.0574972440675687,
+    4.083446409910958,
+    2.013316842883041,
+    2.5776689919995697,
+    1.5438000011201989,
+    2.421744149709287,
+    1.7312746307791345,
+    1.627032541271911,
+    1.3161608489912016,
+    4.830534596723863,
+    2.39875255058206,
+    3.0504492264096514,
+    1.5059949802596975,
+    2.4615360287386294,
+    1.3813599224537603,
+    1.753091442727501,
+    1.727732543021489,
+    4.745403704237887,
+    3.918352663372355,
+    4.4872377942011425,
+    4.393218920279829,
+    2.6695494408010254,
+    3.3354628341893107,
+    2.976420397051106,
+    2.9340642164482578,
+    2.673831448610612,
+    1.2618775511536533,
+    1.904930348341771,
+    1.7000502453834172,
+    1.7927804716320526,
+    1.801359372364184,
+    1.487383388588493,
+    2.249054681233386,
+    2.84895850376637,
+    1.6864831445645863,
+    1.9546498109733301,
+    1.7238229972102734,
+    1.8051492502796913,
+    2.1727492265820514,
+    1.3420154717790689,
+    2.1606472699671833,
+    3.4431805125933317,
+    1.8413078630568989,
+    2.145935815355314,
+    1.0964063479427277,
+    2.0199413144380243,
+    1.3816988445327518,
+    1.4364615543519712,
+    1.34044463082146,
+    4.848672535049129,
+    2.8262178120870063,
+    2.2391032479743465,
+    2.0312583001949185,
+    3.0347609305178187,
+    2.558586014753077,
+    1.4215974151726032,
+    1.7786304908408017,
+    2.643581198185397,
+    1.4034328725620961,
+    1.8845250668607323,
+    0.8113969639313591,
+    1.7734495903474523,
+    1.6704965251436554,
+    1.4663766413323884,
+    1.607060947861946,
+    3.335273097761299,
+    2.153248075044444,
+    1.6995705799810858,
+    1.2274505469771935,
+    2.3606725004573677,
+    1.7902057776303562,
+    1.2067344832380946,
+    1.7485492134470548,
+    2.413233447755604,
+    1.2381856569412923,
+    1.6562372043942502,
+    0.7720152694364769,
+    1.5253337107190081,
+    1.7455362577082607,
+    1.3104012728669863,
+    1.8811429693977564,
+    3.0177920919113066,
+    2.729775280236607,
+    2.54998657351204,
+    2.496226473679635,
+    1.8082436362706007,
+    2.5162661891503215,
+    1.8423369773895366,
+    2.685788413128792,
+    1.9946799080722353,
+    1.668782293545537,
+    1.506870579612803,
+    1.470109391728399,
+    2.20625222030992,
+    2.9605003148203717,
+    2.132334894138119,
+    3.0695720831699105,
+    2.0310719445555665,
+    1.8708924255955384,
+    1.2442082341697307,
+    1.653670358696377,
+    2.4754051093895972,
+    3.376610244843859,
+    2.317695496016093,
+    3.4684971815002443,
+    4.1777851694005985,
+    2.7313849690985257,
+    3.507562483754275,
+    2.5557365307053495,
+    1.8542200647900389,
+    1.3817956263194937,
+    1.9294944894836934,
+    1.7105807272774234,
+    3.722691673602984,
+    2.5038066523735685,
+    3.146754694806732,
+    2.27585818532802,
+    1.5185981992608646,
+    2.0652899616156564,
+    1.7218979281970788,
+    1.4652385698051555,
+    2.6897424485365207,
+    1.8185616711167196,
+    2.088098729746524,
+    2.07496680606214,
+    1.5895366974641632,
+    1.5996175217698367,
+    1.8213208517030601,
+    2.2268625404642233,
+    2.8096826777664803,
+    1.8942385509911859,
+    1.922319833804487,
+    1.3433813520481928,
+    0.9947168068067582,
+    1.2888282417252788,
+    0.9624255164209361,
+    1.5920415575240388,
+    2.378225465128144,
+    1.6124682173445548,
+    2.532766977101361,
+    3.4469479074963005,
+    1.316827519881461,
+    1.5564787414496293,
+    2.558851907912541,
+    3.640546274263707,
+    2.4794835712331844,
+    2.314317056822239,
+    2.9514709251946427,
+    2.9079532781939172,
+    1.5864952384177755,
+    2.322058371249382,
+    2.126455101121576,
+    2.2850340790187778,
+    2.0540694997405464,
+    1.9575908035974534,
+    3.2856207792409275,
+    4.84974414673118,
+    1.4934837563798162,
+    1.9769493066829729,
+    3.3245871308455777,
+    5.54416132240822,
+    2.1393583889830974,
+    1.4449968406001885,
+    1.9683857934297428,
+    2.603000436115302,
+    1.8252245148009285,
+    2.9348399900676947,
+    1.987849083449498,
+    3.0168712411954792,
+    2.252269649293862,
+    1.5877943818369429,
+    2.080712153123232,
+    1.5667978963548959,
+    1.2075789927826694,
+    0.9292392434665732,
+    1.2074362630531075,
+    1.362851245598402,
+    2.095975415497756,
+    1.5810591785886219,
+    1.8579815251694873,
+    1.3898882393449543,
+    1.1722638712312536,
+    1.506637168997599,
+    1.0027022922113258,
+    1.8685229617393253,
+    1.8136755156835123,
+    1.6833953846660425,
+    2.3757938139857884,
+    1.3847366085061745,
+    2.278597627251748,
+    2.3097247953078495,
+    2.5742513932371214,
+    2.3983090640783633,
+    1.78417591502215,
+    1.180696929258407,
+    1.1887406193822994,
+    1.5811485708363684,
+    1.1542074082213027,
+    1.8902797847589579,
+    1.5374438633077276,
+    2.3137254512060634,
+    1.5156983933634962,
+    0.9687804794791719,
+    1.2437927610997583,
+    1.5183718936716661,
+    0.9985304960851268,
+    1.4264483821960126,
+    1.4880636072302251,
+    2.25003832019695,
+    1.6832643984034381,
+    1.5120919627299965,
+    1.8284295928131975,
+    1.803955573829453,
+    2.1086777374435424,
+    3.4745253125419113,
+    2.050597510981326,
+    3.357450636094268,
+    1.8362044189527496,
+    1.340841887088865,
+    2.644991077262337,
+    1.9305516704109673,
+    1.9848900395581206,
+    2.2655824279710193,
+    2.875699039260636,
+    3.095960255052327,
+    1.3549057595917107,
+    1.6234102369550598,
+    1.654174072588074,
+    2.1510339637819866,
+    2.6463727843523714,
+    4.788965520744941,
+    2.5699298183148844,
+    4.572686800793673,
+    4.572686800793673,
+    2.5699298183148844,
+    4.788965520744941,
+    2.6463727843523714,
+    2.1510339637819866,
+    1.654174072588074,
+    1.6234102369550598,
+    1.3549057595917107,
+    3.095960255052327,
+    2.875699039260636,
+    2.2655824279710193,
+    1.9848900395581206,
+    1.9305516704109673,
+    2.644991077262337,
+    1.340841887088865,
+    1.8362044189527496,
+    3.357450636094268,
+    2.050597510981326,
+    3.4745253125419113,
+    2.1086777374435424,
+    1.803955573829453,
+    1.8284295928131975,
+    1.5120919627299965,
+    1.6832643984034381,
+    2.25003832019695,
+    1.4880636072302251,
+    1.4264483821960126,
+    0.9985304960851268,
+    1.5183718936716661,
+    1.2437927610997583,
+    0.9687804794791719,
+    1.5156983933634962,
+    2.3137254512060634,
+    1.5374438633077276,
+    1.8902797847589579,
+    1.1542074082213027,
+    1.5811485708363684,
+    1.1887406193822994,
+    1.180696929258407,
+    1.78417591502215,
+    2.3983090640783633,
+    2.5742513932371214,
+    2.3097247953078495,
+    2.278597627251748,
+    1.3847366085061745,
+    2.3757938139857884,
+    1.6833953846660425,
+    1.8136755156835123,
+    1.8685229617393253,
+    1.0027022922113258,
+    1.506637168997599,
+    1.1722638712312536,
+    1.3898882393449543,
+    1.8579815251694873,
+    1.5810591785886219,
+    2.095975415497756,
+    1.362851245598402,
+    1.2074362630531075,
+    0.9292392434665732,
+    1.2075789927826694,
+    1.5667978963548959,
+    2.080712153123232,
+    1.5877943818369429,
+    2.252269649293862,
+    3.0168712411954792,
+    1.987849083449498,
+    2.9348399900676947,
+    1.8252245148009285,
+    2.603000436115302,
+    1.9683857934297428,
+    1.4449968406001885,
+    2.1393583889830974,
+    5.54416132240822,
+    3.3245871308455777,
+    1.9769493066829729,
+    1.4934837563798162,
+    4.84974414673118,
+    3.2856207792409275,
+    1.9575908035974534,
+    2.0540694997405464,
+    2.2850340790187778,
+    2.126455101121576,
+    2.322058371249382,
+    1.5864952384177755,
+    2.9079532781939172,
+    2.9514709251946427,
+    2.314317056822239,
+    2.4794835712331844,
+    3.640546274263707,
+    2.558851907912541,
+    1.5564787414496293,
+    1.316827519881461,
+    3.4469479074963005,
+    2.532766977101361,
+    1.6124682173445548,
+    2.378225465128144,
+    1.5920415575240388,
+    0.9624255164209361,
+    1.2888282417252788,
+    0.9947168068067582,
+    1.3433813520481928,
+    1.922319833804487,
+    1.8942385509911859,
+    2.8096826777664803,
+    2.2268625404642233,
+    1.8213208517030601,
+    1.5996175217698367,
+    1.5895366974641632,
+    2.07496680606214,
+    2.088098729746524,
+    1.8185616711167196,
+    2.6897424485365207,
+    1.4652385698051555,
+    1.7218979281970788,
+    2.0652899616156564,
+    1.5185981992608646,
+    2.27585818532802,
+    3.146754694806732,
+    2.5038066523735685,
+    3.722691673602984,
+    1.7105807272774234,
+    1.9294944894836934,
+    1.3817956263194937,
+    1.8542200647900389,
+    2.5557365307053495,
+    3.507562483754275,
+    2.7313849690985257,
+    4.1777851694005985,
+    3.4684971815002443,
+    2.317695496016093,
+    3.376610244843859,
+    2.4754051093895972,
+    1.653670358696377,
+    1.2442082341697307,
+    1.8708924255955384,
+    2.0310719445555665,
+    3.0695720831699105,
+    2.132334894138119,
+    2.9605003148203717,
+    2.20625222030992,
+    1.470109391728399,
+    1.506870579612803,
+    1.668782293545537,
+    1.9946799080722353,
+    2.685788413128792,
+    1.8423369773895366,
+    2.5162661891503215,
+    1.8082436362706007,
+    2.496226473679635,
+    2.54998657351204,
+    2.729775280236607,
+    3.0177920919113066,
+    1.8811429693977564,
+    1.3104012728669863,
+    1.7455362577082607,
+    1.5253337107190081,
+    0.7720152694364769,
+    1.6562372043942502,
+    1.2381856569412923,
+    2.413233447755604,
+    1.7485492134470548,
+    1.2067344832380946,
+    1.7902057776303562,
+    2.3606725004573677,
+    1.2274505469771935,
+    1.6995705799810858,
+    2.153248075044444,
+    3.335273097761299,
+    1.607060947861946,
+    1.4663766413323884,
+    1.6704965251436554,
+    1.7734495903474523,
+    0.8113969639313591,
+    1.8845250668607323,
+    1.4034328725620961,
+    2.643581198185397,
+    1.7786304908408017,
+    1.4215974151726032,
+    2.558586014753077,
+    3.0347609305178187,
+    2.0312583001949185,
+    2.2391032479743465,
+    2.8262178120870063,
+    4.848672535049129,
+    1.34044463082146,
+    1.4364615543519712,
+    1.3816988445327518,
+    2.0199413144380243,
+    1.0964063479427277,
+    2.145935815355314,
+    1.8413078630568989,
+    3.4431805125933317,
+    2.1606472699671833,
+    1.3420154717790689,
+    2.1727492265820514,
+    1.8051492502796913,
+    1.7238229972102734,
+    1.9546498109733301,
+    1.6864831445645863,
+    2.84895850376637,
+    2.249054681233386,
+    1.487383388588493,
+    1.801359372364184,
+    1.7927804716320526,
+    1.7000502453834172,
+    1.904930348341771,
+    1.2618775511536533,
+    2.673831448610612,
+    2.9340642164482578,
+    2.976420397051106,
+    3.3354628341893107,
+    2.6695494408010254,
+    4.393218920279829,
+    4.4872377942011425,
+    3.918352663372355,
+    4.745403704237887,
+    1.727732543021489,
+    1.753091442727501,
+    1.3813599224537603,
+    2.4615360287386294,
+    1.5059949802596975,
+    3.0504492264096514,
+    2.39875255058206,
+    4.830534596723863,
+    1.3161608489912016,
+    1.627032541271911,
+    1.7312746307791345,
+    2.421744149709287,
+    1.5438000011201989,
+    2.5776689919995697,
+    2.013316842883041,
+    4.083446409910958,
+    1.0574972440675687,
+    1.6926483616213752,
+    1.2633181487821565,
+    2.367539985554104,
+    1.2323035665404611,
+    2.519291941422618,
+    1.7912591922393528,
+    3.687594481220349,
+    2.511913642136092,
+    2.5963022330204337,
+    3.8048261140470516,
+    3.648392275261393,
+    2.9567814290922,
+    4.5633572840060985,
+    4.249447675741576,
+    8.849666163384228,
+    1.4200429254165883,
+    2.1886665860239467,
+    1.943443758108509,
+    3.438711745257746,
+    2.019432771047853,
+    3.9526690357629852,
+    3.567958103946875,
+    14.879434282930546
+  ],
+  "pointwise_interval_method": "Exact inversion of the inclusive two-sided univariate sign-flip location test; not simultaneous.",
+  "sensitivity_previous_holm": {
+    "family_size": 28,
+    "significant_comparisons": 0,
+    "minimum_observed_adjusted_p": 0.109375,
+    "archive": "output/figures/archive/global-holm-statistics-20260911T163629Z",
+    "note": "Previous global Holm correction for the original 28 CNN-reference contrasts; direct and TBME contrasts were not included."
+  },
+  "excluded": {
+    "old_reference_vs_old_reference": "Old matched CNN versus old L1/SWA CNN remains outside the declared family.",
+    "alternative_vs_alternative": "Four within-decoder representation pairs and three other-minus-proposed gap contrasts are included; other alternative comparisons are excluded.",
+    "published_JNE_aggregate": "No matched participant-level observations under this protocol.",
+    "resources": "Resource measurements are not participant-level error observations."
+  }
+}

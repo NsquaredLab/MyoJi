@@ -1,0 +1,205 @@
+{
+  "hardware": true,
+  "output_verified": true,
+  "configuration": {
+    "route": "spar",
+    "channels": 1,
+    "sweep_channels": null,
+    "frames": 16,
+    "warmup": 16,
+    "seed": 260923,
+    "serial": null,
+    "timeout": 180.0,
+    "port": 61234,
+    "swd_khz": 1000,
+    "plan_only": false,
+    "diagnostics": false,
+    "trace_startup": false,
+    "recorded": false,
+    "timestamp_utc": "20260924T184016.306750Z",
+    "input": "synthetic amplitude-modulated broadband noise",
+    "window_ms": 160,
+    "update_ms": 20,
+    "elf_sha256": "00eb6dfd35c36ae009b15d424c8553950bdec4f8b2afe205d554bc74e6ea22b5"
+  },
+  "build": {
+    "schema": 1,
+    "board": "NUCLEO-N657X0-Q",
+    "hardware_run": false,
+    "backend": "Cortex-M55 FP32 CPU",
+    "configured_cpu_hz": 600000000,
+    "npu_used": false,
+    "cube_commit": "80a3a665fccaf9a429343a7ab96a97c1b8a6467a",
+    "compiler": "arm-none-eabi-gcc (GNU Tools for STM32 14.3.rel1.20251027-0700) 14.3.1 20250623",
+    "elf_sha256": "00eb6dfd35c36ae009b15d424c8553950bdec4f8b2afe205d554bc74e6ea22b5",
+    "weights_address": "0x71000000",
+    "weights_sha256": "ae5b9545c65daa225b83f67250a05e97fa95d09a82a97fe32f542aa290436ae4",
+    "addresses": {
+      "bench_run": 873990532,
+      "bench_progress": 873992952,
+      "bench_clock_poll": 873993072,
+      "bench_platform_init": 873993216,
+      "bench_platform_start": 873993632,
+      "bench_platform_stop": 873994104,
+      "bench_ready": 873994284,
+      "Reset_Handler": 874014648,
+      "bench_recorded_input": 874250240,
+      "bench_config": 874250244,
+      "bench_input_mode": 874359376,
+      "bench_setup_cycles": 874359384,
+      "bench_last_ids": 874433120,
+      "bench_first_ids": 874435168,
+      "bench_frames": 874437216,
+      "bench_result": 874440288,
+      "bench_startup_stage": 874440360,
+      "_estack": 874512384
+    },
+    "exact_transform": true,
+    "note": "Build only. No MCU timings or hardware validation until collected on the physical board."
+  },
+  "setup_cycles": 152305,
+  "host_fast_validation": {
+    "passed": true,
+    "hardware": false,
+    "exact_transform": true,
+    "library_sha256": "9d6c18ece657e9ac1e97560200b063505266646679c5622dde48baf18bb3f69d",
+    "reference_library_sha256": "cf12acc6f5a321c512ee7080c6681321cbe5316905eb2873c85fb644affc5976",
+    "recorded_codebook_assignments_exact": 1920,
+    "tie_cases": 2,
+    "batched_codebook_assignments_exact": {
+      "learned": 960,
+      "spar": 960
+    },
+    "batched_tie_cases": 2,
+    "reordered_spar_feature_vectors_exact": 1482,
+    "spar_spectrum_bins_compared": 215040,
+    "released_spar_token_ids_reproduced": 960,
+    "max_spectrum_relative_deviation": 0.0,
+    "max_feature_absolute_deviation": 0.0,
+    "driver_cases_identical_to_original_port": "20/20",
+    "batched_recorded_learned_vectors_exact": 96,
+    "max_abs_feature_difference": 0.0,
+    "synthetic_driver_cases_exact": [
+      {
+        "route": 0,
+        "channels": 1,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 23,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 30,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 36,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 37,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 38,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 39,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 43,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 55,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 56,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 64,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 65,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 320,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 0,
+        "channels": 1024,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 1,
+        "channels": 1,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 1,
+        "channels": 5,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 1,
+        "channels": 9,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 1,
+        "channels": 12,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 1,
+        "channels": 16,
+        "identical_to_original_port": true
+      },
+      {
+        "route": 1,
+        "channels": 17,
+        "identical_to_original_port": true
+      }
+    ]
+  },
+  "device": {
+    "schema": 1,
+    "status": 3,
+    "cpu_hz": 600000000,
+    "route": 0,
+    "channels": 1,
+    "frames": 16,
+    "seed": 260923,
+    "hardware": 1,
+    "cache_enabled": 1,
+    "input_bytes": 1440,
+    "state_bytes": 75520,
+    "model_bytes": 73872,
+    "fault_cfsr": 0,
+    "fault_hfsr": 0,
+    "fault_bfar": 0,
+    "fault_mmfar": 0,
+    "calibration_cycles": 66654
+  },
+  "note": "Physical Cortex-M55 CPU measurements; synthetic input; no NPU, ADC or BLE timing."
+}

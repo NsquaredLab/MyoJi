@@ -1,0 +1,260 @@
+{
+  "selected": {
+    "index": 21,
+    "config": {
+      "kind": "one_euro",
+      "mincutoff": 1.0,
+      "beta": 0.1,
+      "dcutoff": 1.0,
+      "freq": 50.0
+    },
+    "mean_3d_error": 11.206324145033632,
+    "velocity_r2": -4.120093232009651,
+    "per_subject_seed": [
+      {
+        "mean_3d_error": 9.979311377891673,
+        "coordinate_r2": 0.6947146228364588,
+        "velocity_r2": -3.6395834395435767,
+        "velocity_mse": 6194.928311911358,
+        "velocity_energy_ratio": 4.604365752124699,
+        "subject": 1,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 9.93197730237622,
+        "coordinate_r2": 0.7082773040583532,
+        "velocity_r2": -4.128219072245202,
+        "velocity_mse": 6847.371091457492,
+        "velocity_energy_ratio": 5.23039967649052,
+        "subject": 1,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 10.067810703998484,
+        "coordinate_r2": 0.6801152424466416,
+        "velocity_r2": -3.59718750178242,
+        "velocity_mse": 6138.319825703713,
+        "velocity_energy_ratio": 4.634471008670486,
+        "subject": 1,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 12.404115421787006,
+        "coordinate_r2": 0.6594527809349569,
+        "velocity_r2": -5.370206883945781,
+        "velocity_mse": 11221.514013383114,
+        "velocity_energy_ratio": 6.232845676202071,
+        "subject": 2,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 12.824653830668938,
+        "coordinate_r2": 0.6514103208818836,
+        "velocity_r2": -4.766369927245543,
+        "velocity_mse": 10157.817810911709,
+        "velocity_energy_ratio": 5.536461104654436,
+        "subject": 2,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 12.605041603461016,
+        "coordinate_r2": 0.650090239413402,
+        "velocity_r2": -5.353541801976527,
+        "velocity_mse": 11192.15743921541,
+        "velocity_energy_ratio": 6.089024149819932,
+        "subject": 2,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 7.470543478258279,
+        "coordinate_r2": 0.8151537181956614,
+        "velocity_r2": -3.0857426835245727,
+        "velocity_mse": 3353.061846691881,
+        "velocity_energy_ratio": 3.9987806086880724,
+        "subject": 3,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 7.612262540438106,
+        "coordinate_r2": 0.7990370772240354,
+        "velocity_r2": -3.4310074551776975,
+        "velocity_mse": 3636.4115881000184,
+        "velocity_energy_ratio": 4.237096192027788,
+        "subject": 3,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 7.868448467243094,
+        "coordinate_r2": 0.7831533149581891,
+        "velocity_r2": -3.4781936867812604,
+        "velocity_mse": 3675.1360906285486,
+        "velocity_energy_ratio": 4.27685444138116,
+        "subject": 3,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 10.172443128628387,
+        "coordinate_r2": 0.609338257888506,
+        "velocity_r2": -2.8124896620556488,
+        "velocity_mse": 7051.456145254493,
+        "velocity_energy_ratio": 3.632385178405311,
+        "subject": 4,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 10.271166745468175,
+        "coordinate_r2": 0.5924987322263906,
+        "velocity_r2": -2.8479647770483307,
+        "velocity_mse": 7117.069757301347,
+        "velocity_energy_ratio": 3.6940759150797366,
+        "subject": 4,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 9.663462238055079,
+        "coordinate_r2": 0.6386345924977477,
+        "velocity_r2": -2.75731829670414,
+        "velocity_mse": 6949.412992948551,
+        "velocity_energy_ratio": 3.6226671805652217,
+        "subject": 4,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 9.512358994604115,
+        "coordinate_r2": 0.7253944213089145,
+        "velocity_r2": -3.194285217233406,
+        "velocity_mse": 4837.656351280884,
+        "velocity_energy_ratio": 4.221700674094907,
+        "subject": 5,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 9.212984433433345,
+        "coordinate_r2": 0.7507586215197093,
+        "velocity_r2": -2.924086966797175,
+        "velocity_mse": 4526.0117647474935,
+        "velocity_energy_ratio": 3.9745918619829683,
+        "subject": 5,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 9.27342807654626,
+        "coordinate_r2": 0.7421103649338087,
+        "velocity_r2": -3.1519910783310765,
+        "velocity_mse": 4788.874616352096,
+        "velocity_energy_ratio": 4.165216925760955,
+        "subject": 5,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 10.52903996135392,
+        "coordinate_r2": 0.7033594260682082,
+        "velocity_r2": -6.418945103575648,
+        "velocity_mse": 7206.427003652314,
+        "velocity_energy_ratio": 7.045999047901595,
+        "subject": 6,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 10.607106662120113,
+        "coordinate_r2": 0.7039439435572057,
+        "velocity_r2": -5.927176660857787,
+        "velocity_mse": 6728.745428216741,
+        "velocity_energy_ratio": 6.683836977628167,
+        "subject": 6,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 10.32166858892788,
+        "coordinate_r2": 0.7143956265456074,
+        "velocity_r2": -6.632373147445565,
+        "velocity_mse": 7413.7413316609645,
+        "velocity_energy_ratio": 7.450601272205381,
+        "subject": 6,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 9.845697840139932,
+        "coordinate_r2": 0.6645826294862056,
+        "velocity_r2": -3.600652497713834,
+        "velocity_mse": 4392.233806661956,
+        "velocity_energy_ratio": 4.405413383198363,
+        "subject": 7,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 10.399128295952146,
+        "coordinate_r2": 0.6348345144258409,
+        "velocity_r2": -4.285885763396699,
+        "velocity_mse": 5046.424645130465,
+        "velocity_energy_ratio": 4.977051162351381,
+        "subject": 7,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 9.740280891255514,
+        "coordinate_r2": 0.6649609511973398,
+        "velocity_r2": -3.645744580600142,
+        "velocity_mse": 4435.283128679749,
+        "velocity_energy_ratio": 4.48636486961083,
+        "subject": 7,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 14.038818805931612,
+        "coordinate_r2": 0.5562382425308801,
+        "velocity_r2": -4.395277038359915,
+        "velocity_mse": 11218.347260805685,
+        "velocity_energy_ratio": 4.99451845617438,
+        "subject": 8,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 14.254492559035624,
+        "coordinate_r2": 0.5537299043284868,
+        "velocity_r2": -3.588724472942661,
+        "velocity_mse": 9541.290327748738,
+        "velocity_energy_ratio": 4.097652279139426,
+        "subject": 8,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 14.363434948677208,
+        "coordinate_r2": 0.5381091915768828,
+        "velocity_r2": -4.121635042864916,
+        "velocity_mse": 10649.366111408415,
+        "velocity_energy_ratio": 4.688457025230149,
+        "subject": 8,
+        "seed_index": 2
+      },
+      {
+        "mean_3d_error": 16.53962947526756,
+        "coordinate_r2": 0.5881045690310087,
+        "velocity_r2": -4.947275033092657,
+        "velocity_mse": 13585.945227022536,
+        "velocity_energy_ratio": 5.563754754787548,
+        "subject": 9,
+        "seed_index": 0
+      },
+      {
+        "mean_3d_error": 16.604984961030148,
+        "coordinate_r2": 0.5926533061753668,
+        "velocity_r2": -4.425992662262294,
+        "velocity_mse": 12395.12864320785,
+        "velocity_energy_ratio": 5.0260191375827405,
+        "subject": 9,
+        "seed_index": 1
+      },
+      {
+        "mean_3d_error": 16.45646058335819,
+        "coordinate_r2": 0.5916462925336194,
+        "velocity_r2": -4.714646810756127,
+        "velocity_mse": 13054.529701536027,
+        "velocity_energy_ratio": 5.257677956288895,
+        "subject": 9,
+        "seed_index": 2
+      }
+    ]
+  },
+  "criterion": "Lowest validation macro-person/seed mean 3D error; identity is eligible, earliest listed candidate wins ties. No test-based selection."
+}

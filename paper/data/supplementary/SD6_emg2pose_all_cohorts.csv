@@ -1,0 +1,9 @@
+representation,encoder_or_codec_fits,official_176_mean_mm,unseen_20_mean_mm,held_session_10_mean_mm,source_page
+"Learned tokens (1,024 codes; 10 bits)",3,28.00,22.87,15.63,13
+"Continuous features (256D, FP32)",3,28.04,22.85,15.59,13
+"BioCodec, 6 codebooks (48 bits)",3,28.24,23.15,15.58,13
+"FSQ (1,000 codes; 10 bits)",1,28.08,23.11,15.75,13
+Quantized PCA (4D; 10 bits),1,28.27,23.25,15.68,13
+"K-means (1,024 codes; 10 bits)",none,28.39,23.43,16.15,13
+"Engineered features (67D, FP32)",none,28.50,23.20,15.39,13
+"Pose-supervised features (256D, FP32)",3 joint,27.80,23.21,15.75,13

@@ -1,0 +1,7 @@
+cohort,representation,pose_error_mm,pre_score_hold_error_mm,pooled_velocity_r2,source_page
+Official,Learned tokens,28.00,29.65,-0.0198,16
+Official,Continuous features,28.04,29.63,-0.0197,16
+Official,Pose-supervised features,27.80,29.26,-0.0106,16
+Held session,Learned tokens,15.63,16.96,0.0085,16
+Held session,Continuous features,15.59,17.04,0.0058,16
+Held session,Pose-supervised features,15.75,16.83,0.0089,16

@@ -1,0 +1,153 @@
+% Hand-authored vector layout; numerical insets are generated from saved data.
+% Compile from the directory prepared by build_tokenizer_mechanism.py.
+\documentclass[tikz,border=0pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath,graphicx}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing}
+\definecolor{token}{HTML}{D80032}
+\definecolor{feature}{HTML}{5C618E}
+\definecolor{ink}{HTML}{2B2E4C}
+\definecolor{gray}{HTML}{6D6F72}
+\definecolor{lightgray}{HTML}{E4E5E8}
+\input{example.tex}
+\begin{document}
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  every node/.style={font=\fontsize{8.5}{10.2}\selectfont,text=ink,inner sep=1pt},
+  flow/.style={-{Latex[length=1.5mm,width=1.2mm]},draw=gray,line width=.7pt},
+  blueflow/.style={flow,draw=feature},
+  redflow/.style={flow,draw=token},
+  block/.style={draw=gray,line width=.65pt,rounded corners=1.1mm,fill=white,align=center},
+  fitnote/.style={draw=gray!45,dashed,line width=.5pt,rounded corners=.8mm,fill=gray!3,align=center},
+  note/.style={font=\fontsize{8.1}{9.5}\selectfont,text=gray,align=center},
+  stage/.style={font=\bfseries\fontsize{9.5}{11}\selectfont},
+  letter/.style={font=\bfseries\fontsize{11}{12}\selectfont}
+]
+\useasboundingbox (0,0) rectangle (18.1864,16.2);
+
+% A: learned representation; normalized waveform is deliberately schematic.
+\node[letter,anchor=west] at (.20,15.75) {A};
+\node[stage,anchor=west] at (.78,15.75) {Learned frontend};
+\node[note,anchor=east] at (7.65,15.75) {Shared across channels};
+\node[block,minimum width=1.90cm,minimum height=1.13cm] (rawA) at (1.43,14.25) {};
+\draw[gray,line width=.55pt] (.63,14.23) -- (.78,14.23) -- (.89,14.42) -- (1.00,14.02) -- (1.11,14.57) -- (1.20,13.98) -- (1.31,14.34) -- (1.42,14.08) -- (1.53,14.38) -- (1.64,14.16) -- (1.75,14.53) -- (1.87,14.05) -- (1.98,14.29) -- (2.17,14.23);
+\node at (1.43,15.08) {Normalized EMG};
+\node[note] at (1.43,13.15) {160 ms patches\\20 ms step};
+\node[block,minimum width=2.45cm,minimum height=1.13cm] (enc) at (4.18,14.25) {Patch CNN\\+ 4 causal blocks};
+\draw[flow] (rawA.east) -- (enc.west);
+\node[note] at (4.18,13.15) {480 ms\\receptive field};
+\begin{scope}[shift={(6.15,13.69)}]
+  \foreach \r in {0,...,7} {
+    \pgfmathtruncatemacro{\featureShade}{15+8*\r}
+    \filldraw[fill=feature!\featureShade,draw=white,line width=.3pt] (0,.14*\r) rectangle (.68,.14*\r+.14);
+  }
+\end{scope}
+\draw[blueflow] (enc.east) -- (5.98,14.25);
+\node at (6.50,15.08) {$h^{\rm learned}_{c,t}$};
+\node[note] at (6.50,13.15) {256 components};
+\node[fitnote,minimum width=6.95cm,minimum height=.90cm] at (3.86,11.95)
+  {Pretrain by reconstructing EMG spectra; no pose labels\\Freeze the encoder and its 1,024-vector codebook};
+
+% B: finite-grid SPAR patch, selected real entries of the matrix logarithm.
+\node[letter,anchor=west] at (8.17,15.75) {B};
+\node[stage,anchor=west] at (8.75,15.75) {SPAR frontend};
+\node[note,anchor=east] at (17.94,15.75) {Local pairs; global spectral weights};
+\begin{scope}[shift={(8.42,13.72)}]
+  \foreach \r in {0,1,2} \foreach \c in {0,1,2} {
+    \fill[gray!22] (.52*\c,.46*\r) circle (.085);
+  }
+  \draw[gray,densely dotted,line width=.7pt] (0,.46) -- (.52,.46);
+  \draw[feature,line width=1.1pt] (.52,.46) -- (1.04,.46);
+  \draw[feature,line width=1.1pt] (.52,.46) -- (.52,0);
+  \fill[gray] (0,.46) circle (.09);
+  \fill[feature] (.52,.46) circle (.12);
+  \fill[feature] (1.04,.46) circle (.10);
+  \fill[feature] (.52,0) circle (.10);
+  \node[font=\fontsize{8}{8.5}\selectfont,anchor=south] at (0,.62) {$a$};
+  \node[font=\fontsize{8}{8.5}\selectfont,anchor=south] at (.52,.62) {$c$};
+  \node[font=\fontsize{8}{8.5}\selectfont,anchor=south] at (1.04,.62) {$r$};
+  \node[font=\fontsize{8}{8.5}\selectfont,anchor=east] at (.33,-.02) {$v$};
+\end{scope}
+\node[note] at (9.02,13.05) {4-channel patch\\160 ms EMG window};
+\draw[flow] (9.83,14.25) -- (10.64,14.25);
+\begin{scope}[shift={(11.02,13.66)}]
+  \foreach \o in {.28,.14,0} {
+    \filldraw[fill=white,draw=gray!60,line width=.4pt] (\o,\o) rectangle (1.2+\o,1.2+\o);
+  }
+  \foreach \r in {0,...,3} \foreach \c in {0,...,3} {
+    \filldraw[fill=gray!10,draw=white,line width=.35pt]
+      (.30*\c,.30*\r) rectangle (.30*\c+.30,.30*\r+.30);
+  }
+  % Matrix row zero is visually the top row; columns 0, 2 and 3 are kept.
+  \foreach \c in {0,2,3} {
+    \filldraw[fill=feature!55,draw=feature,line width=.5pt]
+      (.30*\c,.90) rectangle (.30*\c+.30,1.20);
+  }
+\end{scope}
+\node at (11.82,15.26) {Six spectral bands};
+\node[note] at (11.82,13.04) {$4\!\times\!4$ matrices $S_b$\\$L_b=\operatorname{Re}[\log S_b]$};
+\draw[blueflow] (12.78,14.25) -- (13.66,14.25);
+\node[align=center] at (14.56,14.33) {Keep $L_{00}$,\\$L_{02}$, $L_{03}$};
+\draw[blueflow] (15.42,14.25) -- (16.18,14.25);
+\begin{scope}[shift={(16.50,13.69)}]\DescriptorMatrix\end{scope}
+\node at (16.84,15.26) {$h^{\rm SPAR}_{c,t}$};
+\node[note] at (16.30,13.04) {Standardize + mask\\18 components};
+\node[fitnote,minimum width=9.18cm,minimum height=.90cm] at (13.14,11.95)
+  {Fit scaling and 1,024 Lloyd centroids on training EMG only\\Separate codebook per participant; freeze before pose fitting};
+
+% A and B feed the same rule but never share codebook coordinates.
+\draw[blueflow] (6.99,14.25) -- (7.61,14.25) -- (7.61,10.98);
+\draw[blueflow] (17.34,14.25) -- (17.99,14.25) -- (17.99,10.98);
+\node[note] at (8.65,10.68) {Either frontend; each has its own codebook};
+
+% C: actual 18-dimensional validation descriptor and closest codebook entries.
+\node[letter,anchor=west] at (.20,10.25) {C};
+\node[stage,anchor=west] at (.78,10.25) {Replace the vector with its nearest-code index};
+\node at (2.50,9.42) {Descriptor $h$};
+\begin{scope}[shift={(.86,8.72)}]\DescriptorStrip\end{scope}
+\node[note] at (2.50,8.36) {Actual SPAR example; 18 components};
+\begin{scope}[shift={(1.31,7.83)}]\ValueKey\end{scope}
+\node[note] at (2.50,7.22) {Standardized component value};
+\draw[blueflow] (4.42,8.89) -- (5.39,8.89);
+\node at (8.68,9.78) {Frozen codebook $E$};
+\begin{scope}[shift={(6.76,9.02)}]\CodebookRows\end{scope}
+\node[note] at (8.64,7.48) {Three nearest of 1,024 vectors shown};
+\draw[redflow] (10.45,9.18) -- (12.45,9.18);
+\node[note,text=token] at (11.53,9.51) {Select};
+\node at (14.51,9.80) {Token ID $q$};
+\node[block,draw=token,fill=token!5,minimum width=1.54cm,minimum height=.92cm,
+      font=\bfseries\fontsize{18}{20}\selectfont,text=token] at (14.51,9.02) {\ExampleToken};
+\begin{scope}[shift={(12.485,7.89)}]\TokenBits\end{scope}
+\node[note] at (14.51,7.48) {10-bit binary value};
+\node[font=\fontsize{11}{12}\selectfont] at (7.58,6.53)
+  {$q_{c,t}=\underset{k\in\{0,\ldots,1023\}}{\arg\min}\;\lVert h_{c,t}-e_k\rVert_2^2$};
+\node[note,text=token] at (14.51,6.53) {One ID per channel\\every 20 ms};
+
+% D: the receiver consumes recovered vectors, not ordinal token numbers.
+\node[letter,anchor=west] at (.20,5.59) {D};
+\node[stage,anchor=west] at (.78,5.59) {Recover vectors and decode movement};
+\node[note,anchor=east] at (17.94,5.59) {DPose example};
+\node at (2.09,4.98) {Token history};
+\begin{scope}[shift={(.58,3.48)}]\TokenHistory\end{scope}
+\draw[flow] (.75,3.09) -- (3.38,3.09);
+\node[note,fill=white] at (2.09,3.09) {Time};
+\node[note] at (2.09,2.55) {320 IDs per update\\400 bytes if 10-bit packed};
+\draw[redflow] (3.75,4.12) -- (4.48,4.12);
+\node[block,draw=feature,minimum width=2.54cm,minimum height=1.20cm] (lookup) at (5.83,4.12)
+  {Lookup $\widehat h=E[q]$\\Restore SPAR mask};
+\node[note] at (5.83,2.96) {Frozen centroids};
+\draw[blueflow] (lookup.east) -- (8.13,4.12);
+\node[block,minimum width=3.44cm,minimum height=1.20cm] (pose) at (9.99,4.12)
+  {Spatial CNN\\+ causal TCN};
+\node[note] at (9.75,2.93) {Causal history\\up to 100 frames};
+\draw[flow] (pose.east) -- (12.56,4.12);
+\node[inner sep=0] at (14.35,4.00) {\includegraphics[width=3.03cm,height=2.70cm,keepaspectratio]{pose.pdf}};
+\node[align=center] at (16.99,4.16) {3D pose\\$\widehat y_t$};
+\node[note] at (14.75,2.35) {20 wrist-relative landmarks};
+\node[fitnote,minimum width=3.77cm,minimum height=.72cm] (labels) at (9.99,1.95)
+  {Pose labels train the decoder};
+\draw[flow,dashed] (11.20,2.31) -- (11.20,3.52);
+\node[note,text=feature] at (8.97,.78)
+  {Paired continuous control: send $h$ directly to a separately fitted decoder};
+\end{tikzpicture}
+\end{document}

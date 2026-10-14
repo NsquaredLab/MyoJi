@@ -1,0 +1,16 @@
+model,pose_error_mean_mm,pose_error_participant_sd_mm,decoder_parameters_million,receiver_latency_mean_ms,receiver_latency_call_sd_ms,n_participants,source_page
+CNN / adapted,11.318,2.404,7.489,1.180,0.007,9,8
+TCN / tokens (matched),15.012,2.644,7.549,2.251,0.004,9,8
+TCN / features (matched),14.645,2.311,7.549,2.248,0.004,9,8
+Transformer / tokens (matched),19.392,2.866,7.445,2.541,0.007,9,8
+Transformer / features (matched),18.948,3.299,7.445,2.541,0.006,9,8
+Qwen / bypass tokens,16.614,3.362,0.401,0.477,0.002,9,8
+Qwen / random tokens,19.140,3.397,440.870,11.951,0.116,9,8
+Qwen / pretrained tokens,18.245,2.631,440.870,12.072,0.186,9,8
+Qwen / pretrained features,17.500,2.827,440.870,12.025,0.107,9,8
+TabPFN 3.5 / SPAR tokens,10.439,2.001,218.983,153295.076,18.764,9,8
+TabPFN 3.5 / SPAR features,10.288,2.022,218.983,153226.692,11.683,9,8
+Proposed / learned tokens,13.214,2.614,0.705,1.349,0.005,9,8
+Proposed / learned features,12.987,2.594,0.705,1.282,0.005,9,8
+Proposed / SPAR tokens,10.812,2.133,0.689,1.151,0.005,9,8
+Proposed / SPAR features,10.946,2.100,0.689,1.134,0.003,9,8

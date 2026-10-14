@@ -1,0 +1,77 @@
+comparison_id,alternative,reference,outcome,effect_mm,ci95_lower_mm,ci95_upper_mm,p_raw,p_maxT_76,n_participants,source_page
+HD01,TCN / tokens (matched),CNN / matched,mean_pose_error,+0.541,-0.815,+1.585,0.3594,0.9961,9,9
+HD02,TCN / features (matched),CNN / matched,mean_pose_error,+0.174,-1.047,+1.392,0.7188,1.0000,9,9
+HD03,Transformer / tokens (matched),CNN / matched,mean_pose_error,+4.922,+2.959,+6.663,0.0078,0.0117,9,9
+HD04,Transformer / features (matched),CNN / matched,mean_pose_error,+4.477,+2.441,+6.522,0.0078,0.0273,9,9
+HD05,Proposed / learned tokens,CNN / matched,mean_pose_error,-1.257,-2.226,-0.656,0.0039,0.2305,9,9
+HD06,Proposed / learned features,CNN / matched,mean_pose_error,-1.483,-2.409,-0.925,0.0039,0.1016,9,9
+HD07,Qwen / bypass tokens,CNN / matched,mean_pose_error,+2.144,+0.289,+3.640,0.0312,0.2773,9,9
+HD08,Qwen / random tokens,CNN / matched,mean_pose_error,+4.669,+2.282,+6.551,0.0078,0.0508,9,9
+HD09,Qwen / pretrained tokens,CNN / matched,mean_pose_error,+3.775,+1.756,+5.604,0.0078,0.0547,9,9
+HD10,Qwen / pretrained features,CNN / matched,mean_pose_error,+3.029,+0.887,+5.033,0.0156,0.1484,9,9
+HD11,Small waveform CNN + TCN,CNN / matched,mean_pose_error,+6.443,+5.358,+7.477,0.0039,0.0039,9,9
+HD12,Small TCN / tokens,CNN / matched,mean_pose_error,+4.064,+2.155,+5.893,0.0039,0.0195,9,9
+HD13,Small TCN / features,CNN / matched,mean_pose_error,+2.871,+1.104,+4.600,0.0117,0.0977,9,9
+HD14,Small Transformer / tokens,CNN / matched,mean_pose_error,+5.159,+3.011,+7.271,0.0039,0.0117,9,9
+HD15,TCN / tokens (matched),CNN / adapted,mean_pose_error,+3.694,+2.377,+5.059,0.0039,0.0078,9,9
+HD16,TCN / features (matched),CNN / adapted,mean_pose_error,+3.327,+2.058,+4.560,0.0039,0.0117,9,9
+HD17,Transformer / tokens (matched),CNN / adapted,mean_pose_error,+8.074,+6.155,+10.091,0.0039,0.0039,9,9
+HD18,Transformer / features (matched),CNN / adapted,mean_pose_error,+7.630,+5.443,+9.973,0.0039,0.0078,9,9
+HD19,Proposed / learned tokens,CNN / adapted,mean_pose_error,+1.896,+0.854,+2.890,0.0078,0.0703,9,9
+HD20,Proposed / learned features,CNN / adapted,mean_pose_error,+1.669,+0.660,+2.693,0.0078,0.1016,9,9
+HD21,Qwen / bypass tokens,CNN / adapted,mean_pose_error,+5.296,+3.279,+7.306,0.0039,0.0078,9,9
+HD22,Qwen / random tokens,CNN / adapted,mean_pose_error,+7.822,+5.265,+10.258,0.0039,0.0078,9,9
+HD23,Qwen / pretrained tokens,CNN / adapted,mean_pose_error,+6.927,+4.864,+9.133,0.0039,0.0078,9,9
+HD24,Qwen / pretrained features,CNN / adapted,mean_pose_error,+6.182,+3.744,+8.609,0.0039,0.0078,9,9
+HD25,Small waveform CNN + TCN,CNN / adapted,mean_pose_error,+9.595,+8.195,+11.149,0.0039,0.0039,9,9
+HD26,Small TCN / tokens,CNN / adapted,mean_pose_error,+7.216,+5.144,+9.474,0.0039,0.0078,9,9
+HD27,Small TCN / features,CNN / adapted,mean_pose_error,+6.024,+4.073,+8.076,0.0039,0.0078,9,9
+HD28,Small Transformer / tokens,CNN / adapted,mean_pose_error,+8.312,+6.061,+10.835,0.0039,0.0078,9,9
+HD29,Proposed / learned tokens,Proposed / learned features,mean_pose_error,+0.226,+0.055,+0.419,0.0195,0.2812,9,9
+HD30,TCN / tokens (matched),CNN / TBME retrained,mean_pose_error,+0.704,-1.715,+2.730,0.4961,1.0000,9,9
+HD31,TCN / features (matched),CNN / TBME retrained,mean_pose_error,+0.337,-1.801,+2.284,0.7344,1.0000,9,9
+HD32,Transformer / tokens (matched),CNN / TBME retrained,mean_pose_error,+5.085,+2.114,+7.348,0.0078,0.0742,9,9
+HD33,Transformer / features (matched),CNN / TBME retrained,mean_pose_error,+4.640,+1.501,+7.289,0.0117,0.1172,9,9
+HD34,Proposed / learned tokens,CNN / TBME retrained,mean_pose_error,-1.094,-3.329,+0.240,0.2188,0.9648,9,9
+HD35,Proposed / learned features,CNN / TBME retrained,mean_pose_error,-1.320,-3.373,+0.044,0.0664,0.8359,9,9
+HD36,Qwen / bypass tokens,CNN / TBME retrained,mean_pose_error,+2.307,-0.262,+4.151,0.0781,0.5586,9,9
+HD37,Qwen / random tokens,CNN / TBME retrained,mean_pose_error,+4.832,+1.497,+7.352,0.0117,0.1172,9,9
+HD38,Qwen / pretrained tokens,CNN / TBME retrained,mean_pose_error,+3.938,+1.171,+6.274,0.0195,0.1406,9,9
+HD39,Qwen / pretrained features,CNN / TBME retrained,mean_pose_error,+3.192,+0.165,+5.634,0.0430,0.3242,9,9
+HD40,Small waveform CNN + TCN,CNN / TBME retrained,mean_pose_error,+6.606,+4.692,+8.466,0.0039,0.0078,9,9
+HD41,Small TCN / tokens,CNN / TBME retrained,mean_pose_error,+4.227,+1.708,+6.439,0.0117,0.0820,9,9
+HD42,Small TCN / features,CNN / TBME retrained,mean_pose_error,+3.034,+0.380,+5.347,0.0352,0.2852,9,9
+HD43,Small Transformer / tokens,CNN / TBME retrained,mean_pose_error,+5.322,+2.475,+7.915,0.0078,0.0664,9,9
+HD44,CNN / matched,CNN / TBME retrained,mean_pose_error,+0.163,-0.978,+1.134,0.7383,1.0000,9,9
+HD45,CNN / adapted,CNN / TBME retrained,mean_pose_error,-2.990,-4.608,-1.606,0.0039,0.0625,9,9
+HD46,TCN / tokens (matched),TCN / features (matched),mean_pose_error,+0.367,-0.096,+0.838,0.1133,0.7383,9,10
+HD47,Transformer / tokens (matched),Transformer / features (matched),mean_pose_error,+0.445,-0.430,+1.123,0.2461,0.9844,9,10
+HD48,Qwen / pretrained tokens,Qwen / pretrained features,mean_pose_error,+0.745,+0.227,+1.293,0.0195,0.1914,9,10
+HD49,Delta: TCN (matched),Delta: Proposed (learned),signed_quantization_effect,+0.140,-0.336,+0.616,0.4727,1.0000,9,10
+HD50,Delta: Transformer (matched),Delta: Proposed (learned),signed_quantization_effect,+0.219,-0.580,+0.828,0.5273,1.0000,9,10
+HD51,Delta: Qwen (pretrained),Delta: Proposed (learned),signed_quantization_effect,+0.519,-0.011,+0.995,0.0547,0.4102,9,10
+HD52,|Delta|: TCN,|Delta|: Proposed (learned),absolute_task_quantization_effect,+0.634,+0.364,+0.978,0.0039,0.0586,9,10
+HD53,|Delta|: Transformer,|Delta|: Proposed (learned),absolute_task_quantization_effect,+0.993,+0.443,+1.493,0.0078,0.0625,9,10
+HD54,|Delta|: Qwen,|Delta|: Proposed (learned),absolute_task_quantization_effect,+1.608,+0.987,+2.252,0.0039,0.0117,9,10
+HD55,Proposed / SPAR tokens,CNN / adapted,mean_pose_error,-0.506,-1.421,+0.088,0.1523,0.9336,9,10
+HD56,Proposed / SPAR features,CNN / adapted,mean_pose_error,-0.372,-1.269,+0.375,0.4180,0.9961,9,10
+HD57,Proposed / SPAR tokens,CNN / matched,mean_pose_error,-3.658,-4.877,-2.605,0.0039,0.0078,9,10
+HD58,Proposed / SPAR features,CNN / matched,mean_pose_error,-3.525,-4.692,-2.527,0.0039,0.0078,9,10
+HD59,Proposed / SPAR tokens,CNN / TBME retrained,mean_pose_error,-3.495,-5.868,-1.890,0.0039,0.1016,9,10
+HD60,Proposed / SPAR features,CNN / TBME retrained,mean_pose_error,-3.362,-5.683,-1.744,0.0039,0.1133,9,10
+HD61,Proposed / SPAR tokens,Proposed / SPAR features,mean_pose_error,-0.134,-0.320,+0.046,0.1289,0.7734,9,10
+HD62,Proposed / SPAR tokens,Proposed / learned tokens,mean_pose_error,-2.401,-3.065,-1.693,0.0039,0.0078,9,10
+HD63,|Delta|: TCN,|Delta|: Proposed (SPAR),absolute_task_quantization_effect,+0.790,+0.584,+0.999,0.0039,0.0078,9,10
+HD64,|Delta|: Transformer,|Delta|: Proposed (SPAR),absolute_task_quantization_effect,+1.149,+0.744,+1.568,0.0039,0.0078,9,10
+HD65,|Delta|: Qwen,|Delta|: Proposed (SPAR),absolute_task_quantization_effect,+1.765,+1.067,+2.440,0.0039,0.0078,9,10
+HD66,|Delta|: Proposed (learned),|Delta|: Proposed (SPAR),absolute_task_quantization_effect,+0.157,-0.078,+0.374,0.1484,0.8047,9,10
+HD67,TabPFN 3.5 / SPAR tokens,CNN / adapted,mean_pose_error,-0.879,-1.890,-0.084,0.0234,0.5703,9,10
+HD68,TabPFN 3.5 / SPAR features,CNN / adapted,mean_pose_error,-1.030,-2.190,-0.233,0.0039,0.4844,9,10
+HD69,TabPFN 3.5 / SPAR tokens,CNN / matched,mean_pose_error,-4.032,-5.358,-2.785,0.0039,0.0078,9,10
+HD70,TabPFN 3.5 / SPAR features,CNN / matched,mean_pose_error,-4.183,-5.631,-2.868,0.0039,0.0078,9,10
+HD71,TabPFN 3.5 / SPAR tokens,CNN / TBME retrained,mean_pose_error,-3.869,-6.376,-2.029,0.0039,0.0859,9,10
+HD72,TabPFN 3.5 / SPAR features,CNN / TBME retrained,mean_pose_error,-4.020,-6.619,-2.191,0.0039,0.0859,9,10
+HD73,TabPFN 3.5 / SPAR tokens,Proposed / SPAR tokens,mean_pose_error,-0.373,-0.627,-0.098,0.0195,0.1797,9,10
+HD74,TabPFN 3.5 / SPAR features,Proposed / SPAR features,mean_pose_error,-0.658,-1.012,-0.323,0.0078,0.0664,9,10
+HD75,TabPFN 3.5 / SPAR tokens,TabPFN 3.5 / SPAR features,mean_pose_error,+0.151,+0.033,+0.307,0.0156,0.3750,9,10
+HD76,|Delta|: TabPFN 3.5,|Delta|: Proposed (SPAR),absolute_task_quantization_effect,-0.147,-0.307,+0.017,0.0781,0.5859,9,10

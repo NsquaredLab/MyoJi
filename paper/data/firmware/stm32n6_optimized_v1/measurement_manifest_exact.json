@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "frames_per_run": 16,
+  "warmup_frames": 16,
+  "seed": 260923,
+  "board": "NUCLEO-N657X0-Q",
+  "cpu_hz": 600000000,
+  "elf_sha256": "00eb6dfd35c36ae009b15d424c8553950bdec4f8b2afe205d554bc74e6ea22b5",
+  "selection": "Latest matching attempt per route/channel count, regardless of validation outcome.",
+  "runs": [
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184016.306750Z_spar_1ch",
+      "receipt_sha256": "87a77009fe909a237a3eb2f0ef1176c6c68bad7d15d1be28898f7af30cffcb01",
+      "frames_sha256": "34f6a249fdd05bbdcc08e1532f62a0aceff31cd5d5ce0f4ddcae8d9d17ed0838"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184018.874492Z_spar_4ch",
+      "receipt_sha256": "d1379fb06610e445d16da8f05ab9bfed3c759b409c08f12f94a52640a47c09d1",
+      "frames_sha256": "fbd491463b08b548f5e3ad9a95c96c6cef548d72450cfd771f464ccd96c8974e"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184021.051749Z_spar_8ch",
+      "receipt_sha256": "63fd7fd082fc39ec5b0477e21eb612efa00af95d303d4ce3727311481777cc16",
+      "frames_sha256": "270c159a93a973063a66b8546f503c8314ff34e30f429263cc3f42a02c47512b"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184023.148597Z_spar_16ch",
+      "receipt_sha256": "348f124cd0a3f888ed3a1f15d18a955f0acfb1f658584bc37f4d641d8110c242",
+      "frames_sha256": "2af7bd5a63cdf72179bf8ec311b96f4c58e60c5424cb38d272cd91082291d33b"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184025.453538Z_spar_24ch",
+      "receipt_sha256": "936ef056210630675260f932ee1bf7c7b8be460de68f7574f07ee1811da5ed45",
+      "frames_sha256": "b2ff52df44f34dbc9fa6b29bcbab61cb2af02812c45e149e0bec62f600ff22aa"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184027.857415Z_spar_30ch",
+      "receipt_sha256": "5351f80f0fd86ad7b246b3c105f5f307f1dfb2eed58c7f3db42a8a980a248dc0",
+      "frames_sha256": "5737aa848dd60b3ba7434b6b4bff9ea476a5570da655147ad11560c995e68a6b"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184030.245351Z_spar_32ch",
+      "receipt_sha256": "ac0b984db3f89ffa3b8e832bcb10691f2f179612328753d105745f0fdd592139",
+      "frames_sha256": "d0903b88bf44e999433b149f5c2b39e5abd4e5fbc9eb5f1b5cc9c7774851beda"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184032.882398Z_spar_33ch",
+      "receipt_sha256": "6a4ab44306f8a9b54ba935903210e58a7b0ff1b090415e70b7ce88d378e05700",
+      "frames_sha256": "257b41587c344aab70f38a1c542101d543f36825e5d48ca15adfe17eafa64976"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184035.559259Z_spar_38ch",
+      "receipt_sha256": "9374948354060ac7aae676a5fb292609b44779c60bc7be93426cbd6e39ca4532",
+      "frames_sha256": "7e6ad584290c09e97a7b5b558f24a0e2961fe8f4842734c2d5067c91e1538cc2"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184038.211515Z_spar_43ch",
+      "receipt_sha256": "68b8029bbd188c21404f428c266fb1768e327d8649a05e2359307e886c160e08",
+      "frames_sha256": "4c2bec9c328e9ab45f9737fa47c673d14c2544cb0c67cb5a82ea3113e29fb7c2"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184040.900722Z_spar_44ch",
+      "receipt_sha256": "9dd05b2674efd96a270c78c36587636b94f22ba33fa90013b6bb4bd85283c109",
+      "frames_sha256": "674b3a4e1a30f7513602f9a4f8909ff47a2712030b016c1404632937cbd098d7"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184043.719184Z_spar_45ch",
+      "receipt_sha256": "6b0d406f616176219ac0d06b04dbccd0579818d9546abdfb0e6c6d7f2cc3700b",
+      "frames_sha256": "8b255fdf1a2c534c2605d7843564516707d29c76ee18d351f05227b70993cbc6"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184046.331761Z_spar_46ch",
+      "receipt_sha256": "08e241f7d879548d9058dba7df6e32be0156c6ca1330346b7ab47a471b423153",
+      "frames_sha256": "28eb84b9b0823162fa7f9e5aabe667a5d4d4144378c3d290544c609d69fa1b2c"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184049.037451Z_spar_47ch",
+      "receipt_sha256": "df6c782aa8e42e2f7da1ec90358512025bb9f3167c4773dcad0c7378aba8df93",
+      "frames_sha256": "62240448f3b18998303c259ea3629b8da9abd6a6d9860868f19323b94838983e"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184051.748909Z_spar_48ch",
+      "receipt_sha256": "f2f8f061ef5479161dd1abb45ebcd3f14c35275e06eb634b994c1f313aa38c37",
+      "frames_sha256": "8a65e31c93f4dd0ffcb445786e9358bbf60d8c9cd851a9facefe726d5cc22bad"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184054.463472Z_spar_49ch",
+      "receipt_sha256": "c00016a67e08f749b336030bbd6cffb0520745748d0678b22950d35ca7314b9e",
+      "frames_sha256": "81592e653494d547e763fe0b55099a8058eb886a9f267f32c3d7d61a44c63d74"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184057.283049Z_spar_56ch",
+      "receipt_sha256": "e3e3e9161acd439fb02ee4fd896517e50c087e6143ee48d72f21871258acd54a",
+      "frames_sha256": "297ef291cbf0e30c6a55822638a9c562f38cb46319be05302f1d76b8ef68d1f8"
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184100.229423Z_spar_320ch",
+      "receipt_sha256": "d386cde1672809b8556780a7dba9983f0ccb8415e0cdd90bc1ae9331ea5c596d",
+      "frames_sha256": "3eebc21751d6727c31f3f72387ad2e0db1284a2d145694105589e6676acdae8d"
+    }
+  ],
+  "attempts": [
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184016.306750Z_spar_1ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184018.874492Z_spar_4ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184021.051749Z_spar_8ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184023.148597Z_spar_16ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184025.453538Z_spar_24ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184027.857415Z_spar_30ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184030.245351Z_spar_32ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184032.882398Z_spar_33ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184035.559259Z_spar_38ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184038.211515Z_spar_43ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184040.900722Z_spar_44ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184043.719184Z_spar_45ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184046.331761Z_spar_46ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184049.037451Z_spar_47ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184051.748909Z_spar_48ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184054.463472Z_spar_49ch",
+      "complete": true,
+      "output_verified": false
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184057.283049Z_spar_56ch",
+      "complete": true,
+      "output_verified": true
+    },
+    {
+      "path": "results/stm32n6_optimized_v1/runs/20260924T184100.229423Z_spar_320ch",
+      "complete": true,
+      "output_verified": true
+    }
+  ]
+}
