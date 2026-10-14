@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+title: myoji
+message: >-
+  If you use this software, please cite the paper below.
+type: software
+license: AGPL-3.0-or-later
+version: 0.1.0
+authors:
+  - family-names: Sîmpetru
+    given-names: Raul C.
+    affiliation: Friedrich-Alexander-Universität Erlangen-Nürnberg
+    orcid: 'https://orcid.org/0000-0003-0455-0168'
+  - family-names: Olamazadeh
+    given-names: Amin
+    affiliation: Friedrich-Alexander-Universität Erlangen-Nürnberg
+    orcid: 'https://orcid.org/0009-0002-6830-5559'
+  - family-names: Rohlf
+    given-names: Devon
+    affiliation: Friedrich-Alexander-Universität Erlangen-Nürnberg
+    orcid: 'https://orcid.org/0000-0003-1601-0046'
+  - family-names: Cnejevici
+    given-names: Vlad
+    affiliation: Friedrich-Alexander-Universität Erlangen-Nürnberg
+    orcid: 'https://orcid.org/0000-0003-2291-5941'
+  - family-names: Del Vecchio
+    given-names: Alessandro
+    affiliation: Friedrich-Alexander-Universität Erlangen-Nürnberg
+    orcid: 'https://orcid.org/0000-0002-7118-5554'
+keywords:
+  - electromyography
+  - HD-EMG
+  - tokenization
+  - hand pose
+  - myocontrol
+preferred-citation:
+  type: unpublished
+  title: EMG Tokenization Preserves 3D Hand-Pose Decoding at a Fraction of the Bitrate
+  year: 2026
+  authors:
+    - family-names: Sîmpetru
+      given-names: Raul C.
+    - family-names: Olamazadeh
+      given-names: Amin
+    - family-names: Rohlf
+      given-names: Devon
+    - family-names: Cnejevici
+      given-names: Vlad
+    - family-names: Del Vecchio
+      given-names: Alessandro
