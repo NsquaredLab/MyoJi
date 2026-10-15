@@ -7,7 +7,7 @@ The following parts come from elsewhere and keep their own terms.
 
 | what | where | origin | licence |
 |---|---|---|---|
-| SPAR feature extraction | `src/myoji/spar.py` | Adapted from MyoKit's `SPAR_RIE_M` / `SPAR_SIMPLE` by Amin Olamazadeh (commit `e19a2fcf8dbbcf836e586eadc7dd9dec2942d252`) | MIT |
+| SPAR feature extraction | `src/myoji/spar.py` | Adapted from MyoKit's `SPAR_RIE_M` / `SPAR_SIMPLE` by Amin Olamazadeh (commit `e19a2fcf8dbbcf836e586eadc7dd9dec2942d252`) | as this repository |
 | Channel tokenization frontend, RaulNet V20 | `src/myoji/_vendor/` | MyoTorch (formerly MyoVerse), Raul C. Sîmpetru and Vlad Cnejevici | GPL-3.0 (`src/myoji/_vendor/LICENSE-GPL-3.0`) |
 | RaulNet V19 (adapted-CNN receiver) | `paper/scripts/vendor/raulnet_v19.py` | MyoTorch | GPL-3.0 |
 | One Euro filter (display smoothing only) | `paper/scripts/vendor/one_euro_filter.py` | Nicolas Roussel and Géry Casiez, Inria ([OneEuroFilter](https://github.com/casiez/OneEuroFilter)) | BSD-3-Clause (`paper/scripts/vendor/OneEuroFilter-LICENSE`) |
@@ -23,6 +23,3 @@ The following parts come from elsewhere and keep their own terms.
 | Qwen3-0.6B-Base (Hugging Face) | Qwen3 receiver in `paper/scripts` | Apache-2.0 |
 | TabPFN 9.0.0 (model v3.5) | TabPFN receiver in `paper/scripts` | Prior Labs licence |
 | [BioCodec](https://github.com/klean2050/BioCodec-release) (commit `575bf6e`) | codec comparison in `paper/scripts` | MIT, Kleanthis Avramidis |
-
-Trained artifacts (learned tokenizer weights, SPAR codebooks) are distributed separately from
-this repository. They were trained on emg2pose and are therefore licensed CC BY-NC-SA 4.0.

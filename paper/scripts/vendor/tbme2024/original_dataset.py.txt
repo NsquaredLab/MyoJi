@@ -1,0 +1,1158 @@
+"""Contains the dataset and all necessary methods to make it work."""
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Sequence, Tuple
+
+import numpy as np
+import pandas as pd
+import pytorch_lightning as pl
+import zarr
+from scipy import interpolate
+from scipy.io import loadmat
+from scipy.signal import butter, filtfilt, iirnotch, sosfiltfilt
+from torch.utils.data import DataLoader, Dataset
+from tqdm import tqdm
+
+from doc_octopy.datasets.emg_augmentations import AUGMENTATION_SELECTOR
+from doc_octopy.utils.constants import CAMERA_SAMPLING_FREQUENCY, EMG_SAMPLING_FREQUENCY
+
+
+def _interpolate_df(df: pd.DataFrame, emg_array_length__samples: int) -> Tuple[pd.DataFrame, int]:
+    """Interpolate the dataframe to the length of the emg array.
+    Attributes
+    ----------
+    df : pd.DataFrame
+        The dataframe to interpolate.
+    emg_array_length__samples : int
+        The length of the emg array.
+
+    Returns
+    -------
+    Tuple[pd.DataFrame, int]
+        The interpolated dataframe and the number of samples that were added.
+    """
+    time_stamps = df.index / CAMERA_SAMPLING_FREQUENCY
+    emg_time_stamps = np.arange(0, emg_array_length__samples) / EMG_SAMPLING_FREQUENCY
+
+    # The emg and camera recordings are started but not stopped at the same time ._.
+    samples_that_can_be_interpolated = np.where(emg_time_stamps <= time_stamps[-1])
+
+    output_df = pd.DataFrame.from_dict(
+        {
+            column: (
+                interpolate.interp1d(x=time_stamps, y=df[column], kind="cubic")(
+                    emg_time_stamps[samples_that_can_be_interpolated]
+                )
+            ).astype(np.float32)
+            for column in df.columns
+        }
+    )
+
+    output_df["fnum_rounded"] = np.rint(output_df["fnum"]).astype(int)
+    output_df["camera_timesteps"] = (
+        time_stamps[output_df["fnum_rounded"] - output_df["fnum_rounded"][0]]
+        + output_df["fnum_rounded"][0] / CAMERA_SAMPLING_FREQUENCY
+    )
+
+    return (
+        output_df,
+        samples_that_can_be_interpolated[0][-1] + 1,
+    )
+
+
+class _KinematicsEMGDataset(pl.LightningDataModule):
+    class _KinematicsEMGDatasetParser(Dataset):
+        def __init__(
+            self,
+            hdf5_file: Path,
+            subset_name: str,
+            length: int,
+            input_type=np.float32,
+            label_type=np.float32,
+            shuffle_channels=False,
+            output_type: str = "ERROR",
+        ):
+            """Initialize the dataset parser.
+            Attributes
+            ----------
+            hdf5_file : Path
+                The path to the hdf5 file.
+            subset_name : str
+                The name of the subset to use.
+            length : int
+                The length of the dataset.
+            input_type : np.dtype, optional
+                The type of the input data, by default np.float32
+            label_type : np.dtype, optional
+                The type of the label data, by default np.float32
+            shuffle_channels : bool, optional
+                Whether to shuffle the channels, by default False
+            output_type : str
+                The type of the output data, by default "ERROR"
+            """
+            self.hdf5_file_path = hdf5_file
+            self.subset_name = subset_name
+
+            self.input_type = input_type
+            self.label_type = label_type
+
+            self.length = length
+
+            self.shuffle_channels = shuffle_channels
+
+            self.output_type = output_type
+
+        def __len__(self):
+            return self.length
+
+        def __getitem__(self, idx) -> Tuple[np.ndarray, np.ndarray]:
+            with zarr.open(str(self.hdf5_file_path), "r") as f:
+                output = f[self.subset_name]
+
+                emg_chunk = output["emg"][idx]
+
+                if self.shuffle_channels:
+                    channel_indices = []
+
+                    for i in range(5):
+                        temp = np.arange(i * 64, (i + 1) * 64)
+                        np.random.shuffle(temp)
+
+                        channel_indices.append(temp)
+
+                    emg_chunk = emg_chunk[:, np.concatenate(channel_indices)]
+
+                return np.nan_to_num(emg_chunk.astype(self.input_type)), np.nan_to_num(
+                    output[self.output_type][idx].astype(self.label_type)
+                )
+
+    def __init__(
+        self,
+        raw_data_path: Path,
+        processed_data_path: Path,
+        chunk_size__samples: int,
+        distance_between_chunks__samples: int,
+        experiments_to_use: Sequence[str],
+        experiment_to_use_as_test: Optional[str],
+        data_filter_cutoff_freq__hz: Optional[int],
+        supplementary_filter_cutoff_freq__hz: Optional[int],
+        data_filter_order: int = 2,
+        supplementary_filter_order: int = 2,
+        run_preprocess: bool = False,
+        run_splitting: bool = False,
+        rectify_emg: bool = False,
+        seed: Optional[int] = None,
+        dataloader_parameters: Dict[str, Any] = None,
+        shuffle_channels: bool = False,
+        shuffle_training_data: bool = True,
+        use_virtual_hand_data: bool = False,
+        augmentations_to_use: Optional[Sequence[Tuple[str, Dict[str, Any]]]] = None,
+        amount_of_chunks_to_augment_at_once: int = 80,
+        remove_unsplit_dataset: bool = True,
+        output_type: str = "ERROR",
+        nr_of_outputs: int = -1,
+    ):
+        """Initialize the dataset.
+
+        Attributes
+        ----------
+        raw_data_path : Path
+            The path to the raw data.
+        processed_data_path : Path
+            The path to the processed data.
+        chunk_size__samples : int
+            The size of the chunks to use.
+        distance_between_chunks__samples : int
+            The distance between the chunks.
+        experiments_to_use : Sequence[str]
+            The experiments to use.
+        experiment_to_use_as_test : Optional[str]
+            The experiment to use as test data.
+        data_filter_cutoff_freq__hz : Optional[int]
+            The cutoff frequency of the data filter.
+        supplementary_filter_cutoff_freq__hz : Optional[int]
+            The cutoff frequency of the supplementary filter.
+        data_filter_order : int, optional
+            The order of the data filter, by default 2
+        supplementary_filter_order : int, optional
+            The order of the supplementary filter, by default 2
+        run_preprocess : bool, optional
+            Whether to run the preprocessing, by default False
+        run_splitting : bool, optional
+            Whether to run the splitting, by default False
+        rectify_emg : bool, optional
+            Whether to rectify the EMG data, by default False
+        seed : Optional[int], optional
+            The seed to use, by default None
+        dataloader_parameters : Dict[str, Any], optional
+            The parameters to use for the dataloader, by default None
+        shuffle_channels : bool, optional
+            Whether to shuffle the channels, by default False
+        shuffle_training_data : bool, optional
+            Whether to shuffle the training data, by default True
+        use_virtual_hand_data : bool, optional
+            Whether to use the virtual hand data, by default False
+        augmentations_to_use : Optional[Sequence[Tuple[str, Dict[str, Any]]]], optional
+            The augmentations to use, by default None
+        amount_of_chunks_to_augment_at_once : int, optional
+            The amount of chunks to augment at once, by default 80
+        remove_unsplit_dataset : bool, optional
+            Whether to remove the unsplit dataset, by default True
+        output_type : str
+            The type of the output data, by default "ERROR"
+        nr_of_outputs : int
+            The number of outputs, by default -1
+        """
+        super().__init__()
+        self.data_filter_cutoff_freq__hz = data_filter_cutoff_freq__hz
+        self.data_filter_order = data_filter_order
+
+        self.supplementary_filter_cutoff_freq__hz = supplementary_filter_cutoff_freq__hz
+        self.supplementary_filter_order = supplementary_filter_order
+
+        self.rectify_emg = rectify_emg
+
+        if chunk_size__samples < 1:
+            raise ValueError('"chunk_size__samples" must be >= 1!')
+        self.chunk_size__samples = chunk_size__samples
+
+        if distance_between_chunks__samples < 1:
+            raise ValueError('"distance_between_chunks__samples" must be >= 1!')
+        self.distance_between_chunks__samples = distance_between_chunks__samples
+
+        self.raw_data_path = raw_data_path
+        self.processed_data_path = processed_data_path
+        self.run_preprocess = run_preprocess
+
+        self.run_splitting = run_splitting
+        self.seed = seed
+        self.experiments_to_use = experiments_to_use
+        self.experiment_to_use_as_test = experiment_to_use_as_test
+
+        if dataloader_parameters is None:
+            raise ValueError("DataLoader parameters must be set!")
+        self.dataloader_parameters = dataloader_parameters
+
+        self.shuffle_channels = shuffle_channels
+        self.shuffle_training_data = shuffle_training_data
+
+        self.use_virtual_hand_data = use_virtual_hand_data
+
+        self.augmentations_to_use = augmentations_to_use
+        self.amount_of_chunks_to_augment_at_once = amount_of_chunks_to_augment_at_once
+
+        self.remove_unsplit_dataset = remove_unsplit_dataset
+
+        self.output_type = output_type
+        self.nr_of_outputs = nr_of_outputs
+
+    def prepare_data(self):
+        """Processes the EMG and kinematics information from the folder specified in self.raw_data_path and
+        saves it to self.processed_data_path.
+
+        Note
+        ----
+            The signal will be chunked into n chunks of size self.chunk_size__samples that slide with
+            self.distance_between_chunks__samples (overlap is therefore possible).
+        """
+        if self.run_preprocess:
+            Path.mkdir(self.processed_data_path, parents=True, exist_ok=True)
+            dataset_file = zarr.open(str(self.processed_data_path / "dataset.zarr"), "w")
+
+            data_filter_sos = None
+            if self.data_filter_cutoff_freq__hz is not None:
+                data_filter_sos = butter(
+                    N=self.data_filter_order,
+                    Wn=self.data_filter_cutoff_freq__hz,
+                    btype="low",
+                    analog=False,
+                    output="sos",
+                    fs=EMG_SAMPLING_FREQUENCY,
+                )
+
+            supplementary_filter_sos = None
+            if self.supplementary_filter_cutoff_freq__hz is not None:
+                supplementary_filter_sos = butter(
+                    N=self.supplementary_filter_order,
+                    Wn=self.supplementary_filter_cutoff_freq__hz,
+                    btype="low",
+                    analog=False,
+                    output="sos",
+                    fs=EMG_SAMPLING_FREQUENCY,
+                )
+
+            for experiment_path, experiment_name in (
+                tqdm_bar := tqdm(
+                    [(self.raw_data_path / e, e) for e in self.experiments_to_use],
+                    desc="Splitting individual experiments into chunks",
+                )
+            ):
+                tqdm_bar.set_postfix({"experiment": experiment_name})
+
+                for file_path in experiment_path.rglob("*.mat"):
+                    emg_signal = loadmat(str(file_path), variable_names=("EMG_SYNC",))["EMG_SYNC"]
+
+                    (
+                        ground_truths_interpolated,
+                        fnum_rounded_and_camera_time_stamps,
+                        upper_limit,
+                    ) = self.get_ground_truth_information(file_path, emg_signal.shape[1])
+
+                    emg_signal = emg_signal[:, int(4.5 * EMG_SAMPLING_FREQUENCY) : upper_limit]
+                    ground_truths_interpolated = ground_truths_interpolated[int(4.5 * EMG_SAMPLING_FREQUENCY) :]
+                    fnum_rounded_and_camera_time_stamps = fnum_rounded_and_camera_time_stamps[
+                        int(4.5 * EMG_SAMPLING_FREQUENCY) :
+                    ]
+
+                    emg_signal = self._split_emg_into_chunks(input_emg=emg_signal)
+
+                    # Do all the filtering if necessary
+                    emg_signal = self._filter_emg(emg_signal, data_filter_sos, supplementary_filter_sos)
+
+                    fnum_rounded_and_camera_time_stamps = np.apply_along_axis(
+                        lambda x: x[[0, -1]],
+                        arr=np.stack(
+                            [
+                                fnum_rounded_and_camera_time_stamps[
+                                    i
+                                    * self.distance_between_chunks__samples : i
+                                    * self.distance_between_chunks__samples
+                                    + self.chunk_size__samples,
+                                ]
+                                for i in range(
+                                    (fnum_rounded_and_camera_time_stamps.shape[0] - self.chunk_size__samples)
+                                    // self.distance_between_chunks__samples
+                                    + 1,
+                                )
+                            ]
+                        ),
+                        axis=1,
+                    )
+
+                    ground_truths_interpolated_temp = []
+                    i = 0
+                    while i + self.chunk_size__samples <= ground_truths_interpolated.shape[0]:
+                        ground_truths_interpolated_temp.append(
+                            np.nan_to_num(
+                                np.mean(
+                                    ground_truths_interpolated[i : i + self.chunk_size__samples],
+                                    axis=0,
+                                )
+                            )
+                        )
+                        i += self.distance_between_chunks__samples
+                    position_interpolated = np.stack(ground_truths_interpolated_temp).astype(np.float32)
+                    del ground_truths_interpolated_temp
+
+                    group_name = str(experiment_name).replace("\\", "/")
+                    group = dataset_file.create_group(group_name)
+                    for df_name, df in (
+                        ("emg", emg_signal),
+                        (self.output_type, position_interpolated),
+                        ("time_stamps", fnum_rounded_and_camera_time_stamps),
+                    ):
+                        group.create_dataset(name=df_name, data=df)
+
+            self.add_to_hdf_prepare_data(dataset_file)
+
+        self._split_data(
+            run_preprocess=self.run_splitting,
+            experiments_to_use=self.experiments_to_use,
+        )
+
+    def _split_data(self, run_preprocess: bool, experiments_to_use: Sequence[str]):
+        self._output_file_path = self.processed_data_path / "split_dataset.zarr"
+
+        if run_preprocess:
+            dataset_file = zarr.open(str(self.processed_data_path / "dataset.zarr"), "r")
+            output_file = zarr.open(str(self._output_file_path), "w")
+
+            depth_dimension_size = 1 if self.supplementary_filter_cutoff_freq__hz is None else 2
+
+            training_group = output_file.create_group("training")
+            training_emg_dataset = training_group.create_dataset(
+                name="emg",
+                shape=(1, depth_dimension_size, 320, self.chunk_size__samples),
+                dtype=np.float32,
+                chunks=(1, depth_dimension_size, 320, self.chunk_size__samples),
+            )
+            training_gt_dataset = training_group.create_dataset(
+                name=self.output_type,
+                shape=(1, self.nr_of_outputs),
+                dtype=np.float32,
+                chunks=(1, self.nr_of_outputs),
+            )
+
+            testing_group = output_file.create_group("testing")
+            if self.experiment_to_use_as_test is not None:
+                testing_group.create_dataset(
+                    name="emg",
+                    data=dataset_file[self.experiment_to_use_as_test + "/emg"][()],
+                    chunks=(1, depth_dimension_size, 320, self.chunk_size__samples),
+                )
+                testing_group.create_dataset(
+                    name=self.output_type,
+                    data=dataset_file[self.experiment_to_use_as_test + f"/{self.output_type}"][()],
+                    chunks=(1, self.nr_of_outputs),
+                )
+            else:
+                testing_emg_dataset = testing_group.create_dataset(
+                    name="emg",
+                    shape=(1, depth_dimension_size, 320, self.chunk_size__samples),
+                    dtype=np.float32,
+                    chunks=(1, depth_dimension_size, 320, self.chunk_size__samples),
+                )
+                testing_gt_dataset = testing_group.create_dataset(
+                    name=self.output_type,
+                    shape=(1, self.nr_of_outputs),
+                    dtype=np.float32,
+                    chunks=(1, self.nr_of_outputs),
+                )
+
+            task_labels = {"training": [], "testing": []}
+            for experiment_name in (
+                tqdm_bar := tqdm(
+                    [x for x in experiments_to_use if self.experiment_to_use_as_test != x],
+                    desc="Splitting into train and test set",
+                )
+            ):
+                tqdm_bar.set_postfix({"experiment": experiment_name})
+
+                dataset = dataset_file[experiment_name]
+
+                emg = dataset["emg"][()]
+                ground_truths = dataset[self.output_type][()]
+
+                if self.experiment_to_use_as_test is not None:
+                    training_emg_dataset.append(emg)
+                    training_gt_dataset.append(ground_truths)
+
+                else:
+                    training_mask = np.full(ground_truths.shape[0], False)
+                    nr_of_total_chunks = ground_truths.shape[0]
+                    training_mask[
+                        np.r_[
+                            0 : int(nr_of_total_chunks * 0.40),
+                            int(nr_of_total_chunks * 0.60) : nr_of_total_chunks,
+                        ]
+                    ] = True
+
+                    task_labels["training"].append([int(experiment_name)] * sum(training_mask))
+                    task_labels["testing"].append([int(experiment_name)] * sum(~training_mask))
+
+                    training_emg = emg[training_mask]
+                    testing_emg = emg[~training_mask]
+
+                    training_ground_truths = ground_truths[training_mask]
+                    testing_ground_truths = ground_truths[~training_mask]
+
+                    training_emg_dataset.append(training_emg)
+                    training_gt_dataset.append(training_ground_truths)
+
+                    testing_emg_dataset.append(testing_emg)
+                    testing_gt_dataset.append(testing_ground_truths)
+                    testing_group.create_dataset(
+                        "time_stamps/" + experiment_name,
+                        data=dataset_file[experiment_name + "/time_stamps"][
+                            int(nr_of_total_chunks * 0.40) : int(nr_of_total_chunks * 0.60)
+                        ],
+                    )
+
+            training_group.create_dataset(name="task_labels", data=np.concatenate(task_labels["training"]))
+            testing_group.create_dataset(name="task_labels", data=np.concatenate(task_labels["testing"]))
+
+            self.add_to_hdf_split_data(dataset_file, output_file)
+
+            if self.remove_unsplit_dataset:
+                (self.processed_data_path / "dataset.hdf5").unlink(missing_ok=True)
+
+            if self.augmentations_to_use is not None:
+                amount_of_chunks_to_augment = (
+                    output_file["training/emg"].shape[0] // self.amount_of_chunks_to_augment_at_once
+                )
+
+                for (
+                    augmentation_name,
+                    augmentation_parameters,
+                ) in self.augmentations_to_use:
+                    for i in tqdm(range(amount_of_chunks_to_augment), desc="Augmenting data"):
+                        augmented_chunks = np.concatenate(
+                            [
+                                np.array(
+                                    [
+                                        AUGMENTATION_SELECTOR[augmentation_name](
+                                            chunk_to_augment, **augmentation_parameters
+                                        )
+                                    ]
+                                )
+                                for chunk_to_augment in output_file["training/emg"][
+                                    i
+                                    * self.amount_of_chunks_to_augment_at_once : (i + 1)
+                                    * self.amount_of_chunks_to_augment_at_once
+                                ]
+                            ]
+                        )
+
+                        training_emg_dataset.append(augmented_chunks)
+                        training_gt_dataset.append(
+                            np.concatenate(
+                                [
+                                    output_file[f"training/{self.output_type}"][
+                                        i
+                                        * self.amount_of_chunks_to_augment_at_once : (i + 1)
+                                        * self.amount_of_chunks_to_augment_at_once
+                                    ]
+                                ]
+                            )
+                        )
+        else:
+            output_file = zarr.open(str(self._output_file_path), "r")
+
+        self._lengths = [len(output_file[group][self.output_type]) for group in ("training", "testing")]
+
+    def _split_emg_into_chunks(self, input_emg: np.ndarray) -> List[np.ndarray]:
+        """Splits the EMG data into chunks of the specified length.
+
+        Attributes
+        ----------
+        input_emg : np.ndarray
+            The EMG data to split into chunks.
+
+        Returns
+        -------
+        List[np.ndarray]
+            The EMG data split into chunks.
+        """
+        emg_signal_temp = []
+
+        i = 0
+        while i + self.chunk_size__samples <= input_emg.shape[1]:
+            emg_chunk = input_emg[None, :, i : i + self.chunk_size__samples]
+
+            if self.rectify_emg:
+                emg_chunk = np.abs(emg_chunk)
+
+            emg_chunk = filtfilt(
+                *iirnotch(w0=50, Q=75, fs=EMG_SAMPLING_FREQUENCY),
+                x=emg_chunk,
+                padtype=None,
+                axis=-1,
+            )
+
+            emg_signal_temp.append(emg_chunk)
+            i += self.distance_between_chunks__samples
+
+        return emg_signal_temp
+
+    def _filter_emg(
+        self,
+        input_emg__chunk_list: List[np.ndarray],
+        data_filter_sos: Optional[np.ndarray],
+        supplementary_filter_sos: Optional[np.ndarray],
+    ) -> np.ndarray:
+        """Filters the EMG data.
+
+        Attributes
+        ----------
+        input_emg__chunk_list : List[np.ndarray]
+            The EMG data to filter.
+        data_filter_sos : Optional[np.ndarray]
+            The filter to apply to the EMG data.
+        supplementary_filter_sos : Optional[np.ndarray]
+            The filter to apply to the EMG data that was copied.
+
+        Returns
+        -------
+        np.ndarray
+            The filtered EMG data.
+        """
+
+        # Do all the filtering if necessary
+        if self.data_filter_cutoff_freq__hz is not None and self.supplementary_filter_cutoff_freq__hz is not None:
+            input_emg__chunk_list = [
+                np.concatenate(
+                    [
+                        sosfiltfilt(data_filter_sos, chunk, axis=-1),
+                        sosfiltfilt(supplementary_filter_sos, chunk, axis=-1),
+                    ],
+                    axis=0,
+                )
+                for chunk in input_emg__chunk_list
+            ]
+        elif self.data_filter_cutoff_freq__hz is None and self.supplementary_filter_cutoff_freq__hz is not None:
+            input_emg__chunk_list = [
+                np.concatenate(
+                    [chunk, sosfiltfilt(supplementary_filter_sos, chunk, axis=-1)],
+                    axis=0,
+                )
+                for chunk in input_emg__chunk_list
+            ]
+        elif self.data_filter_cutoff_freq__hz is not None and self.supplementary_filter_cutoff_freq__hz is None:
+            input_emg__chunk_list = [sosfiltfilt(data_filter_sos, chunk, axis=-1) for chunk in input_emg__chunk_list]
+
+        return np.stack(input_emg__chunk_list).astype(np.float32)
+
+    def train_dataloader(self) -> DataLoader:
+        """Returns the training set as a DataLoader.
+
+        Returns
+        -------
+        DataLoader
+            The training set
+
+        """
+        return DataLoader(
+            self._KinematicsEMGDatasetParser(
+                self._output_file_path,
+                "training",
+                self._lengths[0],
+                shuffle_channels=self.shuffle_channels,
+                output_type=self.output_type,
+            ),
+            shuffle=self.shuffle_training_data,
+            **self.dataloader_parameters,
+        )
+
+    def test_dataloader(self) -> DataLoader:
+        """Returns the testing set as a DataLoader.
+
+        Returns
+        -------
+        DataLoader
+            The testing set
+
+        """
+        return DataLoader(
+            self._KinematicsEMGDatasetParser(
+                self._output_file_path,
+                "testing",
+                self._lengths[1],
+                output_type=self.output_type,
+            ),
+            shuffle=False,
+            **self.dataloader_parameters,
+        )
+
+    def val_dataloader(self) -> DataLoader:
+        """Returns the testing set as a DataLoader.
+
+        Returns
+        -------
+        DataLoader
+            The testing set
+
+        """
+        return DataLoader(
+            self._KinematicsEMGDatasetParser(
+                self._output_file_path,
+                "testing",
+                self._lengths[1],
+                output_type=self.output_type,
+            ),
+            shuffle=False,
+            **self.dataloader_parameters,
+        )
+
+    def get_time_stamps(self) -> pd.DataFrame:
+        """Returns the time stamps of the data.
+
+        Returns
+        -------
+        pd.DataFrame
+            The time stamps of the data.
+        """
+        dict_to_convert = {}
+        with zarr.open(str(self._output_file_path), "r") as f:
+            for top_lvl in f["testing/time_stamps"]:
+                if isinstance(f[f"testing/time_stamps/{top_lvl}"], zarr.Array):
+                    dict_to_convert[top_lvl] = np.concatenate(f[f"testing/time_stamps/{top_lvl}"][()].T[:, [0, 1]])
+                else:
+                    for bot_lvl in f[f"testing/time_stamps/{top_lvl}"]:
+                        dict_to_convert[top_lvl + "/" + bot_lvl] = np.concatenate(
+                            f[f"testing/time_stamps/{top_lvl}/{bot_lvl}"][()].T[:, [0, 1]]
+                        )
+
+        dict_to_convert = {
+            k: pd.DataFrame(v.T, columns=["start_frame", "end_frame", "start_time", "end_time"])
+            for k, v in dict_to_convert.items()
+        }
+
+        for k, v in dict_to_convert.items():
+            v["start_frame"] = v["start_frame"].astype(int)
+            v["end_frame"] = v["end_frame"].astype(int)
+            v["length"] = v["end_time"] - v["start_time"]
+
+        return dict_to_convert
+
+    def get_task_labels(self, split_name: str) -> np.ndarray:
+        """Returns the task labels of the data.
+
+        Attributes
+        ----------
+        split_name : str
+            The split to get the task labels from.
+
+        Returns
+        -------
+        np.ndarray
+            The task labels of the data."""
+        with zarr.open(str(self._output_file_path), "r") as f:
+            return f[f"{split_name}/task_labels"][()]
+
+    def get_ground_truth_information(self, file_path, time__samples) -> Tuple[np.ndarray, np.ndarray, np.int64]:
+        """Returns the ground truth information of the data.
+
+        Attributes
+        ----------
+        file_path : str
+            The path to the file to get the ground truth information from.
+        time__samples : np.ndarray
+            The time stamps of the data.
+
+        Returns
+        -------
+        Tuple[np.ndarray, np.ndarray, np.int64]
+            The ground truth information of the data.
+        """
+        raise NotImplementedError()
+
+    def add_to_hdf_prepare_data(self, dataset_file):
+        """Prepares the data for the hdf file.
+
+        Attributes
+        ----------
+        dataset_file : h5py.File
+            The hdf file to add the data to.
+        """
+
+        raise NotImplementedError()
+
+    def add_to_hdf_split_data(self, dataset_file, output_file):
+        """Adds the data to the hdf file.
+
+        Attributes
+        ----------
+        dataset_file : h5py.File
+            The hdf file to get the data from.
+
+        output_file : h5py.File
+            The hdf file to add the data to.
+        """
+
+        raise NotImplementedError()
+
+
+class KinematicsEMGDataset__3D_Points(_KinematicsEMGDataset):
+    def __init__(
+        self,
+        raw_data_path: Path,
+        processed_data_path: Path,
+        chunk_size__samples: int,
+        distance_between_chunks__samples: int,
+        experiments_to_use: Sequence[str],
+        experiment_to_use_as_test: Optional[str],
+        data_filter_cutoff_freq__hz: Optional[int],
+        supplementary_filter_cutoff_freq__hz: Optional[int],
+        data_filter_order: int = 2,
+        supplementary_filter_order: int = 2,
+        run_preprocess: bool = False,
+        run_splitting: bool = False,
+        rectify_emg: bool = False,
+        seed: Optional[int] = None,
+        dataloader_parameters: Dict[str, Any] = None,
+        shuffle_channels: bool = False,
+        shuffle_training_data: bool = True,
+        use_virtual_hand_data: bool = False,
+        augmentations_to_use: Optional[Sequence[Tuple[str, Dict[str, Any]]]] = None,
+        amount_of_chunks_to_augment_at_once: int = 80,
+        remove_unsplit_dataset: bool = True,
+    ):
+        super().__init__(
+            raw_data_path=raw_data_path,
+            processed_data_path=processed_data_path,
+            chunk_size__samples=chunk_size__samples,
+            distance_between_chunks__samples=distance_between_chunks__samples,
+            experiments_to_use=experiments_to_use,
+            experiment_to_use_as_test=experiment_to_use_as_test,
+            data_filter_cutoff_freq__hz=data_filter_cutoff_freq__hz,
+            supplementary_filter_cutoff_freq__hz=supplementary_filter_cutoff_freq__hz,
+            data_filter_order=data_filter_order,
+            supplementary_filter_order=supplementary_filter_order,
+            run_preprocess=run_preprocess,
+            run_splitting=run_splitting,
+            rectify_emg=rectify_emg,
+            seed=seed,
+            dataloader_parameters=dataloader_parameters,
+            shuffle_channels=shuffle_channels,
+            shuffle_training_data=shuffle_training_data,
+            use_virtual_hand_data=use_virtual_hand_data,
+            augmentations_to_use=augmentations_to_use,
+            amount_of_chunks_to_augment_at_once=amount_of_chunks_to_augment_at_once,
+            remove_unsplit_dataset=remove_unsplit_dataset,
+            output_type="3D_points",
+            nr_of_outputs=60,
+        )
+
+        self.wrist_positions = []
+        self.columns = [
+            f"{finger}{label}_{coordinate}"
+            for finger in ("Thumb", "Index", "Middle", "Ring", "Pinkie")
+            for label in reversed(range(4))
+            for coordinate in ("x", "y", "z")
+        ]
+
+    def get_ground_truth_information(self, file_path, time__samples) -> Tuple[np.ndarray, np.ndarray, np.int64]:
+        position_dataframe = pd.read_csv(file_path.parent / f"{self.output_type}.csv")
+        self.wrist_positions.append(position_dataframe[["Wrist_x", "Wrist_y", "Wrist_z"]].mean())
+        position_dataframe = position_dataframe[self.columns]
+        position_dataframe["fnum"] = list(range(position_dataframe.shape[0]))
+
+        position_interpolated, upper_limit = _interpolate_df(position_dataframe, time__samples)
+
+        position_interpolated = position_interpolated.reset_index(drop=True).drop(columns="fnum")
+        position_interpolated = position_interpolated.to_numpy()
+
+        fnum_rounded_and_camera_time_stamps = position_interpolated[:, -2:]
+        position_interpolated = position_interpolated[:, :-2]
+
+        return position_interpolated, fnum_rounded_and_camera_time_stamps, upper_limit
+
+    def add_to_hdf_prepare_data(self, dataset_file):
+        dataset_file.create_dataset(name="wrist", data=np.array(self.wrist_positions))
+
+    def add_to_hdf_split_data(self, dataset_file, output_file):
+        output_file.create_dataset(
+            name="wrist",
+            data=np.vstack(
+                [
+                    np.mean(dataset_file["wrist"][()], axis=0),
+                    np.std(dataset_file["wrist"][()], axis=0),
+                ]
+            ),
+        )
+
+    def get_wrist_point(self) -> np.ndarray:
+        return zarr.open(str(self._output_file_path), "r")["wrist"][0]
+
+
+class KinematicsEMGDataset__Angles(_KinematicsEMGDataset):
+    def __init__(
+        self,
+        raw_data_path: Path,
+        processed_data_path: Path,
+        chunk_size__samples: int,
+        distance_between_chunks__samples: int,
+        experiments_to_use: Sequence[str],
+        experiment_to_use_as_test: Optional[str],
+        data_filter_cutoff_freq__hz: Optional[int],
+        supplementary_filter_cutoff_freq__hz: Optional[int],
+        data_filter_order: int = 2,
+        supplementary_filter_order: int = 2,
+        run_preprocess: bool = False,
+        run_splitting: bool = False,
+        rectify_emg: bool = False,
+        seed: Optional[int] = None,
+        dataloader_parameters: Dict[str, Any] = None,
+        shuffle_channels: bool = False,
+        shuffle_training_data: bool = True,
+        use_virtual_hand_data: bool = False,
+        augmentations_to_use: Optional[Sequence[Tuple[str, Dict[str, Any]]]] = None,
+        amount_of_chunks_to_augment_at_once: int = 80,
+        remove_unsplit_dataset: bool = True,
+    ):
+        super().__init__(
+            raw_data_path=raw_data_path,
+            processed_data_path=processed_data_path,
+            chunk_size__samples=chunk_size__samples,
+            distance_between_chunks__samples=distance_between_chunks__samples,
+            experiments_to_use=experiments_to_use,
+            experiment_to_use_as_test=experiment_to_use_as_test,
+            data_filter_cutoff_freq__hz=data_filter_cutoff_freq__hz,
+            supplementary_filter_cutoff_freq__hz=supplementary_filter_cutoff_freq__hz,
+            data_filter_order=data_filter_order,
+            supplementary_filter_order=supplementary_filter_order,
+            run_preprocess=run_preprocess,
+            run_splitting=run_splitting,
+            rectify_emg=rectify_emg,
+            seed=seed,
+            dataloader_parameters=dataloader_parameters,
+            shuffle_channels=shuffle_channels,
+            shuffle_training_data=shuffle_training_data,
+            use_virtual_hand_data=use_virtual_hand_data,
+            augmentations_to_use=augmentations_to_use,
+            amount_of_chunks_to_augment_at_once=amount_of_chunks_to_augment_at_once,
+            remove_unsplit_dataset=remove_unsplit_dataset,
+            output_type="angles",
+            nr_of_outputs=22,
+        )
+
+    def get_ground_truth_information(self, file_path, time__samples) -> Tuple[np.ndarray, np.ndarray, np.int64]:
+        angles_dataframe = pd.read_csv(file_path.parent / "angles.csv")
+
+        angles_interpolated, upper_limit = _interpolate_df(angles_dataframe, time__samples)
+
+        angles_interpolated = angles_interpolated.reset_index(drop=True).drop(columns="fnum")
+        angles_interpolated = angles_interpolated.to_numpy()
+
+        fnum_rounded_and_camera_time_stamps = angles_interpolated[:, -2:]
+        position_interpolated = angles_interpolated[:, :-2]
+
+        return position_interpolated, fnum_rounded_and_camera_time_stamps, upper_limit
+
+    def add_to_hdf_prepare_data(self, group):
+        pass
+
+    def add_to_hdf_split_data(self, dataset, output_file):
+        pass
+
+
+class KinematicsEMGDataset__Force(_KinematicsEMGDataset):
+    def __init__(
+        self,
+        raw_data_path: Path,
+        processed_data_path: Path,
+        force_sensor_curve_coefficients_path: Path,
+        chunk_size__samples: int,
+        distance_between_chunks__samples: int,
+        data_filter_cutoff_freq__hz: Optional[int],
+        supplementary_filter_cutoff_freq__hz: Optional[int],
+        data_filter_order: int = 2,
+        supplementary_filter_order: int = 2,
+        run_preprocess: bool = False,
+        run_splitting: bool = False,
+        rectify_emg: bool = False,
+        seed: Optional[int] = None,
+        dataloader_parameters: Dict[str, Any] = None,
+        shuffle_channels: bool = False,
+        shuffle_training_data: bool = True,
+        use_virtual_hand_data: bool = False,
+        augmentations_to_use: Optional[Sequence[Tuple[str, Dict[str, Any]]]] = None,
+        amount_of_chunks_to_augment_at_once: int = 80,
+        remove_unsplit_dataset: bool = True,
+    ):
+        super().__init__(
+            raw_data_path=raw_data_path,
+            processed_data_path=processed_data_path,
+            chunk_size__samples=chunk_size__samples,
+            distance_between_chunks__samples=distance_between_chunks__samples,
+            experiments_to_use=["22", "23"],
+            experiment_to_use_as_test=None,
+            data_filter_cutoff_freq__hz=data_filter_cutoff_freq__hz,
+            supplementary_filter_cutoff_freq__hz=supplementary_filter_cutoff_freq__hz,
+            data_filter_order=data_filter_order,
+            supplementary_filter_order=supplementary_filter_order,
+            run_preprocess=run_preprocess,
+            run_splitting=run_splitting,
+            rectify_emg=rectify_emg,
+            seed=seed,
+            dataloader_parameters=dataloader_parameters,
+            shuffle_channels=shuffle_channels,
+            shuffle_training_data=shuffle_training_data,
+            use_virtual_hand_data=use_virtual_hand_data,
+            augmentations_to_use=augmentations_to_use,
+            amount_of_chunks_to_augment_at_once=amount_of_chunks_to_augment_at_once,
+            remove_unsplit_dataset=remove_unsplit_dataset,
+            output_type="force",
+            nr_of_outputs=1,
+        )
+
+        self.force_sensor_curve_coefficients_path = force_sensor_curve_coefficients_path
+
+    def prepare_data(self):
+        self._output_file_path = self.processed_data_path / "split_dataset.zarr"
+
+        if self.run_preprocess:
+            Path.mkdir(self.processed_data_path, parents=True, exist_ok=True)
+            dataset_file = zarr.open(str(self.processed_data_path / "split_dataset.zarr"), "w")
+
+            sensor_curve = np.poly1d(np.load(str(self.force_sensor_curve_coefficients_path)))
+
+            depth_dimension_size = 1 if self.supplementary_filter_cutoff_freq__hz is None else 2
+
+            training_group = dataset_file.create_group("training")
+            training_emg_dataset = training_group.create_dataset(
+                name="emg",
+                shape=(1, depth_dimension_size, 320, self.chunk_size__samples),
+                dtype=np.float32,
+                chunks=(1, depth_dimension_size, 320, self.chunk_size__samples),
+            )
+
+            testing_group = dataset_file.create_group("testing")
+            testing_emg_dataset = testing_group.create_dataset(
+                name="emg",
+                shape=(1, depth_dimension_size, 320, self.chunk_size__samples),
+                dtype=np.float32,
+                chunks=(1, depth_dimension_size, 320, self.chunk_size__samples),
+            )
+
+            data_filter_sos = None
+            if self.data_filter_cutoff_freq__hz is not None:
+                data_filter_sos = butter(
+                    N=self.data_filter_order,
+                    Wn=self.data_filter_cutoff_freq__hz,
+                    btype="low",
+                    analog=False,
+                    output="sos",
+                    fs=EMG_SAMPLING_FREQUENCY,
+                )
+
+            supplementary_filter_sos = None
+            if self.supplementary_filter_cutoff_freq__hz is not None:
+                supplementary_filter_sos = butter(
+                    N=self.supplementary_filter_order,
+                    Wn=self.supplementary_filter_cutoff_freq__hz,
+                    btype="low",
+                    analog=False,
+                    output="sos",
+                    fs=EMG_SAMPLING_FREQUENCY,
+                )
+
+            min_list, max_list = [], []
+
+            for experiment_path, experiment_name in (
+                tqdm_bar := tqdm(
+                    [(self.raw_data_path / e, e) for e in self.experiments_to_use],
+                    desc="Splitting into train and test set",
+                )
+            ):
+                tqdm_bar.set_postfix({"experiment": experiment_name})
+
+                for file_path in experiment_path.rglob("*.mat"):
+                    mat_file = loadmat(str(file_path), variable_names=("EMG_SYNC", "AUX_FORCE"))
+
+                    emg_signal = mat_file["EMG_SYNC"]
+                    force_signal = mat_file["AUX_FORCE"][0]
+
+                    # The force signal hast not been saved correctly ... probably ground was set wrong or sth
+                    if np.min(force_signal) != 0:
+                        force_signal -= np.min(force_signal)
+
+                    # Remove unnecessary pinching without force. We keep 10 s of nothingness before the first ramp
+                    starting_index = np.argwhere(force_signal >= np.mean(force_signal[:40000]) + 10)[0, 0]
+                    force_signal = sensor_curve(force_signal[starting_index:])
+                    emg_signal = emg_signal[:, starting_index:]
+
+                    min_list.append(np.min(force_signal))
+                    max_list.append(np.max(force_signal))
+
+                    force_signal_training = self._split_force_into_chunks(
+                        force_signal[: len(force_signal) - 30 * EMG_SAMPLING_FREQUENCY]
+                    )
+                    force_signal_testing = self._split_force_into_chunks(
+                        force_signal[len(force_signal) - 30 * EMG_SAMPLING_FREQUENCY :]
+                    )
+
+                    np.save(
+                        str(self.processed_data_path / f"{experiment_name}_training.npy"),
+                        force_signal_training,
+                    )
+                    np.save(
+                        str(self.processed_data_path / f"{experiment_name}_testing.npy"),
+                        force_signal_testing,
+                    )
+
+                    emg_signal_training = self._filter_emg(
+                        self._split_emg_into_chunks(emg_signal[:, : len(force_signal) - 30 * EMG_SAMPLING_FREQUENCY]),
+                        data_filter_sos,
+                        supplementary_filter_sos,
+                    )
+                    emg_signal_testing = self._filter_emg(
+                        self._split_emg_into_chunks(emg_signal[:, len(force_signal) - 30 * EMG_SAMPLING_FREQUENCY :]),
+                        data_filter_sos,
+                        supplementary_filter_sos,
+                    )
+
+                    training_emg_dataset.append(emg_signal_training)
+                    testing_emg_dataset.append(emg_signal_testing)
+
+            min_overall, max_overall = np.min(min_list), np.max(max_list)
+
+            dataset_file.create_dataset(name="min_&_max", data=np.array([min_overall, max_overall]))
+
+            training_force_dataset = training_group.create_dataset(
+                name="force",
+                shape=(1, self.nr_of_outputs),
+                dtype=np.float32,
+                chunks=(1, self.nr_of_outputs),
+            )
+            testing_force_dataset = testing_group.create_dataset(
+                name="force",
+                shape=(1, self.nr_of_outputs),
+                dtype=np.float32,
+                chunks=(1, self.nr_of_outputs),
+            )
+
+            for experiment_name in tqdm(
+                [e for e in self.experiments_to_use],
+                desc="Splitting into train and test set",
+            ):
+                training_force_signal = np.load(str(self.processed_data_path / f"{experiment_name}_training.npy"))
+
+                training_force_dataset.append(
+                    2 * (training_force_signal - min_overall) / (max_overall - min_overall) - 1
+                )
+
+                (self.processed_data_path / f"{experiment_name}_training.npy").unlink()
+
+                testing_force_signal = np.load(str(self.processed_data_path / f"{experiment_name}_testing.npy"))
+
+                testing_force_dataset.append(2 * (testing_force_signal - min_overall) / (max_overall - min_overall) - 1)
+
+                (self.processed_data_path / f"{experiment_name}_testing.npy").unlink()
+
+            if self.augmentations_to_use is not None:
+                amount_of_chunks_to_augment = (
+                    dataset_file["training/emg"].shape[0] // self.amount_of_chunks_to_augment_at_once
+                )
+
+                for (
+                    augmentation_name,
+                    augmentation_parameters,
+                ) in self.augmentations_to_use:
+                    for i in tqdm(range(amount_of_chunks_to_augment), desc="Augmenting data"):
+                        augmented_chunks = np.concatenate(
+                            [
+                                np.array(
+                                    [
+                                        AUGMENTATION_SELECTOR[augmentation_name](
+                                            chunk_to_augment, **augmentation_parameters
+                                        )
+                                    ]
+                                )
+                                for chunk_to_augment in dataset_file["training/emg"][
+                                    i
+                                    * self.amount_of_chunks_to_augment_at_once : (i + 1)
+                                    * self.amount_of_chunks_to_augment_at_once
+                                ]
+                            ]
+                        )
+
+                        training_emg_dataset.append(augmented_chunks)
+                        training_force_dataset.append(
+                            np.concatenate(
+                                [
+                                    dataset_file[f"training/{self.output_type}"][
+                                        i
+                                        * self.amount_of_chunks_to_augment_at_once : (i + 1)
+                                        * self.amount_of_chunks_to_augment_at_once
+                                    ]
+                                ]
+                            )
+                        )
+
+        else:
+            dataset_file = zarr.open(str(self._output_file_path), "r")
+
+        self._lengths = [len(dataset_file[group][self.output_type]) for group in ("training", "testing")]
+
+    def _split_force_into_chunks(self, force_signal: np.ndarray) -> np.ndarray:
+        force_signal_temp = []
+
+        i = 0
+        while i + self.chunk_size__samples <= force_signal.shape[0]:
+            force_signal_temp.append([np.nan_to_num(np.mean(force_signal[i : i + self.chunk_size__samples]))])
+            i += self.distance_between_chunks__samples
+
+        return np.stack(force_signal_temp).astype(np.float32)
+
+    def get_min_and_max(self) -> np.ndarray:
+        return zarr.open(str(self._output_file_path), "r")["min_&_max"][()]

@@ -104,7 +104,7 @@ def main():
     header += "\n".join(f"#define {name} {offsets[k]}u" for name,k in names.items()) + "\n"
     header += "static const unsigned BLOCK_OFFSETS[4][8] = {\n"+",\n".join("{"+",".join(map(str,b))+"}" for b in blocks)+"\n};\n"
     (OUT/"weight_offsets.h").write_text(header)
-    # Participant 1's SPAR codebook, standardization and mask, from the trained-artifact bundle.
+    # Participant 1's SPAR codebook, standardization and mask, from MYOJI_ASSETS.
     data_path = paths.ASSETS/"spar/codebooks-1024.npz"
     bundle = np.load(data_path)
     data = {k: bundle[f"subject_01/{k}"] for k in ("codebook", "feature_mean", "feature_scale", "mask")}

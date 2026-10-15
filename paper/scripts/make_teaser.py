@@ -1,10 +1,9 @@
 """Draw the teaser figure: a forearm montage becomes tokens becomes a hand pose.
 
-This is a manually specified SVG layout. Everything except the arm is read from
-recorded arrays: the waveform fan is one 160 ms tokenizer input window of the
-frozen 320-channel fixture, the lit codebook cell is the SPAR token that window
-actually produced, and the skeleton is a stored SPAR validation prediction. The
-arm and electrode sleeve are a cropped generative illustration; see the receipt.
+This is a manually specified SVG layout. Everything is read from recorded
+arrays: the waveform fan is one 160 ms tokenizer input window of the frozen
+320-channel fixture, the lit codebook cell is the SPAR token that window
+actually produced, and the skeleton is a stored SPAR validation prediction.
 Run from the repository: .venv/bin/python scripts/make_teaser.py
 """
 from __future__ import annotations
@@ -17,7 +16,6 @@ import shutil
 import subprocess
 
 import numpy as np
-from PIL import Image
 
 from make_encoder_replacement_draft import render
 import paths
@@ -37,8 +35,6 @@ INDEX = EXPLORER / "full-channel-index.json"
 VIDEO = paths.RESULTS / "dpose_movement_video"  # select_dpose_movement_cycles.py
 SPAR = ROOT / "output/figures/tokenizer-mechanism-data.npz"
 PROVENANCE = paths.OUTPUT / "figures/pose_paper/interface.json"
-ARM = paths.DATA / "figure_inputs/teaser/arm-sleeve.png"
-CROP = paths.DATA / "figure_inputs/teaser/crop.json"
 
 # The frozen fixture's third token endpoint and the 160 ms window feeding it.
 END, PATCH, FRAME = 2119, 320, 2
@@ -71,11 +67,11 @@ CYCLE_BANDS = [(320, 354.0, 0.95, 0.46, 540), (8, 688.0, 25.0, 10.0, 1080)]
 # Tip-first chains, with the fixed zero wrist prepended as index 0.
 CHAINS = [[0, *range(base, base - 4, -1)] for base in [4, 8, 12, 16, 20]]
 
-# Horizontal bands: arm, converging fan, tokenizer, token stream, pose.
-ARM_X, FAN_X, BOARD_X, HAND_X = 0.0, 258.0, 430.0, 598.0
+# Horizontal bands: converging fan, tokenizer, token stream, pose.
+FAN_X, BOARD_X, HAND_X = 258.0, 430.0, 598.0
 BOARD_W = 66.0
 CY = HEIGHT / 2
-FAN_HALF = 92.0                  # half-height of the fan where it leaves the sleeve
+FAN_HALF = 92.0                  # half-height of the fan at its open end
 FAN_GAIN = 4.6                   # trace amplitude there, in the same units
 
 
@@ -97,7 +93,6 @@ def build() -> tuple[str, dict, dict]:
     ids = fixture["spar_ids"]
     hand = np.load(SPAR, allow_pickle=False)["pose_mm"]
     provenance = json.loads(PROVENANCE.read_text())
-    crop = json.loads(CROP.read_text())
     assert window.shape == (320, PATCH) and np.isfinite(window).all()
     assert ids.shape == (3, 320) and np.all(ids < CODES)
     assert hand.shape == (21, 3) and np.isfinite(hand).all()
@@ -107,11 +102,6 @@ def build() -> tuple[str, dict, dict]:
     lit = int(ids[FRAME, channels[0]])
     # One gain for every trace, so relative channel amplitudes stay truthful.
     traces = window[channels] / np.percentile(np.abs(window[channels]), 99)
-
-    arm_w = 258.0
-    pixels = Image.open(ARM).size
-    arm_h = arm_w * pixels[1] / pixels[0]
-    arm = base64.b64encode(ARM.read_bytes()).decode()
 
     parts = [f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="{PRINT_WIDTH_IN}in"
@@ -123,11 +113,6 @@ into a tokenizer running on a microcontroller. The tokenizer assigns each channe
 one entry of a 1024-code book every 20 ms, and only those token identifiers leave
 the device. A receiver decodes them into a 3D hand pose.</desc>
 <rect width="{WIDTH}" height="{HEIGHT}" fill="white"/>''']
-
-    # The one part that is not measured: a cropped generative illustration.
-    parts.append(f'<g id="worn-montage"><image x="{ARM_X}" y="{CY - arm_h / 2:.2f}" '
-                 f'width="{arm_w}" height="{arm_h:.2f}" '
-                 f'href="data:image/png;base64,{arm}"/></g>')
 
     # Every trace narrows linearly to the tokenizer, so the fan is a true wedge.
     fan: list[str] = []
@@ -414,18 +399,11 @@ the device. A receiver decodes them into a 3D hand pose.</desc>
                          "note": "Uniform marks standing for identifiers; no mark is a specific token"},
         "pose": {**provenance["example"], "decoder_seed": provenance["decoder_seed"],
                  "kind": provenance["pose_kind"]},
-        "arm": {"generated_illustration": True, "generated_by": "ChatGPT image generation",
-                "prompt_iterations": 5, "source_file": crop["source"],
-                "crop_box_xyxy": crop["crop_box"], "drawn_at_pixels": list(pixels),
-                "is_measured_data": False,
-                "note": "Illustration of a worn HD-EMG sleeve. The depicted hand is a "
-                        "pinch; the decoded skeleton is the stored validation prediction "
-                        "and is a different posture."},
         "illustrations_are_accuracy_evidence": False,
         "new_training_or_scoring": False,
         "source_sha256": {str(p.relative_to(ROOT)): sha(p)
                           for p in [FIXTURE, INDEX, ROOT / "scripts/render_teaser_hands.py", EXPLORER / index["tasks"][str(STACK_TASK)]["file"],
-                                    SPAR, PROVENANCE, ARM, Path(__file__)]},
+                                    SPAR, PROVENANCE, Path(__file__)]},
     }
     # A one-second bar under the bands, so the cycle rate is readable without
     # an axis. The window is 3.96 s, so a second is a little over a quarter of it.

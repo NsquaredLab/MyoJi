@@ -1,0 +1,93 @@
+import argparse
+from pathlib import Path
+
+import pytorch_lightning as pl
+
+from doc_octopy.datasets.kinematics_and_emg.as_2D import KinematicsEMGDataset__3D_Points
+from doc_octopy.utils.constants import EXPERIMENTS_TO_USE
+
+parser = argparse.ArgumentParser(
+    description="Training script for the AI model from Sîmpetru et al.",
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+)
+parser.add_argument(
+    "--seed",
+    "-s",
+    type=int,
+    default=1801211219,
+    help="Seed to be used.",
+)
+parser.add_argument(
+    "--experimentee",
+    "-e",
+    default="ERROR",
+    help="Experimentee / Subject to be used.",
+)
+parser.add_argument(
+    "--df_cutoff_freq",
+    default=None,
+    type=int,
+    help="Data filter cutoff frequency in Hz",
+)
+parser.add_argument(
+    "--df_order",
+    default=4,
+    type=int,
+    help="Data filter order",
+)
+parser.add_argument(
+    "--sf_cutoff_freq",
+    default=None,
+    type=int,
+    help="Supplementary filter cutoff frequency in Hz",
+)
+parser.add_argument(
+    "--sf_order",
+    default=4,
+    type=int,
+    help="Supplementary filter order",
+)
+parser.add_argument(
+    "--rectify",
+    default=0,
+    type=int,
+    help="Set to 1 to rectify EMG.",
+)
+
+args = parser.parse_args()
+
+pl.seed_everything(args.seed, workers=True)
+
+dataset = KinematicsEMGDataset__3D_Points(
+    raw_data_path=Path("..", "data", "kinematics_and_emg_new", args.experimentee),
+    processed_data_path=list(Path("../../../../../scratchssd").resolve().glob("*"))[-1],
+    run_preprocess=True,
+    run_splitting=True,
+    chunk_size__samples=192,
+    distance_between_chunks__samples=64,
+    data_filter_cutoff_freq__hz=args.df_cutoff_freq,
+    data_filter_order=args.df_order,
+    supplementary_filter_cutoff_freq__hz=args.sf_cutoff_freq,
+    supplementary_filter_order=args.sf_order,
+    rectify_emg=bool(args.rectify),
+    seed=args.seed,
+    experiments_to_use=EXPERIMENTS_TO_USE,
+    experiment_to_use_as_test=None,
+    dataloader_parameters={
+        "batch_size": 1,
+        "pin_memory": False,
+        "num_workers": 1,
+        "persistent_workers": False,
+    },
+    shuffle_training_data=True,
+    # augmentations_to_use=None,
+    augmentations_to_use=[
+        ("gaussian noise", {}),
+        # ("gaussian noise", {"target_snr__db": 27.5}),
+        ("magnitude warping", {}),
+        # ("magnitude warping", {"gaussian_std": 0.45, "gaussian_mean": 0}),
+        # ("wavelet decomposition", {"level": 4}),
+    ],
+    amount_of_chunks_to_augment_at_once=250,
+)
+dataset.prepare_data()

@@ -28,7 +28,7 @@ uv sync --group paper                      # from the repository root
 | HD-EMG recordings `Sub{n}_emg.pkl`, `Sub{n}_kinematics.pkl` | the authors, on reasonable request | `MYOJI_HDEMG=<folder>` |
 | emg2pose | public; `uv run python paper/scripts/prepare_emg2pose_online.py` builds the metadata and a byte-range index so recordings stream on demand | `MYOJI_EMG2POSE=<folder>` |
 | emg2pose code (hand model) | `git clone https://github.com/facebookresearch/emg2pose` (commit `5f6f62b`), then `uv pip install -e emg2pose` | |
-| trained tokenizers and SPAR codebooks | the artifact bundle (CC BY-NC-SA 4.0) | `MYOJI_ASSETS=<folder>` |
+| trained tokenizers and SPAR codebooks | not distributed; train your own (see the end of this page) | `MYOJI_ASSETS=<folder>` |
 | BioCodec (codec comparison only) | `git clone https://github.com/klean2050/BioCodec-release` (commit `575bf6e`) | `MYOJI_BIOCODEC=<clone>` |
 | Qwen3-0.6B-Base (one receiver) | Hugging Face, revision `da87bfb608c14b7cf20ba1ce41287e8de496c0cd`, into the LLM pilot run folder's `model/` | |
 | TabPFN v3.5 weights (one receiver) | downloaded by `tabpfn==9.0.0` on first use | `--model-path` |
@@ -102,7 +102,13 @@ rerunning anything.
 
 ## Steps that need the authors' intermediate outputs
 
-A few figure-assembly steps check or read files that are not distributed:
+A few steps check or read files that are not distributed:
+- The trained weights. Steps that load them from `MYOJI_ASSETS` need weights you train:
+  `train_mixed_sources`, then `myoji.learned.export_checkpoint` with `calibration_samples=1000`
+  for `learned/tokenizer.pt` (the pretraining checkpoint itself is `learned/tokenizer-full.pt`).
+  The SPAR campaigns fit the codebooks; `spar/codebooks-1024.npz` holds them per participant as
+  `subject_XX/{codebook,feature_mean,feature_scale,mask}`. The firmware fixtures
+  (`raw_tokenizer_benchmark/prepare.py`) accept only the authors' tokenizer, by hash.
 - The participant-level test predictions are not distributed. `dpose_movement_analysis` checks the
   authors' prediction files by hash (`data/figure_inputs/dpose_movement_source_receipt.json`).
   `dpose_absolute_change_analysis` checks the movement analysis computed from them. Run on the

@@ -3,7 +3,7 @@
 MYOJI_HDEMG     folder with the HD-EMG recordings Sub{n}_emg.pkl / Sub{n}_kinematics.pkl
                 (available from the authors on reasonable request)
 MYOJI_EMG2POSE  folder with the emg2pose dataset (or use the scripts' range-request options)
-MYOJI_ASSETS    trained-artifact bundle: learned/tokenizer.pt, learned/tokenizer-full.pt, spar/...
+MYOJI_ASSETS    trained weights (not distributed; see README.md): learned/tokenizer.pt, learned/tokenizer-full.pt, spar/...
 """
 
 import os

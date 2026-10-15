@@ -63,7 +63,6 @@ def protocol(root, data, checkpoint):
         "dataset": "DPose HD, 13 subjects, 320 channels with paired 21x3 kinematics",
         "scope": "Supervised subject-held-out decoder pilot on a pretraining-seen cohort. All 13 subjects supplied unlabeled EMG to this frozen tokenizer. Not fully unseen-person or unseen-source generalization.",
         "checkpoint_sha256": sha256(checkpoint),
-        "tokenizer_sources": frozen["provenance"],
         "splits": SPLITS,
         "arms": list(ARMS),
         "seeds": list(SEEDS),

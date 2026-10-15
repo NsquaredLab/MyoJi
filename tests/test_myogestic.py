@@ -40,7 +40,7 @@ def test_spar_codebook_round_trip():
     assert not vectors[:, ~codebook.mask].any()
 
 
-@pytest.mark.skipif("MYOJI_ASSETS" not in os.environ, reason="set MYOJI_ASSETS to the trained-artifact bundle")
+@pytest.mark.skipif("MYOJI_ASSETS" not in os.environ, reason="needs the authors' trained weights (MYOJI_ASSETS)")
 def test_learned_tokens_are_the_newest_encoded_tokens():
     from myoji.learned import Tokenizer
 

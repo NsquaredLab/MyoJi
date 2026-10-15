@@ -2,7 +2,7 @@
 
 ``fixtures/parity.npz`` holds outputs of the original research implementation on
 small seeded inputs; the inputs are regenerated here from the same seeds. The
-learned-tokenizer check needs the trained-artifact bundle (set MYOJI_ASSETS).
+learned-tokenizer check needs the authors' trained weights (set MYOJI_ASSETS).
 """
 
 import os
@@ -111,7 +111,7 @@ def test_decoders():
 ASSETS = Path(os.environ["MYOJI_ASSETS"]) if "MYOJI_ASSETS" in os.environ else None
 
 
-@pytest.mark.skipif(ASSETS is None, reason="set MYOJI_ASSETS to the trained-artifact bundle")
+@pytest.mark.skipif(ASSETS is None, reason="needs the authors' trained weights (MYOJI_ASSETS)")
 def test_released_learned_tokenizer():
     from myoji.learned import Tokenizer
 

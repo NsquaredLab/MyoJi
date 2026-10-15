@@ -42,12 +42,12 @@ book, _ = fit_codebook(standardize(d, mean, scale, mask), vocabulary=1024)
 tokens = tokenize(standardize(d, mean, scale, mask), book)   # uint16, (windows, channels, updates)
 ```
 
-The learned tokenizer needs its trained weights (see below):
+The learned tokenizer needs trained weights, which are not distributed (see below):
 
 ```python
 from myoji.learned import Tokenizer
 
-tokenizer = Tokenizer("myoji-assets/learned/tokenizer.pt")
+tokenizer = Tokenizer("tokenizer.pt")
 tokens = tokenizer.encode(emg, sample_rate_hz=2000)["tokens"]   # per channel, from 980 ms on
 stream = tokenizer.stream(sample_rate_hz=2000)                    # or chunk by chunk: stream.push(chunk)
 ```
@@ -83,12 +83,12 @@ Hand: `uv sync --extra myogestic && uv run python examples/myogestic_tokens.py`.
 Start at [`paper/README.md`](paper/README.md). The HD-EMG recordings are available from the
 authors on reasonable request; emg2pose is public.
 
-## Trained artifacts
+## Trained weights
 
-The learned tokenizer weights (the reference encoder, two further pretraining seeds and the
-donor-only tokenizer) and the SPAR codebooks are distributed separately from this repository.
-They were trained on emg2pose and are licensed CC BY-NC-SA 4.0. Point `MYOJI_ASSETS` at the
-unpacked folder.
+The trained tokenizers and SPAR codebooks used in the paper are not distributed.
+`paper/scripts/train_mixed_sources.py` pretrains a learned tokenizer, and
+`myoji.learned.export_checkpoint(..., calibration_samples=1000)` turns its checkpoint into the
+file `Tokenizer` loads. The SPAR campaigns in `paper/` fit the codebooks.
 
 ## Licence and citation
 

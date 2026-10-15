@@ -1,0 +1,164 @@
+import argparse
+from pathlib import Path
+
+import pytorch_lightning as pl
+import torch
+from pytorch_lightning.loggers import MLFlowLogger
+from pytorch_lightning.strategies import DDPStrategy
+from pytorch_lightning.callbacks import LearningRateMonitor
+from torch import Generator
+
+import doc_octopy
+from doc_octopy.datasets.kinematics_and_emg.as_2D import KinematicsEMGDataset__3D_Points
+from doc_octopy.models.definitions.raul_net.offline.v4 import CNNApproximator
+from doc_octopy.utils.ml_helpers import (
+    save_log_mlflow,
+    save_model_mlflow,
+    save_train_and_def_mlflow,
+)
+from doc_octopy.utils.constants import EXPERIMENTS_TO_USE
+
+torch.backends.cudnn.benchmark = True
+# torch.use_deterministic_algorithms(mode=True, warn_only=True)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Training script for the AI model from Sîmpetru et al.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "--seed",
+        "-s",
+        type=int,
+        default=1801211219,
+        help="Seed to be used.",
+    )
+    parser.add_argument(
+        "--experimentee",
+        "-e",
+        default="ERROR",
+        help="Experimentee / Subject to be used.",
+    )
+    parser.add_argument(
+        "--rectify",
+        default=0,
+        type=int,
+        help="Set to 1 to rectify EMG.",
+    )
+    parser.add_argument(
+        "--df_cutoff_freq",
+        default=None,
+        type=int,
+        help="Data filter cutoff frequency in Hz",
+    )
+    parser.add_argument(
+        "--sf_cutoff_freq",
+        default=None,  # set this value to generate dataset with depth 2 for testing purposes
+        type=int,
+        help="Supplementary filter cutoff frequency in Hz",
+    )
+
+    args = parser.parse_args()
+
+    chunk_size__samples = 192
+    distance_between_chunks__samples = 64
+    epochs = 25
+    batch_size = 64
+    seed = args.seed
+    generator = Generator().manual_seed(seed)
+    precision = 32
+    subject = args.experimentee
+
+    pl.seed_everything(seed, workers=True)
+
+    dataset = KinematicsEMGDataset__3D_Points(
+        raw_data_path=Path("../../..", "data", "kinematics_and_emg_new", subject),
+        processed_data_path=list(Path("../../../../../scratchssd").resolve().glob("*"))[-1],
+        run_preprocess=False,
+        chunk_size__samples=chunk_size__samples,
+        distance_between_chunks__samples=distance_between_chunks__samples,
+        data_filter_cutoff_freq__hz=20,
+        data_filter_order=4,
+        supplementary_filter_cutoff_freq__hz=None,
+        run_splitting=False,
+        seed=seed,
+        experiments_to_use=EXPERIMENTS_TO_USE,
+        experiment_to_use_as_test=None,
+        dataloader_parameters={
+            "batch_size": batch_size,
+            "pin_memory": False,
+            "generator": generator,
+            "num_workers": 16,
+            "persistent_workers": True,
+            "drop_last": True,
+        },
+        shuffle_channels=False,
+        shuffle_training_data=True,
+    )
+    dataset.prepare_data()
+
+    emg_example, _ = next(dataset.train_dataloader().__iter__())
+    model = CNNApproximator(
+        learning_rate=1e-4,
+        nr_of_input_channels=1 if args.sf_cutoff_freq is None else 2,
+        input_length__samples=chunk_size__samples,
+        nr_of_outputs=60,
+        cnn_encoder_channels=(256, 32, 64),
+        mlp_encoder_channels=(512, 512),
+        event_search_kernel_length=31,
+        event_search_kernel_stride=8,
+    )
+
+    logger = MLFlowLogger(
+        experiment_name=f"3D_points_{bool(args.rectify)}_{args.df_cutoff_freq}_{args.sf_cutoff_freq}",
+        tracking_uri="file:./mlruns",
+        run_name=f"{subject} {str(seed)}",
+    )
+
+    trainer = pl.Trainer(
+        accelerator="gpu",
+        devices=-1,
+        strategy=DDPStrategy(
+            find_unused_parameters=False,
+            static_graph=True,
+            gradient_as_bucket_view=True,
+        ),
+        precision=precision,
+        max_epochs=epochs,
+        log_every_n_steps=25,
+        logger=logger,
+        enable_checkpointing=False,
+        deterministic=False,
+        check_val_every_n_epoch=1,
+        callbacks=[LearningRateMonitor(log_momentum=True)],
+        gradient_clip_val=1.0,
+        # detect_anomaly=True,
+        # max_time="00:3:45:00",
+    )
+
+    if trainer.is_global_zero:
+        save_train_and_def_mlflow(
+            logger=logger,
+            train_file_path=Path(__file__).absolute(),
+            def_file_path=Path(doc_octopy.models.definitions.raul_net.offline.raul_net_v4.__file__).absolute(),
+        )
+
+    trainer.fit(model, datamodule=dataset)
+    trainer.test(model, datamodule=dataset)
+
+    if trainer.is_global_zero:
+        save_model_mlflow(logger=logger, trainer=trainer, input_example=emg_example)
+        logger.log_hyperparams(
+            {
+                "criterion": model.criterion,
+                "epochs": model.current_epoch,
+                "chunk size": chunk_size__samples,
+                "distance between chunks": distance_between_chunks__samples,
+                "seed": seed,
+                "batch size": batch_size,
+                "precision": precision,
+                "activation function": "SMU",
+                "subject": subject,
+            }
+        )
+        save_log_mlflow(logger=logger)

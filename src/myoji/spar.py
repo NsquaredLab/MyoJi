@@ -6,7 +6,7 @@ band. The real parts of three matrix-logarithm entries (centre power D0 and the
 couplings O02, O03 to the outgoing horizontal and vertical neighbours) form an
 18-value descriptor per electrode and update (6 bands x 3 entries).
 
-Adapted from MyoKit's SPAR_RIE_M / SPAR_SIMPLE by Amin Olamazadeh (MIT; commit
+Adapted from MyoKit's SPAR_RIE_M / SPAR_SIMPLE by Amin Olamazadeh (commit
 e19a2fcf8dbbcf836e586eadc7dd9dec2942d252), see THIRD_PARTY.md. The spectral
 weighting, local Hermitian 4x4 matrices, regularization and real matrix-log
 entries are retained. Unlike the original two-row ring, rectangular grids have
