@@ -113,6 +113,91 @@ Supplementary Data 1-9 (`data/supplementary/`) hold the plotted values and summa
 The figures are regenerated from the campaigns' outputs; checking a number does not require
 rerunning anything.
 
+## Scripts by folder
+
+Every module, with what it does. Names in *italics* are imported by other scripts and not run
+on their own. "emg2pose" in descriptions is the public dataset; older docstrings call it "Meta".
+
+**`common/`**
+- *`paths`*: where inputs are read and outputs written; set `MYOJI_HDEMG`, `MYOJI_EMG2POSE`, `MYOJI_ASSETS`.
+- *`dpose_figure_statistics`*: exact paired sign-flip tests, intervals and Holm adjustment used across the HD-EMG analyses.
+- *`figstyle`*, `simpetru*.mplstyle`: the paper's figure style.
+- *`paper_plot_style`*, *`tokenizer_diagnostic_style`*: print sizes and colours for the Fig. 3 and supplementary builders.
+- `switzer_font`: uses Switzer for the figures when it is installed; running it checks that the static regular and bold fonts are picked up.
+- *`reporting_support`*: label checks for the emg2pose reports, so no participant is dropped silently.
+
+**`pretraining/`**
+- `train_mixed_sources`: pretrains the learned tokenizer on HD-EMG and emg2pose training windows.
+- `audit_tokenizer_release`: freezes validation inputs and checks that the released tokenizer is deterministic, including after a reload.
+
+**`hdemg/`**: HD-EMG campaigns
+- `run_dpose_pilot`: participant-1 pilot that fixes the windows, preprocessing and splits the later campaigns reuse.
+- `run_dpose_within`: personalized decoding on chronologically separated recording blocks (the shared split).
+- `run_dpose_v20`, `run_dpose_v20_continuous`: learned tokens, and the matched continuous features, decoded by the spatial CNN + TCN.
+- *`report_dpose_v20`*: rechecks the V20 predictions against the frozen decoder.
+- `run_dpose_v20_one_euro`: One Euro smoothing of the V20 outputs, chosen on validation (Fig. 4).
+- `run_dpose_spar_simple`: SPAR pilot on participant 1 (EMG → SPAR → codebook → decoder).
+- `run_dpose_spar_full`, `run_dpose_spar_v64`: SPAR on nine participants with 1,024 and 64 codes.
+- `run_dpose_spar_ablation`: SPAR with parts of the descriptor removed (Supplementary Data 9).
+- `run_p1_continuous`: continuous test-block predictions for participant 1 (Fig. 4 traces).
+- `run_dpose_tokenizer_reuse`: tokenizers trained only on donor participants, then personalized decoders.
+- `run_dpose_noise` (with *`dpose_noise`*, *`report_dpose_noise`*): paired added-noise test of the learned route.
+- `run_dpose_v20_noise_followup`, `collect_dpose_v20_noise_followup`: the same noise test for token V20, continuous V20 and the adapted CNN, and its independent audit.
+- `run_dpose_dropout` (with *`dpose_dropout`*): paired electrode-dropout test.
+- `dpose_spar_corruption`: the noise and dropout tests on the SPAR route (Supplementary Data 8).
+- `dpose_spar_63_electrodes`: SPAR with the 63 electrodes the Cortex-M55 port handles in 20 ms.
+- `dpose_raw_link_budget`: raw EMG from only as many electrodes as the link carries, decoded by the adapted CNN.
+- `dpose_spar_transfer_checks`, `dpose_spar_onset_calibration`: frozen SPAR pipelines on transfer checks, and with one calibration per recording.
+- *`dpose_one_euro`*: the causal One Euro filter.
+- `dpose_claim_statistics`: the paired statistics behind the main claims (Supplementary Data 2 and 3).
+- `n9_exact_intervals`: exact intervals for the nine-participant contrasts outside the main family.
+- `dpose_movement_analysis`, `dpose_absolute_change_analysis`: per-movement errors and token-minus-continuous changes (Fig. 3).
+- `benchmark_dpose_workstation`, `benchmark_dpose_all_variants`, `benchmark_dpose_tbme2024_inference`: decoder latency and resource measurements (Fig. 3).
+- `select_dpose_movement_cycles`: picks the movement cycles shown in the figures before any prediction is read.
+- `replay_dpose_spar_figure_video`: replays the two nine-participant SPAR decoders for the Fig. 5 video and latency.
+- `build_token_umap_cache`: encodes one task into both token types, aligned to the hand kinematics (Fig. 5).
+- `pose_recovery/` (`pose_recovery`, `pose_recovery_heldout`, `aggregate`): do tokens carry the hand's pose? Nearest-repetition retrieval, also on held-out data.
+- `pose_recovery_heldout_statistics`, `spar_ablation_statistics`: statistics for held-out retrieval and the SPAR ablation (Supplementary Data 9).
+- `direction_at_matched_closure`, `direction_continuous_spar`: opening versus closing at matched hand closure.
+- `token_history_shuffle_roundness`: the shuffled-history control for the token-history figure (Supplementary Fig. S5).
+
+**`receivers/`**: the other HD-EMG decoders
+- `run_dpose_matched` (with *`dpose_matched_core`*, `report_dpose_matched`): TCN, Transformer and waveform CNN with matched capacity and training.
+- `run_dpose_transformer`, `report_dpose_transformer`: the small token Transformer.
+- `run_dpose_raulnet` (with *`dpose_raulnet_model`*, `report_dpose_raulnet`): the adapted raw-EMG CNN (RaulNet V19).
+- `run_dpose_tbme2024` (with *`dpose_tbme2024`*): the TBME 2024 CNN retrained on the same windows.
+- `run_dpose_llm_pilot`, `run_dpose_llm_full` (with *`dpose_llm_core`*, `hpc/dpose_llm_worker`): the frozen Qwen3 receiver, pilot then nine participants; the worker runs it on a cluster GPU.
+- `tabpfn_pose/`: the TabPFN receiver; `run` (participant 1), `cohort` (nine), `analyze_cohort`, `benchmark_cohort` (latency), `finish_cohort` (starts the latency stage), *`_support`*.
+
+**`emg2pose/`**
+- `prepare_emg2pose_online`: metadata and byte-range index so recordings stream on demand.
+- `compare_temporal_pose`: caches token features, fits the causal pose readouts, evaluates them.
+- `run_meta_sessions`, `run_tokenizer_seeds`: transfer to unseen sessions, and independent tokenizer seeds.
+- `run_paper_completion` (with *`paper_completion_core`*, `paper_completion_smoke`, `paper_completion_runtime`, `paper_completion_biocodec`, `export_pose_replay`, `report_paper_completion`): the emg2pose replication and the comparison of quantizers, with checks before costly jobs, runtime costs, the BioCodec adaptation, a replay window and the final report.
+- `run_reviewer_campaign` (with `prepare_reviewer_features`): FSQ, quantized PCA and k-means controls.
+- `build_pose_paper_assets`: builds the emg2pose figures and tables (Supplementary Data 4–7).
+- `build_completion_results`: rechecks the paired statistics of the replication and draws its overview figures.
+
+**`figures/`**
+- `build_dpose_combined` (with *`build_dpose_all_variants`*, *`dpose_spar_figure_extension`*, *`dpose_tabpfn_figure_extension`*, *`dpose_tbme_figure_data`*): Fig. 3, errors and decoder costs on shared rows.
+- `build_dpose_resource_overview`: payload budgets next to measured decoder costs, as a separate overview.
+- `plot_fig3_signed_panel`: Fig. 3C, the signed effect of quantization per decoder.
+- `plot_decoding_examples`: Fig. 4, decoded movements of one participant.
+- `make_token_pose_recovery_figure`: Fig. 5 panels.
+- `make_teaser`, `render_teaser_hands` (inside Blender), `export_token_explorer_context`: Fig. 1 panels.
+- `plot_encoder_examples`, `plot_residual_traces`, `plot_residual_featuremap`, `plot_residual_example`, `build_tokenizer_mechanism`, `make_encoder_replacement_draft`, `export_encoder_examples_affinity`: Fig. 2 panels, and editable drawings of the encoder for the vector editor.
+- `plot_supp_figures`: Supplementary Figs. S1, S3 and S4.
+- `make_token_history_supplement`: Supplementary Fig. S5.
+- `plot_robustness_supplement`: Supplementary Fig. S6.
+- `plot_meta_overview`, `plot_meta_transfer`, `plot_compact_controls`, `plot_codec_diagnostics`, `plot_pose_trajectories`, `plot_streaming_cost`, `plot_noise_robustness`: emg2pose and robustness panels drawn by `build_pose_paper_assets`.
+
+**`firmware/`**: see `embedded/*/README.md` for the full commands
+- `raw_tokenizer_benchmark/`: `prepare` exports fixtures and PyTorch reference outputs; `host_check` checks the C tokenizers against them.
+- `stm32n6_tokenizer/`, `stm32n6_optimized/`: `build` (never flashes), `verify_host` and `verify_fast` (host checks), `collect` (one board run), `freeze_runs` (picks the validated runs), `plot` (Fig. 6, from `data/firmware/`).
+- `stm32n6_pose_validation/`: `validate` and `replay63` replay recordings through the C SPAR port and score the frozen decoders.
+
+**`vendor/`**: third-party code, pinned by hash (see `THIRD_PARTY.md`): RaulNet V19, the One Euro filter, the TBME 2024 CNN.
+
 ## Steps that need the authors' intermediate outputs
 
 A few steps check or read files that are not distributed:
