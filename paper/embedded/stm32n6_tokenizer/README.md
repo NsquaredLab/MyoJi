@@ -57,7 +57,7 @@ local covariance matrices.
   from `paper/results/raw_tokenizers_cortex_m4_v1/`, for every build.
   `raw_320x2120.f32`, `reference.npz` and `host_outputs.npz` from the same
   folder, for host verification. All of them are written by
-  `paper/scripts/raw_tokenizer_benchmark/prepare.py` and `host_check.py`; see
+  `paper/firmware/raw_tokenizer_benchmark/prepare.py` and `host_check.py`; see
   [`../raw_tokenizers`](../raw_tokenizers).
 - **Host:** a C compiler (`clang` or `cc`) and NumPy. This port does not use
   CMSIS, so its host build is not tied to arm64.
@@ -92,7 +92,7 @@ export STM32CUBEN6_ROOT=$PWD/STM32CubeN6
 Run from the repository root:
 
 ```sh
-.venv/bin/python paper/scripts/stm32n6_tokenizer/verify_host.py
+uv run python -m paper.firmware.stm32n6_tokenizer.verify_host
 ```
 
 This builds `paper/results/stm32n6_tokenizer_v1/host.dylib` (`host.so` on
@@ -124,13 +124,13 @@ are not microcontroller timings.
    - It never erases or programs NOR.
 
 ```sh
-.venv/bin/python paper/scripts/stm32n6_tokenizer/build.py
-.venv/bin/python paper/scripts/stm32n6_tokenizer/collect.py --route spar \
+uv run python -m paper.firmware.stm32n6_tokenizer.build
+uv run python -m paper.firmware.stm32n6_tokenizer.collect --route spar \
   --sweep-channels 1 4 8 16 20 22 23 24 32 64 128 320 640 1024 --frames 16 --warmup 16 --timeout 180
-.venv/bin/python paper/scripts/stm32n6_tokenizer/collect.py --route learned \
+uv run python -m paper.firmware.stm32n6_tokenizer.collect --route learned \
   --sweep-channels 1 2 4 8 16 32 64 112 --frames 16 --warmup 16 --timeout 600
-.venv/bin/python paper/scripts/stm32n6_tokenizer/freeze_runs.py
-.venv/bin/python paper/scripts/stm32n6_tokenizer/plot.py
+uv run python -m paper.firmware.stm32n6_tokenizer.freeze_runs
+uv run python -m paper.firmware.stm32n6_tokenizer.plot
 ```
 
 `build.py` writes `benchmark.elf`, the map, sizes, symbols and `build.json`

@@ -32,7 +32,7 @@ myogestic = ["myogestic[examples,grpc]>=2.6.2"]
 
 [dependency-groups]
 dev = ["pytest>=8.0", "ruff>=0.12"]
-# Everything the paper/ scripts import. emg2pose and BioCodec are installed separately (paper/README.md).
+# Everything the paper/ code imports. emg2pose and BioCodec are installed separately (paper/README.md).
 paper = [
     "colorcet>=3.1",
     "lightning>=2.5",
@@ -58,3 +58,4 @@ packages = ["src/myoji"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]  # paper/ is imported from the repository root, as `python -m paper...` does

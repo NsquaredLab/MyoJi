@@ -26,8 +26,8 @@ generated rather than committed, because they derive from participant
 recordings. Generate them from the repository root:
 
 ```sh
-.venv/bin/python paper/scripts/raw_tokenizer_benchmark/prepare.py
-.venv/bin/python paper/scripts/raw_tokenizer_benchmark/host_check.py
+uv run python -m paper.firmware.raw_tokenizer_benchmark.prepare
+uv run python -m paper.firmware.raw_tokenizer_benchmark.host_check
 ```
 
 | Input | Location |
@@ -37,7 +37,7 @@ recordings. Generate them from the repository root:
 | Recorded raw HD-EMG window and its saved learned token IDs (training split, task 2) | `paper/output/token-explorer/full-channel-index.json` and the raw and token files it lists |
 
 The token-explorer files contain participant EMG. Generate them from your own
-copy of the recordings with `paper/scripts/export_token_explorer_context.py`.
+copy of the recordings with `paper/figures/export_token_explorer_context.py`.
 That script reads three inputs:
 
 - `$MYOJI_HDEMG/Sub1_emg.pkl`;

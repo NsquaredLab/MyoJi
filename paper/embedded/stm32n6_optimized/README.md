@@ -88,7 +88,7 @@ in every update.
 
 ### Pose validation of the default build
 
-`paper/scripts/stm32n6_pose_validation/validate.py` replays the nine
+`paper/firmware/stm32n6_pose_validation/validate.py` replays the nine
 participants' 320-channel test windows, 4,608,000 channel-updates in total,
 through host builds of both variants. It scores the frozen SPAR-token decoders
 on the resulting tokens:
@@ -148,9 +148,9 @@ builds. By default, outputs go to `paper/results/stm32n6_optimized_v1/`.
 Run from the repository root:
 
 ```sh
-.venv/bin/python paper/scripts/stm32n6_tokenizer/verify_host.py
-.venv/bin/python paper/scripts/stm32n6_optimized/verify_host.py
-.venv/bin/python paper/scripts/stm32n6_optimized/verify_fast.py
+uv run python -m paper.firmware.stm32n6_tokenizer.verify_host
+uv run python -m paper.firmware.stm32n6_optimized.verify_host
+uv run python -m paper.firmware.stm32n6_optimized.verify_fast
 ```
 
 `verify_host.py` runs the original port's checks. In the default build,
@@ -185,17 +185,17 @@ Run the configurations one at a time, because there is only one board. The
 channel lists reproduce the frozen Fig. 6 manifests:
 
 ```sh
-.venv/bin/python paper/scripts/stm32n6_optimized/build.py
-.venv/bin/python paper/scripts/stm32n6_optimized/verify_host.py
-.venv/bin/python paper/scripts/stm32n6_optimized/verify_fast.py
-.venv/bin/python paper/scripts/stm32n6_optimized/collect.py --route learned --frames 16 --warmup 16 --timeout 300 \
+uv run python -m paper.firmware.stm32n6_optimized.build
+uv run python -m paper.firmware.stm32n6_optimized.verify_host
+uv run python -m paper.firmware.stm32n6_optimized.verify_fast
+uv run python -m paper.firmware.stm32n6_optimized.collect --route learned --frames 16 --warmup 16 --timeout 300 \
   --sweep-channels 1 2 3 4 6 8 9 10 11 12 13 16 32 64 112
-.venv/bin/python paper/scripts/stm32n6_optimized/collect.py --route spar --frames 16 --warmup 16 --timeout 180 \
+uv run python -m paper.firmware.stm32n6_optimized.collect --route spar --frames 16 --warmup 16 --timeout 180 \
   --sweep-channels 1 2 3 4 5 6 8 10 11 12 14 16 20 23 24 28 30 31 32 33 34 35 36 37 38 40 43 45 46 \
   50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 66 68 70 76 82 88 91 94 100 106 112 118 119 120 121 \
   122 123 124 125 126 127 128 140 145 150 155 160 180 181 200 220 240 249 250 251 252 256 270 290 \
   320 350 362 400 450 498 499 500 501 512 550 600 640 700 724 800 900 1024
-.venv/bin/python paper/scripts/stm32n6_optimized/freeze_runs.py
+uv run python -m paper.firmware.stm32n6_optimized.freeze_runs
 ```
 
 The bit-exact curve is collected the same way. Set `STM32N6_EXACT=1` for the
@@ -203,12 +203,12 @@ build and the two verifications only, then freeze that curve to its own
 manifest:
 
 ```sh
-STM32N6_EXACT=1 .venv/bin/python paper/scripts/stm32n6_optimized/build.py
-STM32N6_EXACT=1 .venv/bin/python paper/scripts/stm32n6_optimized/verify_host.py
-STM32N6_EXACT=1 .venv/bin/python paper/scripts/stm32n6_optimized/verify_fast.py
-.venv/bin/python paper/scripts/stm32n6_optimized/collect.py --route spar --frames 16 --warmup 16 --timeout 180 \
+STM32N6_EXACT=1 uv run python -m paper.firmware.stm32n6_optimized.build
+STM32N6_EXACT=1 uv run python -m paper.firmware.stm32n6_optimized.verify_host
+STM32N6_EXACT=1 uv run python -m paper.firmware.stm32n6_optimized.verify_fast
+uv run python -m paper.firmware.stm32n6_optimized.collect --route spar --frames 16 --warmup 16 --timeout 180 \
   --sweep-channels 1 4 8 16 24 30 32 33 38 43 44 45 46 47 48 49 56 320
-.venv/bin/python paper/scripts/stm32n6_optimized/freeze_runs.py --elf-sha256 <bit-exact ELF SHA-256> \
+uv run python -m paper.firmware.stm32n6_optimized.freeze_runs --elf-sha256 <bit-exact ELF SHA-256> \
   --output paper/results/stm32n6_optimized_v1/measurement_manifest_exact.json
 ```
 
@@ -225,7 +225,7 @@ map, receipt and sources.
 Draw Fig. 6 with:
 
 ```sh
-.venv/bin/python paper/scripts/stm32n6_optimized/plot.py
+uv run python -m paper.firmware.stm32n6_optimized.plot
 ```
 
 `plot.py` reads three frozen manifests and the run folders they list:
@@ -252,20 +252,20 @@ The figure has two panels:
 - **B:** the default build's per-channel time, split by stage, with a
   proportional fit.
 
-The plot uses the paper's figure style (`paper/scripts/figstyle.py` and `simpetru.mplstyle`)
-and the Switzer font if it is installed (`paper/scripts/switzer_font.py`).
+The plot uses the paper's figure style (`paper/common/figstyle.py` and `simpetru.mplstyle`)
+and the Switzer font if it is installed (`paper/common/switzer_font.py`).
 
 ## Pose validation
 
 Run from the repository root:
 
 ```sh
-.venv/bin/python paper/scripts/stm32n6_pose_validation/validate.py prepare --subjects 1 2 3 4 5 6 7 8 9 --device cuda
-.venv/bin/python paper/scripts/stm32n6_pose_validation/validate.py build
-.venv/bin/python paper/scripts/stm32n6_pose_validation/validate.py fixture
-.venv/bin/python paper/scripts/stm32n6_pose_validation/validate.py subject --subjects 1 2 3 4 5 6 7 8 9 --device cpu
-.venv/bin/python paper/scripts/stm32n6_pose_validation/validate.py report
-.venv/bin/python paper/scripts/stm32n6_pose_validation/replay63.py --data paper/results/stm32n6_pose_validation_v1/prepare
+uv run python -m paper.firmware.stm32n6_pose_validation.validate prepare --subjects 1 2 3 4 5 6 7 8 9 --device cuda
+uv run python -m paper.firmware.stm32n6_pose_validation.validate build
+uv run python -m paper.firmware.stm32n6_pose_validation.validate fixture
+uv run python -m paper.firmware.stm32n6_pose_validation.validate subject --subjects 1 2 3 4 5 6 7 8 9 --device cpu
+uv run python -m paper.firmware.stm32n6_pose_validation.validate report
+uv run python -m paper.firmware.stm32n6_pose_validation.replay63 --data paper/results/stm32n6_pose_validation_v1/prepare
 ```
 
 | Stage | Inputs |

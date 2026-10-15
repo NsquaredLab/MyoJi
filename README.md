@@ -76,7 +76,8 @@ Hand: `uv sync --extra myogestic && uv run python examples/myogestic_tokens.py`.
 ## Reproducing the paper
 
 `paper/` reruns every number and figure in the article and its supplement:
-- `paper/scripts`: the campaigns, statistics and figure panels;
+- `paper/hdemg`, `paper/receivers`, `paper/emg2pose`, `paper/pretraining`: the campaigns and statistics;
+- `paper/figures`: the figure panels;
 - `paper/embedded`: the Cortex-M55 SPAR firmware;
 - `paper/data`: the frozen window selections and Supplementary Data 1–9.
 
@@ -86,7 +87,7 @@ authors on reasonable request; emg2pose is public.
 ## Trained weights
 
 The trained tokenizers and SPAR codebooks used in the paper are not distributed.
-`paper/scripts/train_mixed_sources.py` pretrains a learned tokenizer, and
+`python -m paper.pretraining.train_mixed_sources` pretrains a learned tokenizer, and
 `myoji.learned.export_checkpoint(..., calibration_samples=1000)` turns its checkpoint into the
 file `Tokenizer` loads. The SPAR campaigns in `paper/` fit the codebooks.
 
