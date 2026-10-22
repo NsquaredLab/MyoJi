@@ -124,15 +124,20 @@
       const room = slide.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
       const width = slide.clientWidth;
       box.style.width = box.style.transform = '';
-      if (box.offsetHeight <= room) return;
-      let lo = .3, hi = 1;
-      for (let k = 0; k < 8; k++) {
-        const s = (lo + hi) / 2;
-        box.style.width = `${width / s}px`;
-        if (box.offsetHeight * s <= room) lo = s; else hi = s;
+      let scale = 1;
+      if (box.offsetHeight > room) {
+        let lo = .3, hi = 1;
+        for (let k = 0; k < 8; k++) {
+          const s = (lo + hi) / 2;
+          box.style.width = `${width / s}px`;
+          if (box.offsetHeight * s <= room) lo = s; else hi = s;
+        }
+        box.style.width = `${width / lo}px`;
+        scale = lo;
       }
-      box.style.width = `${width / lo}px`;
-      box.style.transform = `scale(${lo})`;
+      // centre the (scaled) content in the room between the header and the slide buttons
+      const lift = Math.max(0, (room - box.offsetHeight * scale) / 2);
+      box.style.transform = `translateY(${lift}px) scale(${scale})`;
     };
     const fit = () => fits.forEach(fitOne);
     // re-fit a slide whose content changes size (figures load their data late); the fitted width
