@@ -50,6 +50,8 @@ img{max-width:100%}
 .site-header nav a{text-decoration:none;padding:10px 0}
 .site-header nav .pdf{border:1px solid var(--ink);padding:10px 14px;font-weight:600}
 .site-header nav .pdf:hover{background:var(--wash);color:var(--ink)}
+.site-header nav .gh{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);padding:10px 14px;font-weight:600}
+.site-header nav .gh:hover{background:var(--wash);color:var(--ink)}
 .theme-button{display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid var(--ink);background:transparent;font-size:18px;line-height:1}
 .theme-button:hover{background:var(--wash)}
 
