@@ -150,9 +150,10 @@
     return {x:q*q*q*route[0].x+3*q*q*t*route[1].x+3*q*t*t*route[2].x+t*t*t*route[3].x,y:q*q*q*route[0].y+3*q*q*t*route[1].y+3*q*t*t*route[2].y+t*t*t*route[3].y};
   }
   function measureRoutes() {
-    const origin = $('.pipeline').getBoundingClientRect();
+    const pipeline = $('.pipeline'), origin = pipeline.getBoundingClientRect();
     if (!origin.width) return;
-    const rect = node => {const r=node.getBoundingClientRect();return {x:r.x-origin.x,y:r.y-origin.y,w:r.width,h:r.height};};
+    const k = origin.width / pipeline.offsetWidth;   // on-screen scale (a scaled phone slide), 1 elsewhere
+    const rect = node => {const r=node.getBoundingClientRect();return {x:(r.x-origin.x)/k,y:(r.y-origin.y)/k,w:r.width/k,h:r.height/k};};
     const centre = node => {const r=rect(node);return {x:r.x+r.w/2,y:r.y+r.h/2};};
     const panels = $$('[data-panel]').map(rect);
     const links = [0,1,2].map(i => {

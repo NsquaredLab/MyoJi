@@ -89,10 +89,15 @@
 
     // Desktop: page scrolling is off (swiss.css); the buttons and paging keys glide one slide.
     // A slide taller than the window (the intro on short screens) first shows its remainder.
+    // Smaller screens at least 500 px tall (phones held upright, tablets) get the same slides as a
+    // deck: one slide per screen, its content (wrapped in .fit) scaled down to fit, moved by the
+    // buttons or a swipe.
     const desktop = matchMedia('(min-width: 900px) and (min-height: 640px)');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const root = document.documentElement, header = $('.site-header');
     const prev = $('#slide-prev'), next = $('#slide-next');
-    const head = () => desktop.matches ? $('.site-header').offsetHeight : 0;     // the header stays on top (swiss.css)
+    const deck = () => root.classList.contains('deck');
+    const head = () => desktop.matches || deck() ? header.offsetHeight : 0;     // the header stays on top (swiss.css)
     const top = i => i ? slides[i].getBoundingClientRect().top + scrollY - head() : 0;   // the first slide includes the header
     const current = () => slides.reduce((best, _, i) => Math.abs(top(i) - scrollY) < Math.abs(top(best) - scrollY) ? i : best, 0);
     const glide = y => scrollTo({ top: y, behavior: motion.matches ? 'auto' : 'smooth' });
@@ -109,10 +114,74 @@
     prev.addEventListener('click', () => go(-1));
     next.addEventListener('click', () => go(1));
     addEventListener('scroll', ends, { passive: true });
-    addEventListener('resize', ends);
-    ends();
+
+    // Deck: wrap each slide's content once. A slide taller than the screen is laid out wider (width / s)
+    // and scaled by s, so it fills the screen's width; s is the largest scale whose height still fits
+    // (binary search, because wrapping and figure sizes change with the width).
+    const fits = [];
+    const fitOne = box => {
+      const slide = box.parentElement, style = getComputedStyle(slide);
+      const room = slide.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+      const width = slide.clientWidth;
+      box.style.width = box.style.transform = '';
+      if (box.offsetHeight <= room) return;
+      let lo = .3, hi = 1;
+      for (let k = 0; k < 8; k++) {
+        const s = (lo + hi) / 2;
+        box.style.width = `${width / s}px`;
+        if (box.offsetHeight * s <= room) lo = s; else hi = s;
+      }
+      box.style.width = `${width / lo}px`;
+      box.style.transform = `scale(${lo})`;
+    };
+    const fit = () => fits.forEach(fitOne);
+    // re-fit a slide whose content changes size (figures load their data late); the fitted width
+    // reports one more change, which yields the same result and ends there
+    const sizer = 'ResizeObserver' in window ? new ResizeObserver(entries => entries.forEach(e => fitOne(e.target))) : null;
+    const setMode = () => {
+      const on = !desktop.matches && innerHeight >= 500;   // landscape phones keep the scrolling page
+      if (on === deck()) return;
+      const i = current();
+      root.classList.toggle('deck', on);
+      if (on) slides.forEach(slide => {
+        const box = document.createElement('div');
+        box.className = 'fit';
+        box.append(...slide.childNodes);
+        slide.append(box);
+        fits.push(box);
+        sizer?.observe(box);
+      });
+      else fits.splice(0).forEach(box => { sizer?.unobserve(box); box.replaceWith(...box.childNodes); });
+      scrollTo(0, top(i));
+    };
+    const settle = () => {
+      setMode();
+      if (!deck()) return ends();
+      root.style.setProperty('--head', `${header.offsetHeight}px`);
+      fit();
+      scrollTo(0, top(current()));   // keep a whole slide in view after a rotation or resize
+      ends();
+    };
+    addEventListener('resize', settle);
+    settle();
+
+    // Deck: a vertical or sideways swipe moves one slide (a moved touch never taps a button or link);
+    // two-finger zoom and the sliders keep their touches.
+    let touch = null;
+    addEventListener('touchstart', e => {
+      touch = deck() && e.touches.length === 1 && !e.target.closest('input, select, textarea, [role="slider"]')
+        ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+    }, { passive: true });
+    addEventListener('touchmove', e => { if (touch && e.touches.length === 1) e.preventDefault(); }, { passive: false });
+    addEventListener('touchend', e => {
+      if (!touch) return;
+      const dx = e.changedTouches[0].clientX - touch.x, dy = e.changedTouches[0].clientY - touch.y;
+      touch = null;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 50) return;
+      go(Math.abs(dy) >= Math.abs(dx) ? (dy < 0 ? 1 : -1) : (dx < 0 ? 1 : -1));
+    });
     addEventListener('keydown', e => {
-      if (!desktop.matches || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+      if (!(desktop.matches || deck()) || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
       if (!e.target.closest?.('.slide-nav') && e.target.closest?.('input, textarea, select, button, [contenteditable], [tabindex]')) return;
       const step = { ArrowDown: 1, PageDown: 1, ' ': e.shiftKey ? -1 : 1, ArrowUp: -1, PageUp: -1 }[e.key];
       if (!step) return;

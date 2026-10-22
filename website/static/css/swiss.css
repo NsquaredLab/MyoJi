@@ -194,6 +194,23 @@ img{max-width:100%}
 .slide-nav button:hover:not(:disabled){background:var(--wash)}
 .slide-nav button:disabled{opacity:.3;cursor:default}
 .slide-nav span{min-width:7ch;text-align:center;font-family:var(--mono);font-size:12px;font-feature-settings:'tnum'}
+/* Deck (site.js, below the desktop slide size): one slide per screen under a one-row header, its content
+   (.fit) scaled down to fit; the slide buttons and swipes replace the section links and page scrolling. */
+.deck{overflow:hidden;overscroll-behavior:none}
+.deck body{overscroll-behavior:none}
+.deck .site-header{position:sticky;top:0;z-index:4;flex-wrap:nowrap;padding:8px 0;background:var(--paper)}
+.deck .site-header nav{flex-wrap:nowrap;gap:8px}
+.deck .site-header nav a:not(.gh){display:none}
+.deck .site-header nav .gh{gap:0;padding:0;width:40px;height:40px;justify-content:center;font-size:0}
+.deck .theme-button{width:40px;height:40px}
+.deck .slide{box-sizing:border-box;height:calc(100svh - var(--head,56px));margin:0;padding:10px 0 68px;overflow:hidden}
+.deck .fit{transform-origin:top left}
+/* figures sized by the width would grow as a slide is laid out wider; cap them so only text gains */
+.deck .grid-box{aspect-ratio:auto;height:260px}
+.deck .hand-svg{max-height:200px}
+.deck .patch-grid{max-width:240px}
+.deck .umap-canvas{height:300px}
+.deck .slide-nav{right:50%;transform:translateX(50%);bottom:12px}
 
 /* Animated figures (flow.css, umap.css, shared with the standalone pages) re-coloured for this page.
    Their variables come from site.css there; here they map to the Swiss palette. */

@@ -74,8 +74,8 @@
     context.textAlign='left';context.textBaseline='alphabetic';
   }
   function rebuild() {
-    const rect=canvas.getBoundingClientRect();
-    width=rect.width;height=rect.height;dpr=Math.min(devicePixelRatio||1,2);
+    // layout size, not the on-screen box: a scaled phone slide must not shrink the drawing buffer
+    width=canvas.clientWidth;height=canvas.clientHeight;dpr=Math.min(devicePixelRatio||1,2);
     if(!width||!height)return;
     canvas.width=cloud.width=Math.round(width*dpr);canvas.height=cloud.height=Math.round(height*dpr);
     const cache=cloud.getContext('2d');cache.setTransform(dpr,0,0,dpr,0,0);
