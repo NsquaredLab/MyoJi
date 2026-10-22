@@ -1,0 +1,12 @@
+{
+  "sources": {
+    "paper/figures/encoder_examples/example-data.npz": "8b2c40fc478a71ae6fb74eacdb85f75b4f15dd87abce9f8477583ed1bfd90ffe",
+    "checkpoints/clean_release.pt": "ab17f165c603aa50a2b8cb5b836e09168efa3665625ff249d8fec0dfbe803311",
+    "results/dpose_spar_simple_full_v1/subject_01/figure-video-inputs.npz": "2150e96352a7238beff84e31097bc3117cb9accac2a315e7914bfd534a422277"
+  },
+  "checked_codes_per_example": 1024,
+  "synthetic_values": false,
+  "scene": "The 2D flow illustrates processing order. The eight nearest candidates are displayed in distance order. SPAR input traces are schematic; numerical vectors, distances and IDs are recorded.",
+  "waveform_display": "Min/max pairs per four input samples; 480 ms support; no smoothing.",
+  "feature_display": "All dimensions in original order; grayscale symmetric around zero, independently scaled per example."
+}

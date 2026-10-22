@@ -1,0 +1,14 @@
+.DS_Store
+__pycache__/
+
+# Written by website/scripts/build.mjs; the Website workflow builds them.
+website/index.html
+website/tokenizer.html
+website/umap.html
+website/static/images/tokenizer.svg
+
+# Switzer is fetched from Fontshare at build time; its licence does not allow redistribution here.
+website/static/fonts/Switzer-*.woff2
+
+# The manuscript and supplement are added with the preprint.
+website/static/pdfs/

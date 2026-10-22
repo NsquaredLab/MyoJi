@@ -1,0 +1,43 @@
+# Builds the project page in website/ and publishes it to GitHub Pages.
+name: Website
+
+on:
+  push:
+    branches: [main]
+    paths: ['website/**', '.github/workflows/website.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Switzer's licence (ITF Free Font License) allows self-hosting on our own site but not
+      # redistribution through a repository, so the font is fetched from Fontshare at build time.
+      - name: Fetch Switzer from Fontshare
+        run: |
+          curl -fsSL -o switzer.zip https://api.fontshare.com/v2/fonts/download/switzer
+          unzip -jo switzer.zip 'Switzer_Complete/Fonts/WEB/fonts/Switzer-Variable*.woff2' -d website/static/fonts
+
+      - name: Build the pages
+        run: node website/scripts/build.mjs
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: website
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,235 @@
+<!doctype html>
+<!-- data-pdfs="later" hides the paper and supplement links until the preprint is out; remove it then. -->
+<html lang="en" data-pdfs="later">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EMG Tokenization Preserves Movement Information at a Fraction of the Bitrate</title>
+  <meta name="description" content="Compact EMG tokens support 3D hand-pose decoding with small changes in mean error. Stored token arrays reduce the payload 41-fold relative to raw EMG.">
+  <meta name="author" content="Raul C. Sîmpetru, Amin Olamazadeh, Devon Rohlf, Vlad Cnejevici, Alessandro Del Vecchio">
+  <meta property="og:title" content="EMG Tokenization Preserves Movement Information at a Fraction of the Bitrate">
+  <meta property="og:description" content="One 10-bit index per electrode every 20 ms. Tokenization changed hand-pose error by +0.01 mm with SPAR and +0.45 mm with a learned encoder.">
+  <meta property="og:type" content="article">
+  <meta name="theme-color" content="#ffffff" data-light="#ffffff" data-dark="#0e0e0e">
+  <script>{{THEME}}</script>
+  <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="static/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="static/css/fonts.css">
+  <link rel="stylesheet" href="static/css/flow.css">
+  <link rel="stylesheet" href="static/css/umap.css">
+  <link rel="stylesheet" href="static/css/swiss.css">
+  <script defer src="static/js/tokenizer.js"></script>
+  <script defer src="static/js/umap.js"></script>
+  <script defer src="static/js/hand.js"></script>
+  <script defer src="static/js/patch.js"></script>
+  <script defer src="static/js/site.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+
+<header class="site-header">
+  <a class="brand" href="#top"><b>EMG Tokenization</b></a>
+  <nav aria-label="Page sections">
+    <a href="#method">Method</a>
+    <a href="#results">Results</a>
+    <a href="#space">Token space</a>
+    <a href="#paper">Paper</a>
+    <a class="pdf pdf-link" href="static/pdfs/paper.pdf">PDF ↗</a>
+    <button type="button" class="theme-button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+  </nav>
+</header>
+
+<main id="main">
+<section class="hero slide" id="top">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <h1>EMG Tokenization Preserves Movement Information at a Fraction of the Bitrate</h1>
+      <p class="authors"><a href="https://orcid.org/0000-0003-0455-0168">Raul C. Sîmpetru</a>, <a href="https://orcid.org/0009-0002-6830-5559">Amin Olamazadeh</a>, <a href="https://orcid.org/0000-0003-1601-0046">Devon Rohlf</a>, <a href="https://orcid.org/0000-0003-2291-5941">Vlad Cnejevici</a> and <a href="https://orcid.org/0000-0002-7118-5554">Alessandro Del Vecchio</a></p>
+      <p class="affil">Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
+      <p class="hero-links pdf-link"><a href="static/pdfs/paper.pdf">Paper ↗</a><a href="static/pdfs/supplement.pdf">Supplement ↗</a></p>
+      <p class="bits-label"><span data-n>320</span> electrodes, one 20 ms update</p>
+      <p class="bits-name">Raw 16-bit EMG</p>
+      <p class="bits"><span id="raw-bits">209,715</span><small>bits</small></p>
+      <p class="bits-name tok">Tokens</p>
+      <p class="bits tok"><span id="tok-bits">3,200</span><small>bits</small></p>
+      <div class="figures">
+        <div class="figure-num"><div class="n accent">+0.01<small>mm</small></div><h3>Hand-pose error, SPAR tokens versus continuous features</h3></div>
+        <div class="figure-num"><div class="n accent">+0.45<small>mm</small></div><h3>Learned tokens versus continuous features</h3></div>
+        <div class="figure-num"><div class="n">41<small class="x">×</small></div><h3>Smaller stored payload than raw EMG</h3></div>
+        <div class="figure-num"><div class="n">63</div><h3>Channels tokenized within 20 ms on a Cortex-M55</h3></div>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <div class="grid-box"><div class="token-grid" id="token-grid" role="img" aria-label="Token IDs sent by each electrode, from participant 1's recording"></div></div>
+      <p class="grid-title">Each electrode sends one 10-bit token every 20 ms.</p>
+      <div class="grid-meta">
+        <p>Electrode 28 → <b id="tok28">239</b> → <span id="bits28">0011101111</span></p>
+        <div class="grid-play"><span id="update-no">Update 50 of 100</span><span>slowed 10×</span><button type="button" id="grid-play" aria-pressed="true">Pause</button></div>
+      </div>
+      <div class="rate-band">
+        <label class="band-slider" for="channels"><span id="channel-count">320</span> electrodes<input id="channels" type="range" min="16" max="320" step="16" value="320"></label>
+        <div class="band-row"><div class="band-head"><span class="band-name">Raw EMG<small>16 bit · 2,048 Hz</small></span><span class="band-val" id="raw-rate">10.49 Mbit/s</span></div><span class="band-track"><span class="fill" id="raw-fill" style="width:100%"></span><span class="link-mark" style="left:13.35%"></span></span></div>
+        <div class="band-row tok"><div class="band-head"><span class="band-name">Tokens<small>10 bit · 50 Hz</small></span><span class="band-val" id="packed-rate">160 kbit/s</span></div><span class="band-track"><span class="fill accent" id="packed-fill" style="width:1.53%"></span><span class="link-mark" style="left:13.35%"><span>Bluetooth LE, 1.4 Mbit/s</span></span></span></div>
+        <p class="note" id="fit-text">Raw EMG exceeds the assumed link above 42 electrodes; tokens fit up to 2,800. Payload only.</p>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="section slide" id="method" aria-labelledby="method-title">
+  <div class="sec-head"><h2 id="method-title">From EMG to tokens</h2><p class="intro">Each electrode's recent EMG is replaced by the index of its nearest codebook entry.</p></div>
+  <div class="figure-block">{{ANATOMY}}</div>
+  <p class="fig-links"><a href="tokenizer.html">Open the figure ↗</a><a href="static/images/tokenizer.svg" download>SVG ↓</a></p>
+</section>
+
+<section class="section slide" id="spar" aria-labelledby="spar-title">
+  <div class="sec-head"><h2 id="spar-title">One electrode and its neighbours</h2><p class="intro">SPAR describes each electrode together with its right and lower neighbours.</p></div>
+  <!-- SPAR patch (static/js/patch.js), colours as in the paper's Fig. 3. -->
+  <figure class="row patch-figure">
+    <figcaption class="side"><span class="label">Fig. 3 · SPAR patch</span>Each electrode is paired with its right and lower neighbours; at a grid edge, the missing one is replaced from the opposite side (dashed).</figcaption>
+    <div class="main patch-widget" data-ready="false">
+      <div class="umap-toolbar">
+        <div class="history-controls"><span>Example</span><div role="group" aria-label="Show an example patch"><button type="button" data-electrode="28" aria-pressed="true">Interior</button><button type="button" data-electrode="8" aria-pressed="false">Right edge</button><button type="button" data-electrode="60" aria-pressed="false">Bottom edge</button><button type="button" data-electrode="64" aria-pressed="false">Corner</button></div></div>
+        <span class="umap-participant">Participant 1 · forearm grid 1 · 8 × 8</span>
+      </div>
+      <div class="patch-layout">
+        <svg class="patch-grid" viewBox="-30 -30 380 380" role="img" aria-label="SPAR patch of electrode 28">
+          <path class="patch-sites" data-sites/><path class="patch-ghosts" data-ghosts/><path class="patch-aux" data-aux/><path class="patch-sub" data-sub/><path class="patch-edges" data-edges/><path class="patch-heads" data-heads/>
+          <g class="patch-member aux" data-member="a"><circle r="12"/><text text-anchor="middle" dominant-baseline="central">a</text></g>
+          <g class="patch-member kept" data-member="h"><circle r="12"/><text text-anchor="middle" dominant-baseline="central">h</text></g>
+          <g class="patch-member kept" data-member="v"><circle r="12"/><text text-anchor="middle" dominant-baseline="central">v</text></g>
+          <g class="patch-member centre" data-member="c"><circle r="12"/><text text-anchor="middle" dominant-baseline="central">c</text></g>
+          <text class="ghost-label" text-anchor="middle" dominant-baseline="central" data-ghost="h">h</text><text class="ghost-label" text-anchor="middle" dominant-baseline="central" data-ghost="v">v</text>
+        </svg>
+        <div class="patch-readout">
+          <p class="umap-overline">Centre electrode</p>
+          <p class="patch-centre" data-centre>28</p>
+          <p class="note" data-place>Row 4, column 4</p>
+          <p class="patch-members"><span><i class="patch-dot centre"></i><i>c</i><b data-n="c">28</b></span><span><i class="patch-dot kept"></i><i data-l="h">h</i><b data-n="h">29</b></span><span><i class="patch-dot kept"></i><i data-l="v">v</i><b data-n="v">36</b></span><span><i class="patch-dot aux"></i><i>a</i><b data-n="a">27</b></span></p>
+          <p class="note patch-status" data-status></p>
+          <div class="patch-table" data-table><span class="patch-head band">Band, Hz</span><span class="patch-head"><i class="patch-dot centre"></i>Centre</span><span class="patch-head"><i class="patch-dot kept"></i>Horizontal</span><span class="patch-head"><i class="patch-dot kept"></i>Vertical</span></div>
+          <p class="patch-token"><span>Token</span><b data-token>239</b><span class="mono" data-bits>0011101111</span></p>
+        </div>
+      </div>
+      <div class="umap-transport">
+        <button type="button" class="umap-play" aria-label="Pause the patch animation"><span aria-hidden="true">Ⅱ</span></button>
+        <div class="umap-timeline"><label class="sr-only" for="patch-electrode">Centre electrode</label><input id="patch-electrode" type="range" min="1" max="64" value="28" step="1" aria-valuetext="Electrode 28 of 64"><div class="umap-phase-labels"><span>1</span><span>Electrodes, row by row</span><span>64</span></div></div>
+        <span class="umap-speed" data-of>28/64</span>
+      </div>
+    </div>
+  </figure>
+</section>
+
+<section class="section slide" id="results" aria-labelledby="results-title">
+  <div class="sec-head"><h2 id="results-title">Decoded hand pose</h2><p class="intro">Participant 6's fist, decoded from SPAR tokens and from continuous SPAR.</p></div>
+
+  <!-- Decoded hand (static/js/hand.js). Controls reuse the token-space figure's classes (umap.css). -->
+  <div class="figure-block hand-widget" data-ready="false" data-movement="5">
+    <div class="umap-toolbar">
+      <span class="umap-participant">Participant 6 · one update every 20 ms</span>
+    </div>
+    <div class="hand-layout">
+      <div class="hand-panels">
+        <figure class="hand-panel tokens">
+          <figcaption class="label"><i aria-hidden="true"></i>SPAR tokens</figcaption>
+          <svg class="hand-svg" viewBox="0 0 875 943" role="img" aria-label="Hand decoded from SPAR tokens over the measured hand"><path class="hand-decoded" data-bones="tokens"/><path class="hand-measured" data-bones="measured"/><path class="hand-joints" data-joints/></svg>
+        </figure>
+        <figure class="hand-panel continuous">
+          <figcaption class="label"><i aria-hidden="true"></i>Continuous SPAR</figcaption>
+          <svg class="hand-svg" viewBox="0 0 875 943" role="img" aria-label="Hand decoded from continuous SPAR over the measured hand"><path class="hand-decoded" data-bones="continuous"/><path class="hand-measured" data-bones="measured"/><path class="hand-joints" data-joints/></svg>
+        </figure>
+      </div>
+      <aside class="hand-aside">
+        <p class="umap-overline">Movement</p>
+        <p class="hand-move" data-move-name>Fist</p>
+        <p class="umap-overline hand-overline">3D error over these 4 s</p>
+        <p class="hand-error tokens"><span data-error="tokens">–</span><small>mm</small></p>
+        <p class="hand-arm">SPAR tokens</p>
+        <p class="hand-error continuous"><span data-error="continuous">–</span><small>mm</small></p>
+        <p class="hand-arm">Continuous SPAR</p>
+        <p class="note">Unfiltered mean over 20 landmarks; the display is smoothed.</p>
+        <div class="hand-key"><i class="measured"></i><span>Measured hand</span><i class="tokens"></i><span>Decoded from SPAR tokens</span><i class="continuous"></i><span>Decoded from continuous SPAR</span></div>
+        <p class="note hand-status" role="status" data-status></p>
+      </aside>
+    </div>
+    <div class="hand-trace">
+      <div class="hand-trace-head"><span><span data-measure>Mean fingertip to wrist</span>, mm</span><span class="hand-trace-key"><span><i class="measured"></i>Measured</span><span><i class="tokens"></i>SPAR tokens</span><span><i class="continuous"></i>Continuous SPAR</span></span></div>
+      <div class="hand-plot">
+        <div class="hand-ticks" data-ticks aria-hidden="true"></div>
+        <svg viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true"><path class="hand-grid" data-grid/><path class="trace-continuous" data-trace="continuous"/><path class="trace-tokens" data-trace="tokens"/><path class="trace-measured" data-trace="measured"/><path class="hand-playhead" data-playhead/></svg>
+      </div>
+    </div>
+    <div class="umap-transport">
+      <button type="button" class="umap-play" aria-label="Pause the hand animation"><span aria-hidden="true">Ⅱ</span></button>
+      <div class="umap-timeline"><label class="sr-only" for="hand-time">Time in the 4 s block</label><input id="hand-time" type="range" min="0" max="199" value="0" step="1" aria-valuetext="0.00 seconds"><div class="umap-phase-labels"><span>0 s</span><span>1</span><span>2</span><span>3</span><span>4 s</span></div></div>
+      <span class="umap-speed" data-time>0.00 s</span>
+    </div>
+  </div>
+
+</section>
+
+<section class="section slide" id="factors" aria-labelledby="factors-title">
+  <div class="sec-head"><h2 id="factors-title">Tokenization is the smallest change</h2><p class="intro">Electrode coverage, calibration and untrained recordings changed the error more than tokenization did.</p></div>
+  <div class="results-grid">
+  <div class="bars">
+    <div class="bars-head label"><span>Change in 3D hand-pose error, nine participants</span><span>mm</span></div>
+    <div class="bar-row"><div class="what"><b>Tokenization, SPAR</b><span>Tokens versus continuous features, pooled over receivers</span></div><div class="how"><span class="track"><span class="fill accent" style="width:.12%;min-width:3px"></span></span><span class="val accent">+0.01</span></div></div>
+    <div class="bar-row"><div class="what"><b>Tokenization, learned encoder</b><span>Tokens versus continuous features, pooled over receivers</span></div><div class="how"><span class="track"><span class="fill accent" style="width:5.4%"></span></span><span class="val accent">+0.45</span></div></div>
+    <div class="bar-row"><div class="what"><b>Calibration mismatch</b><span>SPAR tokens, recording-onset statistics for decoders trained per window</span></div><div class="how"><span class="track"><span class="fill" style="width:10.56%"></span></span><span class="val">+0.88</span></div></div>
+    <div class="bar-row"><div class="what"><b>Fewer electrodes</b><span>SPAR tokens with 63 instead of 320 electrodes</span></div><div class="how"><span class="track"><span class="fill" style="width:19.81%"></span></span><span class="val">+1.65</span></div></div>
+    <div class="bar-row"><div class="what"><b>No neighbour information</b><span>Tokens from each electrode's own band power instead of SPAR</span></div><div class="how"><span class="track"><span class="fill" style="width:30.01%"></span></span><span class="val">+2.50</span></div></div>
+    <div class="bar-row"><div class="what"><b>Untrained recordings</b><span>SPAR tokens on 1.5 Hz digit movements versus the 0.5 Hz test windows</span></div><div class="how"><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">+8.33</span></div></div>
+  </div>
+    <aside class="bench">
+      <div class="bars-head label"><span>emg2pose benchmark</span><span>mm</span></div>
+      <div class="bench-row"><b>176 test participants</b><span class="val">−0.04</span></div>
+      <div class="bench-row"><b>20 unseen participants</b><span class="val">+0.02</span></div>
+      <div class="bench-row"><b>Held-out sessions</b><span class="val">+0.04</span></div>
+      <p class="note">Learned tokens minus continuous features.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section slide" id="space" aria-labelledby="space-title">
+  <div class="sec-head"><h2 id="space-title">Movement through token space</h2><p class="intro">Participant 1's SPAR tokens, mapped with UMAP and coloured by movement.</p></div>
+  <div class="figure-block">{{UMAP}}</div>
+  <p class="fig-links"><a href="umap.html">Open the figure ↗</a><a href="static/videos/umap-phase-light.mp4" download>Video, light ↓</a><a href="static/videos/umap-phase-dark.mp4" download>Video, dark ↓</a><a href="static/videos/umap-history.mp4" download>History comparison ↓</a></p>
+</section>
+
+<section class="section slide" id="paper" aria-labelledby="paper-title">
+  <div class="sec-head"><h2 id="paper-title">Paper and materials</h2></div>
+  <div class="paper-grid">
+    <div class="resources">
+      <a class="pdf-link" href="static/pdfs/paper.pdf"><b>Manuscript</b><span>PDF · 11 pages ↗</span></a>
+      <a class="pdf-link" href="static/pdfs/supplement.pdf"><b>Supplementary material</b><span>PDF ↗</span></a>
+      <a href="tokenizer.html"><b>Tokenizer, step by step</b><span>Interactive figure ↗</span></a>
+      <a href="umap.html"><b>Movement through token space</b><span>Interactive figure ↗</span></a>
+      <a href="static/videos/umap-history.mp4" download><b>Presentation videos</b><span>MP4 · 1920 × 1080 ↓</span></a>
+    </div>
+    <div>
+      <div class="cite-head"><span class="label">Citation</span><button type="button" id="copy-citation">Copy BibTeX</button></div>
+      <pre class="bib"><code id="bibtex"><span class="t">@unpublished</span><span class="p">{</span><span class="k">simpetru2026emgtokenization</span><span class="p">,</span>
+  <span class="f">title</span>  <span class="p">= {</span>EMG Tokenization Preserves Movement
+            Information at a Fraction of the Bitrate<span class="p">},</span>
+  <span class="f">author</span> <span class="p">= {</span>Sîmpetru, Raul C. <span class="p">and</span> Olamazadeh, Amin <span class="p">and</span>
+            Rohlf, Devon <span class="p">and</span> Cnejevici, Vlad <span class="p">and</span>
+            Del Vecchio, Alessandro<span class="p">},</span>
+  <span class="f">year</span>   <span class="p">= {</span><span class="y">2026</span><span class="p">},</span>
+  <span class="f">note</span>   <span class="p">= {</span>Manuscript<span class="p">}</span>
+<span class="p">}</span></code></pre>
+      <span class="sr-only" role="status" id="copy-status"></span>
+    </div>
+  </div>
+  <footer class="site-footer">
+  <b>EMG Tokenization</b>
+  <div>Department of Artificial Intelligence in Biomedical Engineering<br>Friedrich-Alexander-Universität Erlangen-Nürnberg</div>
+  <div>Unpublished manuscript. Interactive tokenizer figure built with <a href="https://github.com/wheresryan22/anatomy">Anatomy</a>. Set in Switzer and IBM Plex Mono.</div>
+  </footer>
+</section>
+</main>
+<nav class="slide-nav" aria-label="Slides"><button type="button" id="slide-prev" aria-label="Previous slide"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 10.5 8 5.5l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><span id="slide-no">01 / 07</span><button type="button" id="slide-next" aria-label="Next slide"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 5.5 8 10.5l5-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button></nav>
+
+</div>
+</body>
+</html>
