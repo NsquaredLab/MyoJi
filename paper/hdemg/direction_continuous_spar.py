@@ -112,7 +112,8 @@ def direction(subject, cont, tolerance=dm.TOLERANCE):
         n_close = (allowed & (direction_label[None] > 0)).sum(1)
         n_open = (allowed & (direction_label[None] < 0)).sum(1)
         valid = keep & ((n_close + n_open) > 0)
-        acc["reference"] = float((np.maximum(n_close, n_open)[valid] / (n_close + n_open)[valid]).mean())
+        majority = np.where(n_close >= n_open, 1, -1)
+        acc["reference"] = float((majority[valid] == direction_label[valid]).mean())
         per_movement[int(m)] = acc
     return {name: float(np.mean([v[name] for v in per_movement.values()])) for name in ("tokens", "ids", "pose", "reference", "continuous")}
 

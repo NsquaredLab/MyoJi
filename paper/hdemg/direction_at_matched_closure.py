@@ -14,7 +14,8 @@ Declared procedure (fixed before running):
   * Prediction: label of the single nearest candidate in the representation:
     dequantized 1,024-code tokens (Euclidean on the masked 5,760 values), raw
     token IDs (Hamming over 320 electrodes), pose (Euclidean on the 60 wrist-
-    relative coordinates). Reference: the majority label among the candidates.
+    relative coordinates). Reference: predicts the candidates' majority label
+    (closing on ties), scored against the query's label.
   * Accuracy per participant: mean over movements of the per-movement accuracy.
   * Primary contrast: tokens minus pose; secondary: tokens minus reference and
     IDs minus pose. Two-sided exact sign-flip over 2^9 patterns, Holm over the
@@ -101,11 +102,12 @@ def run_subject(subject, tolerance=TOLERANCE, k=1):
                 predicted = np.sign(votes.sum(1)).astype(np.int8)
             valid = keep & allowed.any(1) & (predicted != 0)
             acc[name] = float((predicted[valid] == direction[valid]).mean())
-        # majority-label reference among each query's candidates
+        # majority-direction control: predict the candidates' more frequent label (closing on ties)
         n_close = (allowed & (direction[None] > 0)).sum(1)
         n_open = (allowed & (direction[None] < 0)).sum(1)
         valid = keep & ((n_close + n_open) > 0)
-        acc["reference"] = float((np.maximum(n_close, n_open)[valid] / (n_close + n_open)[valid]).mean())
+        majority = np.where(n_close >= n_open, 1, -1)
+        acc["reference"] = float((majority[valid] == direction[valid]).mean())
         per_movement[int(m)] = dict(accuracy=acc, queries=int(valid.sum()), candidates_median=float(np.median(allowed.sum(1)[valid])),
                                     share_closing=float((direction[keep] > 0).mean()), dropped_zero_derivative=int((~keep).sum()))
     summary = {name: float(np.mean([v["accuracy"][name] for v in per_movement.values()])) for name in ("tokens", "ids", "pose", "reference")}
