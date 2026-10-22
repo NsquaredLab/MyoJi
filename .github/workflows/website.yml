@@ -23,7 +23,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Switzer's licence (ITF Free Font License) allows self-hosting on our own site but not
       # redistribution through a repository, so the font is fetched from Fontshare at build time.
@@ -35,9 +35,9 @@ jobs:
       - name: Build the pages
         run: node website/scripts/build.mjs
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: website
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
