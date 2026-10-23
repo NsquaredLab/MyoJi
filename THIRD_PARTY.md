@@ -1,7 +1,7 @@
 # Third-party code and data
 
 myoji is licensed under the GNU Affero General Public License v3.0 or later (`LICENSE`).
-The following parts come from elsewhere and keep their own terms.
+The parts below come from other projects and keep their own licences.
 
 ## Included
 

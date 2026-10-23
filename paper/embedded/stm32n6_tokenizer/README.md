@@ -1,14 +1,16 @@
 # STM32N6 tokenizer benchmark, original implementation
 
-This firmware runs both frozen tokenizers end to end on the Cortex-M55 CPU of
-a NUCLEO-N657X0-Q board at 600 MHz, in FP32 with instruction and data caches on
-and without the NPU. Each update shifts in new samples, normalizes them, runs
-the frontend, searches all 1,024 codes and packs 10-bit IDs. It reuses the
+This firmware runs the paper's two tokenizers end to end on the Cortex-M55 CPU
+of a NUCLEO-N657X0-Q board at 600 MHz. It uses FP32 with instruction and data
+caches on, and not the NPU. Each update shifts in new samples, normalizes them,
+extracts features, searches all 1,024 codes and packs 10-bit IDs. It reuses the
 [`../raw_tokenizers`](../raw_tokenizers) kernels unchanged. `build.py`
-generates `spar_runtime.c` from `spar.c`, changing only the channel count and
-montage into arguments and adding a cycle-counter poll per channel. This port
+generates `spar_runtime.c` from `spar.c`; it only turns the channel count and
+montage into arguments and adds a cycle-counter poll per channel. This port
 is the baseline of Fig. 7 in the paper. The optimized implementation is in
-[`../stm32n6_optimized`](../stm32n6_optimized).
+[`../stm32n6_optimized`](../stm32n6_optimized), which also redraws Fig. 7 from the
+shipped measurements without a board. Building this firmware uses fixtures
+generated from the recordings and a trained tokenizer.
 
 | File | Contents |
 |---|---|
@@ -18,12 +20,12 @@ is the baseline of Fig. 7 in the paper. The optimized implementation is in
 
 ## What is measured
 
-The input is deterministic, amplitude-modulated broadband noise at 2 kHz. It
-is a reproducible compute load, not physiological data. The window is 160 ms
-and each update adds 20 ms of samples.
+The input is deterministic, amplitude-modulated broadband noise at 2 kHz, a
+reproducible compute load. The window is 160 ms and each update adds 20 ms of
+samples.
 
-- **Timed per update:** the window shift, normalization, frontend, nearest-code
-  search and packing, each counted separately.
+- **Timed per update:** the window shift, normalization, feature extraction,
+  nearest-code search and packing, each counted separately.
 - **Timed separately:** calibration.
 - **Not timed:** sample generation, ADC, radio and pose decoding.
 
@@ -41,15 +43,15 @@ The two routes support different channel ranges:
 
 Results:
 
-- SPAR meets the 20 ms interval, with host agreement, up to 23 channels
-  (slowest update 19.22 ms).
+- The largest SPAR channel count that meets the 20 ms interval with host
+  agreement is 23 (slowest update 19.22 ms).
 - 320 SPAR channels take 276.7 ms per update.
 - The learned encoder takes 104.7 ms per update for one channel.
 
-Some partial-montage SPAR counts (4, 8, 24 and 32 channels) flip a
-near-boundary code in some updates. The board's newlib `hypotf`/`logf` and the
-host libm round differently, and that difference matters on nearly singular
-local covariance matrices.
+At some partial-montage SPAR counts (4, 8, 24 and 32 channels), the board and
+the host disagree on a near-boundary code in some updates. The board's newlib
+`hypotf`/`logf` and the host libm round differently, which matters on nearly
+singular local covariance matrices.
 
 ## Requirements
 
@@ -59,8 +61,8 @@ local covariance matrices.
   folder, for host verification. All of them are written by
   `paper/firmware/raw_tokenizer_benchmark/prepare.py` and `host_check.py`; see
   [`../raw_tokenizers`](../raw_tokenizers).
-- **Host:** a C compiler (`clang` or `cc`) and NumPy. This port does not use
-  CMSIS, so its host build is not tied to arm64.
+- **Host:** a C compiler (`clang` or `cc`) and NumPy. The host build does not
+  use CMSIS and runs on any architecture.
 - **Board build:**
   - STM32CubeN6 at commit `80a3a665fccaf9a429343a7ab96a97c1b8a6467a`, located
     through `STM32CUBEN6_ROOT` (see below).
@@ -73,7 +75,7 @@ local covariance matrices.
     set `STM32N6_GDB_SERVER` and `STM32N6_PROGRAMMER`.
   - `arm-none-eabi-gdb`.
 
-STM32CubeN6 is not shipped. The build takes the GPIO_IOToggle FSBL example's
+STM32CubeN6 comes from your own checkout. The build takes the GPIO_IOToggle FSBL example's
 startup, system file, HAL configuration (with XSPI enabled) and its unchanged
 600 MHz `SystemClock_Config`. It adapts the example's linker script (32 KiB
 stack, two NOLOAD SRAM regions, the NOR weight symbol) and checks the commit:
@@ -114,7 +116,7 @@ are not microcontroller timings.
      (development boot).
    - USB: connect CN10 (ST-LINK), not CN8.
    - The GDB server attaches to access port 1, the Cortex-M55 (ST AN6265).
-2. The SPAR route needs nothing else. For the learned route, program
+2. The SPAR route needs no further setup. For the learned route, program
    `learned_weights.f32` (9,567,360 bytes) into the external NOR at
    `0x71000000` (for example with STM32CubeProgrammer) and verify it by
    readback.

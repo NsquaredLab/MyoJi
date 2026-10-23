@@ -1,11 +1,16 @@
 # STM32N6 tokenizer benchmark, optimized implementation
 
-This port runs the same benchmark as
-[`../stm32n6_tokenizer`](../stm32n6_tokenizer) on the same board. The
-differences are faster kernels (`fast_kernels.c`) and a build-time rewrite of
-the SPAR runtime in `build.py`. It produces Fig. 7 of the paper: the number of
-SPAR channels tokenized within the 20 ms update rises from 23 in the original
-port to 63 in this one. The setup is identical:
+This implementation runs the benchmark of
+[`../stm32n6_tokenizer`](../stm32n6_tokenizer) on the same board, with faster
+kernels (`fast_kernels.c`) and a build-time rewrite of the SPAR runtime in
+`build.py`. It raises the number of SPAR channels tokenized within the 20 ms
+update from 23 to 63 (Fig. 7 of the paper).
+
+Fig. 7 redraws from the shipped measurements (`plot.py`, below). The host checks
+and board runs use fixtures generated from the recordings and a trained
+tokenizer; pose validation also uses the recordings and the trained decoders.
+
+Both implementations use the same setup:
 
 - **Hardware:** NUCLEO-N657X0-Q, Cortex-M55 at 600 MHz, FP32, caches on, no NPU.
 - **Signal:** synthetic 2 kHz input, 160 ms windows, 20 ms updates.
@@ -16,7 +21,7 @@ port to 63 in this one. The setup is identical:
 
 ## Two builds
 
-| Build | SPAR transform and Jacobi `hypotf` | Relation to the released port |
+| Build | SPAR transform and Jacobi `hypotf` | Relation to the original implementation |
 |---|---|---|
 | default | CMSIS-DSP Helium real FFT (`arm_rfft_fast_f32`) and `sqrtf(x*x+y*y)` | Not bit-exact. This is the firmware in Fig. 7. |
 | `STM32N6_EXACT=1` | The frozen radix-2 FFT and libm `hypotf` (on the board, newlib's `__ieee754_hypotf` core, which returns the same value) | Bit-exact with the original implementation |
@@ -36,15 +41,15 @@ The remaining changes give identical results in both builds:
 - **SPAR features:** each electrode's member spectra are read and band-weighted
   once for all six bands. Covariances accumulate with the member index
   innermost, one accumulator per lane in the reference order.
-- **Jacobi solver:** it stops after a sweep without rotation, and it skips the
-  never-read eigenvector row 1.
+- **Jacobi solver:** stops after a sweep without rotation and skips eigenvector
+  row 1, which is never read.
 
 No build uses fast-math, fused multiply-add contraction (`-ffp-contract=off`),
 approximate activations, pruning, quantization or the NPU.
 
-The learned weights are read from external NOR (50 MHz OPI DTR). The active
-route's codebook is copied to internal RAM before timing starts; this one-off
-setup is measured separately as `setup_cycles`.
+The learned weights are read from external NOR (50 MHz OPI DTR). The selected
+tokenizer's codebook is copied to internal RAM before timing starts. This setup
+is measured separately as `setup_cycles`.
 
 The default build compiles CMSIS-DSP from the pinned STM32CubeN6 checkout.
 `vendor/cmsis_patch/arm_vec_fft.h` is a modified copy of one CMSIS-DSP header
@@ -56,7 +61,8 @@ upstream and modified hashes and the changed lines.
 
 ## Results
 
-Medians over 16 measured updates on one board:
+Medians over 16 measured updates on one board. A channel count meets 20 ms only
+if every measured update does and matches the host:
 
 | Configuration | Original implementation | Bit-exact build | Default build |
 |---|---:|---:|---:|
@@ -66,17 +72,17 @@ Medians over 16 measured updates on one board:
 | Learned encoder, 16 channels | 1,703.6 ms | – | 294.5 ms |
 | Learned encoder, 112 channels | 11,918.8 ms | – | 2,053.7 ms |
 
-The bit-exact build was measured on the SPAR route only, because the learned
-route does not use the replaced transform.
+The bit-exact build was measured for SPAR only; the learned encoder does not use
+the replaced transform.
 
 At 63 channels the slowest update of the default build took 19.95 ms;
 64 channels reached 20.28 ms. The bit-exact build meets the timing at
 47 channels, but its tokens differ from the host there, so its capacity is 46.
 
-These capacities are observed over 16 updates with synthetic input, not
-guaranteed bounds. Because the boundary sits within 0.3 % of the interval, a
+These capacities were measured over 16 updates with synthetic input; they are
+not worst-case bounds. The boundary lies within 0.3 % of the interval, so a
 different toolchain or code layout can move it by one channel. The learned
-encoder misses the interval even at one channel.
+encoder exceeds the interval even at one channel.
 
 In the default build, board and host tokens agree in every update from 55 to
 64 channels and at every whole-grid count (multiples of 64 electrodes). On some
@@ -93,13 +99,13 @@ participants' 320-channel test windows, 4,608,000 channel-updates in total,
 through host builds of both variants. It scores the frozen SPAR-token decoders
 on the resulting tokens:
 
-- **Token agreement:** the default build reproduces 99.92 % of the released
+- **Token agreement:** the default build reproduces 99.92 % of the reference
   tokenizer's IDs (lowest participant 99.68 %). The bit-exact build agrees to
   the same extent.
 - **Decoding error:** the decoders' mean error changes from 10.8125 to
   10.8120 mm, a difference of −0.0005 mm (95 % participant bootstrap −0.0010
   to −0.0001; exact sign-flip p = 0.055).
-- **Frozen fixture:** both builds reproduce all 960 released SPAR IDs, and the
+- **Frozen fixture:** both builds reproduce all 960 reference SPAR IDs, and the
   bit-exact build reproduces the original implementation's features exactly.
 
 `replay63.py` repeats the replay on the first 63 electrodes, using the refitted
@@ -109,8 +115,8 @@ on the resulting tokens:
   build reproduces 99.96 % of tokens, and the error changes by +0.0004 mm.
 - **Benchmark montage:** with this benchmark's tiling rule, which substitutes
   the electrode itself for an absent neighbour (2 of 63 rows differ), agreement
-  is 96.8 % and the error changes by +0.66 mm. This montage is a timing
-  workload, not the deployed montage.
+  is 96.8 % and the error changes by +0.66 mm. This montage is used
+  only for timing.
 
 ## Requirements
 
@@ -140,7 +146,7 @@ This port has three further requirements:
   `paper/results/stm32n6_tokenizer_v1/host.dylib`, so run the original implementation's
   `verify_host.py` first.
 
-`STM32N6_SRC` and `STM32N6_OUT` redirect the sources and outputs for throwaway
+`STM32N6_SRC` and `STM32N6_OUT` redirect the sources and outputs for temporary
 builds. By default, outputs go to `paper/results/stm32n6_optimized_v1/`.
 
 ## Verify on the host
@@ -153,9 +159,8 @@ uv run python -m paper.firmware.stm32n6_optimized.verify_host
 uv run python -m paper.firmware.stm32n6_optimized.verify_fast
 ```
 
-`verify_host.py` runs the original implementation's checks. In the default build,
-however, it bounds the SPAR features (below 5e-2) instead of requiring
-equality. All 960 recorded SPAR IDs must still match.
+`verify_host.py` runs the original implementation's checks. For the default
+build, it requires SPAR feature deviations below 5e-2. All 960 recorded SPAR IDs must still match.
 
 `verify_fast.py` checks the optimizations:
 
@@ -168,11 +173,11 @@ equality. All 960 recorded SPAR IDs must still match.
 - **Replaced transform (default build), bounded:**
   - relative spectrum deviation below 2e-3; 3.7e-4 was measured;
   - feature deviation below 5e-2; 1.2e-2 was measured;
-  - all 960 released SPAR IDs must be reproduced.
+  - all 960 reference SPAR IDs must be reproduced.
 - **Synthetic driver runs:** compared with the original implementation's host library.
   They must be identical in the bit-exact build and on the learned route.
 
-With `STM32N6_EXACT=1`, both scripts assert equality everywhere.
+With `STM32N6_EXACT=1`, both scripts assert equality in all of these checks.
 
 ## Build and run on the board
 
@@ -181,8 +186,8 @@ The collector loads SRAM firmware; it never writes NOR, OTP or option bytes. It
 needs a current `host_verification.json` and `fast_verification.json` for the
 host library.
 
-Run the configurations one at a time, because there is only one board. The
-channel lists reproduce the frozen Fig. 7 manifests:
+Run the configurations one at a time. The channel lists reproduce the frozen
+Fig. 7 manifests:
 
 ```sh
 uv run python -m paper.firmware.stm32n6_optimized.build
@@ -217,12 +222,12 @@ the build receipt, the host library and the default manifest agree again.
 Each MCU build is archived under `builds/<ELF SHA-256>/`, together with its
 map, receipt and sources.
 
-`collect.py --recorded` replays the first 64 or fewer channels of
-`raw_320x2120.f32` instead of synthetic input. Use it with
+`collect.py --recorded` replays recorded EMG from the first 64 or fewer channels
+of `raw_320x2120.f32`. Use it with
 `--frames 3 --warmup 17`; the learned route also checks the IDs against
 `host_outputs.npz`.
 
-Draw Fig. 7 with:
+Draw Fig. 7, with or without the board runs above:
 
 ```sh
 uv run python -m paper.firmware.stm32n6_optimized.plot

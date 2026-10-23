@@ -1,8 +1,8 @@
 # Portable C tokenizers
 
-Plain C11, FP32 ports of the paper's two frozen tokenizers, from raw EMG
-samples to 10-bit token IDs. They contain no pose decoder, no fitting and no
-hardware code. Both STM32N6 benchmarks link them
+Plain C11, FP32 ports of the paper's two fitted tokenizers, from raw EMG
+samples to 10-bit token IDs. They contain tokenizer inference only, without a
+pose decoder, fitting or hardware code. Both STM32N6 benchmarks link them
 ([`../stm32n6_tokenizer`](../stm32n6_tokenizer),
 [`../stm32n6_optimized`](../stm32n6_optimized)), and they are the numerical
 reference those ports are checked against.
@@ -11,19 +11,18 @@ reference those ports are checked against.
 |---|---|
 | `common.h`, `common.c` | Shapes (320 channels, 320-sample window, 40-sample hop, 1,024 codes). Prefix calibration: lower median and 1.4826 × lower MAD of the first 1,000 samples, scale floor 1e-4. Normalization clipped to ±12. Exhaustive squared-distance code search with first-index tie breaking. |
 | `learned.c` | Learned channel encoder: 320-sample patch projection to 32, GELU, projection to 256, four causal residual blocks (LayerNorm, depthwise convolution over a rolling four-step history, 256 → 1,024 → 256 pointwise layers with GELU), final LayerNorm. Codebook 1,024 × 256. |
-| `spar.c` | SPAR: seven 128-sample Hann-windowed radix-2 FFT segments per window, six bands weighted by their power over all channels, a local 4 × 4 complex-Hermitian covariance per electrode and band, regularization, Jacobi matrix logarithm, three retained entries per band (18 features), masking and the frozen standardization. Participant 1's 1,024 × 18 codebook. |
+| `spar.c` | SPAR: seven 128-sample Hann-windowed radix-2 FFT segments per window, six bands weighted by their power over all channels, a local 4 × 4 complex-Hermitian covariance per electrode and band, regularization, Jacobi matrix logarithm, three retained entries per band (18 features), masking and the fixed standardization. Participant 1's 1,024 × 18 codebook. |
 
 The input is finite, channel-major float32 EMG at 2 kHz. The recordings'
 2,048 → 2,000 Hz resampling happens before this interface. A token is emitted
 per channel every 40 samples (20 ms) from the last 320 samples (160 ms).
-The ports are compiled with `-O3 -std=c11 -fno-fast-math -ffp-contract=off`,
-so there is no fast-math and no fused multiply-add contraction.
+The ports are compiled with `-O3 -std=c11 -fno-fast-math -ffp-contract=off`.
 
-## Frozen fixtures
+## Fixtures
 
-The model constants, a recorded test window and this port's outputs on it are
-generated rather than committed, because they derive from participant
-recordings. Generate them from the repository root:
+The model constants, a recorded window and this port's outputs on it are not
+committed, because they derive from participant recordings. With the recordings
+and the trained assets below, generate them from the repository root:
 
 ```sh
 uv run python -m paper.firmware.raw_tokenizer_benchmark.prepare
@@ -36,9 +35,9 @@ uv run python -m paper.firmware.raw_tokenizer_benchmark.host_check
 | Participant 1's SPAR codebook, standardization and montage mask | `$MYOJI_ASSETS/spar/codebooks-1024.npz`, entries `subject_01/{codebook,feature_mean,feature_scale,mask}` |
 | Recorded raw HD-EMG window and its saved learned token IDs (training split, task 2) | `paper/output/token-explorer/full-channel-index.json` and the raw and token files it lists |
 
-The token-explorer files contain participant EMG. Generate them from your own
-copy of the recordings with `paper/figures/export_token_explorer_context.py`.
-That script reads three inputs:
+The token-explorer files contain participant EMG.
+`paper/figures/export_token_explorer_context.py` adds them to an existing token
+explorer from your copy of the recordings. It reads three inputs:
 
 - `$MYOJI_HDEMG/Sub1_emg.pkl`;
 - `--root`, the folder holding the token cache the explorer was built from
@@ -55,7 +54,7 @@ redistributed.
 - `weight_offsets.h`: offsets into those weights.
 - `constants.c`: the SPAR codebook, mean and scale, plus the Hann window, FFT twiddles and montage.
 - `raw_320x2120.f32`: 320 channels × 2,120 samples of raw EMG.
-- `reference.npz`: an independent PyTorch reference. It holds the calibration, the normalized samples, and the features and IDs at endpoints 2039, 2079 and 2119.
+- `reference.npz`: an independent PyTorch reference with the calibration, the normalized samples, and the features and IDs at endpoints 2039, 2079 and 2119.
 - `fixture_receipt.json`: the hashes of every input and output.
 
 `prepare.py` asserts that its PyTorch reference reproduces all 960 saved
