@@ -79,30 +79,52 @@ the requirement.
 
 ## Order
 
-**HD-EMG, learned tokenizer** (`paper/results/<name>`):
-`hdemg/run_hdemg_pilot` → `hdemg/run_hdemg_within` → `hdemg/run_hdemg_v20` → `hdemg/run_hdemg_v20_continuous`.
-The receivers compared with it build on `hdemg_within_v1`: `receivers/run_hdemg_matched`
-(TCN, Transformer, waveform CNN), `receivers/run_hdemg_transformer`, `receivers/run_hdemg_raulnet` (adapted CNN),
-`receivers/run_hdemg_tbme2024` (retrained TBME CNN), `receivers/run_hdemg_llm_pilot` → `receivers/run_hdemg_llm_full` (Qwen3),
-`receivers/tabpfn_pose/` (TabPFN).
+Each step reads the run folders of the steps before it, in `paper/results/<name>`.
 
-**HD-EMG, SPAR**: `hdemg/run_hdemg_spar_simple` (participant 1) → `hdemg/run_hdemg_spar_full`
-(nine participants; compares with the learned route, so it runs after `hdemg/run_hdemg_v20` and
-`hdemg/run_hdemg_v20_continuous`) → `hdemg/run_hdemg_spar_v64` (64 codes), `hdemg/run_hdemg_spar_ablation`.
-The window selection and protocol these start from are shipped in `data/reference/`.
+**HD-EMG, learned tokenizer**
 
-**HD-EMG, robustness and transfer**: `hdemg/hdemg_spar_63_electrodes`, `hdemg/hdemg_raw_link_budget`,
-`hdemg/hdemg_spar_transfer_checks`, `hdemg/hdemg_spar_onset_calibration`, `hdemg/run_hdemg_noise` →
-`hdemg/run_hdemg_v20_noise_followup` → `hdemg/run_hdemg_dropout`, `hdemg/hdemg_spar_corruption`,
-`hdemg/run_hdemg_tokenizer_reuse` (donor-only tokenizers; `--recipe paper/data/reference/tokenizer_recipe.json`).
+1. `hdemg/run_hdemg_pilot`
+2. `hdemg/run_hdemg_within`, which writes `hdemg_within_v1`, the split every HD-EMG decoder uses
+3. `hdemg/run_hdemg_v20`, then `hdemg/run_hdemg_v20_continuous` and `hdemg/run_hdemg_v20_one_euro`
+4. The other decoders, in any order:
+   - `receivers/run_hdemg_matched`: TCN, Transformer and waveform CNN
+   - `receivers/run_hdemg_transformer`
+   - `receivers/run_hdemg_raulnet`: adapted CNN
+   - `receivers/run_hdemg_tbme2024`: retrained TBME CNN
+   - `receivers/run_hdemg_llm_pilot`, then `receivers/run_hdemg_llm_full`: Qwen3
+   - `receivers/tabpfn_pose/`: TabPFN
 
-**emg2pose**: `emg2pose/prepare_emg2pose_online` → `pretraining/audit_tokenizer_release prepare` (frozen training
-windows) → `pretraining/train_mixed_sources` (tokenizer pretraining) → `emg2pose/compare_temporal_pose cache`
-(`results/clean_temporal_v1/full.h5`) → `emg2pose/run_meta_sessions` → `emg2pose/run_tokenizer_seeds` →
-`emg2pose/compare_temporal_pose fit` and `evaluate` → `emg2pose/run_paper_completion`
-(with `emg2pose/paper_completion_smoke`, `emg2pose/export_pose_replay`, `emg2pose/paper_completion_biocodec`,
-`emg2pose/paper_completion_runtime`, `emg2pose/report_paper_completion`) and `emg2pose/run_reviewer_campaign`
-(`emg2pose/prepare_reviewer_features`: finite scalar quantization (FSQ), quantized PCA, k-means).
+**HD-EMG, SPAR** (starts from the window selection and protocol in `data/reference/`)
+
+1. `hdemg/run_hdemg_spar_simple`: participant 1
+2. `hdemg/run_hdemg_spar_full`: nine participants; it compares with the learned tokenizer, so it runs
+   after learned-tokenizer step 3
+3. `hdemg/run_hdemg_spar_v64` (64 codes) and `hdemg/run_hdemg_spar_ablation`
+
+**HD-EMG, robustness and transfer**
+
+- After SPAR step 2: `hdemg/hdemg_spar_63_electrodes`, `hdemg/hdemg_spar_transfer_checks`,
+  `hdemg/hdemg_spar_onset_calibration` and `hdemg/hdemg_spar_corruption` (noise and electrode loss)
+- After `hdemg/hdemg_spar_63_electrodes` and `receivers/run_hdemg_raulnet`: `hdemg/hdemg_raw_link_budget`
+- Noise and electrode loss for the learned tokenizer, after learned-tokenizer steps 3 and 4:
+  `hdemg/run_hdemg_noise`, then `hdemg/run_hdemg_v20_noise_followup`, then `hdemg/run_hdemg_dropout`
+- After SPAR step 2 and emg2pose step 2: `hdemg/run_hdemg_tokenizer_reuse` (donor-only tokenizers;
+  `--recipe paper/data/reference/tokenizer_recipe.json`)
+
+**emg2pose**
+
+1. `emg2pose/prepare_emg2pose_online`
+2. `pretraining/audit_tokenizer_release prepare`: the frozen pretraining windows (`results/clean_base_v1`)
+3. `pretraining/train_mixed_sources`: tokenizer pretraining
+4. `emg2pose/compare_temporal_pose cache`, which writes `results/clean_temporal_v1/full.h5`
+5. `emg2pose/run_meta_sessions`
+6. `emg2pose/run_tokenizer_seeds`
+7. `emg2pose/compare_temporal_pose fit`, then `evaluate`
+8. `emg2pose/run_paper_completion`, with `emg2pose/paper_completion_smoke`, `emg2pose/export_pose_replay`,
+   `emg2pose/paper_completion_biocodec`, `emg2pose/paper_completion_runtime` and
+   `emg2pose/report_paper_completion`
+9. `emg2pose/prepare_reviewer_features`, then `emg2pose/run_reviewer_campaign`: finite scalar
+   quantization (FSQ), quantized PCA and k-means
 
 **Firmware**: see `embedded/stm32n6_optimized/README.md`; the fixtures come from
 `firmware/raw_tokenizer_benchmark/prepare.py` and `host_check.py`.
