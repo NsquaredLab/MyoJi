@@ -32,7 +32,7 @@ FIXTURE = ROOT / "results/raw_tokenizers_cortex_m4_v1/reference.npz"
 RECEIPT = ROOT / "results/raw_tokenizers_cortex_m4_v1/fixture_receipt.json"
 EXPLORER = ROOT / "output/token-explorer"
 INDEX = EXPLORER / "full-channel-index.json"
-VIDEO = paths.RESULTS / "dpose_movement_video"  # select_dpose_movement_cycles.py
+VIDEO = paths.RESULTS / "hdemg_movement_video"  # select_hdemg_movement_cycles.py
 SPAR = ROOT / "output/figures/tokenizer-mechanism-data.npz"
 PROVENANCE = paths.OUTPUT / "figures/pose_paper/interface.json"
 
@@ -385,7 +385,7 @@ the device. A receiver decodes them into a 3D hand pose.</desc>
         "emg_samples_drawn": int(whole.shape[1]),
         "emg_sample_rate_hz": 2000,
         "emg_rate_note": "the tokenizer's input rate; the dataset export causally resamples "
-                         "DPose's native 2,048 Hz to 2,000 Hz. No display decimation.",
+                         "HD-EMG's native 2,048 Hz to 2,000 Hz. No display decimation.",
         "emg_shared_gain": "one 99th-percentile scale over all 320 channels; the two bands "
                            "differ only in display gain, so amplitudes stay comparable",
         "eight_channel_band_is": "an evenly spaced subset of the same 320-channel recording, "

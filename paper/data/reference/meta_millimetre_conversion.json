@@ -8,7 +8,7 @@
   "limitations": [
     "The reference hand is shared by all participants; these are not errors against participant-specific measured anatomy.",
     "Converting units does not harmonize our capped protocol with the full published benchmark.",
-    "This conversion is specific to Meta targets and does not establish the physical units of DPose."
+    "This conversion is specific to Meta targets and does not establish the physical units of HD-EMG."
   ],
   "source": {
     "path": "results/paper_completion_v1/results.json",

@@ -3,7 +3,7 @@
 Participant 6, seed 260911: for each movement, 4 s of contiguous test-block updates (two test
 windows plus two in-between windows, all inside the test block) from
 tmp/decoding-continuous/p6_continuous.npz. For display, predictions pass the causal One Euro
-filter of Fig. 5A with the hand viewer's steadier beta (0.003; build_dpose_hand_viewer.py): the
+filter of Fig. 5A with the hand viewer's steadier beta (0.003; build_hdemg_hand_viewer.py): the
 responsive Fig. 5A setting leaves the decoded hands 10-20x jitterier than the measured hand.
 Measured poses stay unfiltered, and the errors are unfiltered. Poses are projected with the hand
 viewer's oblique orthographic camera (yaw -0.42, pitch 0.32).
@@ -18,14 +18,14 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from dpose_one_euro import smooth  # noqa: E402
+from hdemg_one_euro import smooth  # noqa: E402
 
 OUT = ROOT / 'website/static/data/hand.json'
 SOURCE = ROOT / 'tmp/decoding-continuous/p6_continuous.npz'
 RECEIPT = json.loads((ROOT/'manuscript/figures/pose_paper/decoding_examples.json').read_text())
 FILTER = {k: v for k, v in RECEIPT['display_filter'].items() if k != 'kind'} | {'beta': .003}
 UNIT = .2                                   # stored coordinates are multiples of 0.2 mm
-YAW, PITCH = -.42, .32                      # build_dpose_hand_viewer.py "oblique" preset
+YAW, PITCH = -.42, .32                      # build_hdemg_hand_viewer.py "oblique" preset
 TIPS = (0, 4, 8, 12, 16)                    # tip-first blocks of four landmarks per finger
 dist = lambda w, a: np.linalg.norm(w[:, a], axis=-1)
 gap = lambda w, a, b: np.linalg.norm(w[:, a] - w[:, b], axis=-1)

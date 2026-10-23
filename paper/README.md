@@ -23,13 +23,13 @@ paper/
   output/      figures and tables (not tracked)
 ```
 
-Script names that contain "dpose" refer to the paper's 320-channel HD-EMG dataset (nine decoding
+Scripts named "hdemg" work on the paper's 320-channel HD-EMG dataset (nine decoding
 participants, 13 for tokenizer fitting). "V20" is RaulNet V20, the paper's spatial CNN + TCN pose
 decoder (`SparPose` in `myoji.decoders`); "RaulNet V19" is the raw-EMG CNN the paper calls the
 adapted CNN. A receiver is any pose decoder that reads the transmitted tokens or features.
 
 Run the scripts as modules from the repository root, for example
-`uv run python -m paper.hdemg.run_dpose_pilot --help`. Below, `hdemg/run_dpose_pilot` stands for
+`uv run python -m paper.hdemg.run_hdemg_pilot --help`. Below, `hdemg/run_hdemg_pilot` stands for
 that module.
 
 ## Figures from the shipped files
@@ -80,21 +80,21 @@ the requirement.
 ## Order
 
 **HD-EMG, learned tokenizer** (`paper/results/<name>`):
-`hdemg/run_dpose_pilot` → `hdemg/run_dpose_within` → `hdemg/run_dpose_v20` → `hdemg/run_dpose_v20_continuous`.
-The receivers compared with it build on `dpose_within_v1`: `receivers/run_dpose_matched`
-(TCN, Transformer, waveform CNN), `receivers/run_dpose_transformer`, `receivers/run_dpose_raulnet` (adapted CNN),
-`receivers/run_dpose_tbme2024` (retrained TBME CNN), `receivers/run_dpose_llm_pilot` → `receivers/run_dpose_llm_full` (Qwen3),
+`hdemg/run_hdemg_pilot` → `hdemg/run_hdemg_within` → `hdemg/run_hdemg_v20` → `hdemg/run_hdemg_v20_continuous`.
+The receivers compared with it build on `hdemg_within_v1`: `receivers/run_hdemg_matched`
+(TCN, Transformer, waveform CNN), `receivers/run_hdemg_transformer`, `receivers/run_hdemg_raulnet` (adapted CNN),
+`receivers/run_hdemg_tbme2024` (retrained TBME CNN), `receivers/run_hdemg_llm_pilot` → `receivers/run_hdemg_llm_full` (Qwen3),
 `receivers/tabpfn_pose/` (TabPFN).
 
-**HD-EMG, SPAR**: `hdemg/run_dpose_spar_simple` (participant 1) → `hdemg/run_dpose_spar_full`
-(nine participants; compares with the learned route, so it runs after `hdemg/run_dpose_v20` and
-`hdemg/run_dpose_v20_continuous`) → `hdemg/run_dpose_spar_v64` (64 codes), `hdemg/run_dpose_spar_ablation`.
+**HD-EMG, SPAR**: `hdemg/run_hdemg_spar_simple` (participant 1) → `hdemg/run_hdemg_spar_full`
+(nine participants; compares with the learned route, so it runs after `hdemg/run_hdemg_v20` and
+`hdemg/run_hdemg_v20_continuous`) → `hdemg/run_hdemg_spar_v64` (64 codes), `hdemg/run_hdemg_spar_ablation`.
 The window selection and protocol these start from are shipped in `data/reference/`.
 
-**HD-EMG, robustness and transfer**: `hdemg/dpose_spar_63_electrodes`, `hdemg/dpose_raw_link_budget`,
-`hdemg/dpose_spar_transfer_checks`, `hdemg/dpose_spar_onset_calibration`, `hdemg/run_dpose_noise` →
-`hdemg/run_dpose_v20_noise_followup` → `hdemg/run_dpose_dropout`, `hdemg/dpose_spar_corruption`,
-`hdemg/run_dpose_tokenizer_reuse` (donor-only tokenizers; `--recipe paper/data/reference/tokenizer_recipe.json`).
+**HD-EMG, robustness and transfer**: `hdemg/hdemg_spar_63_electrodes`, `hdemg/hdemg_raw_link_budget`,
+`hdemg/hdemg_spar_transfer_checks`, `hdemg/hdemg_spar_onset_calibration`, `hdemg/run_hdemg_noise` →
+`hdemg/run_hdemg_v20_noise_followup` → `hdemg/run_hdemg_dropout`, `hdemg/hdemg_spar_corruption`,
+`hdemg/run_hdemg_tokenizer_reuse` (donor-only tokenizers; `--recipe paper/data/reference/tokenizer_recipe.json`).
 
 **emg2pose**: `emg2pose/prepare_emg2pose_online` → `pretraining/audit_tokenizer_release prepare` (frozen training
 windows) → `pretraining/train_mixed_sources` (tokenizer pretraining) → `emg2pose/compare_temporal_pose cache`
@@ -111,16 +111,16 @@ windows) → `pretraining/train_mixed_sources` (tokenizer pretraining) → `emg2
 
 | result | scripts |
 |---|---|
-| Fig. 4: errors, payload, latency; tokens minus continuous | the HD-EMG campaigns above, `hdemg/benchmark_dpose_workstation`, `hdemg/benchmark_dpose_all_variants`, `hdemg/dpose_movement_analysis` and `hdemg/dpose_absolute_change_analysis` (their frozen definitions are in `data/figure_inputs/`), then `figures/build_dpose_combined` and `figures/plot_fig3_signed_panel` |
-| Supplementary Data 2 and 3, paired statistics | `hdemg/dpose_claim_statistics` (uses `common/dpose_figure_statistics`) |
-| Fig. 5: decoded examples and per-movement errors | `hdemg/run_p1_continuous`, `hdemg/run_dpose_v20_one_euro`, `figures/plot_decoding_examples` |
-| Fig. 6: token-history UMAP, pose retrieval, held-out retrieval | `hdemg/select_dpose_movement_cycles`, `hdemg/replay_dpose_spar_figure_video`, `hdemg/build_token_umap_cache`, `hdemg/pose_recovery/`, `hdemg/pose_recovery_heldout_statistics`, `hdemg/direction_*`, `figures/make_token_pose_recovery_figure` |
+| Fig. 4: errors, payload, latency; tokens minus continuous | the HD-EMG campaigns above, `hdemg/benchmark_hdemg_workstation`, `hdemg/benchmark_hdemg_all_variants`, `hdemg/hdemg_movement_analysis` and `hdemg/hdemg_absolute_change_analysis` (their frozen definitions are in `data/figure_inputs/`), then `figures/build_hdemg_combined` and `figures/plot_fig3_signed_panel` |
+| Supplementary Data 2 and 3, paired statistics | `hdemg/hdemg_claim_statistics` (uses `common/hdemg_figure_statistics`) |
+| Fig. 5: decoded examples and per-movement errors | `hdemg/run_p1_continuous`, `hdemg/run_hdemg_v20_one_euro`, `figures/plot_decoding_examples` |
+| Fig. 6: token-history UMAP, pose retrieval, held-out retrieval | `hdemg/select_hdemg_movement_cycles`, `hdemg/replay_hdemg_spar_figure_video`, `hdemg/build_token_umap_cache`, `hdemg/pose_recovery/`, `hdemg/pose_recovery_heldout_statistics`, `hdemg/direction_*`, `figures/make_token_pose_recovery_figure` |
 | Fig. 7: Cortex-M55 timing | `firmware/stm32n6_optimized/plot.py` and `firmware/stm32n6_tokenizer/plot.py`; they redraw from `data/firmware/` without a board |
 | Figs. 1 and 2: panels (assembled in a vector editor) | `figures/make_teaser`, `figures/plot_encoder_examples`, `figures/plot_residual_traces`, `figures/plot_residual_featuremap`, `figures/plot_residual_example`, `figures/build_tokenizer_mechanism` |
 | Fig. 3: the SPAR patch | drawn in the manuscript's LaTeX source, no script |
 | emg2pose cohorts, alternatives, Supplementary Data 4-7 | the emg2pose campaigns, then `emg2pose/build_pose_paper_assets` and `figures/plot_meta_overview`, `figures/plot_meta_transfer`, `figures/plot_compact_controls`, `figures/plot_codec_diagnostics`, `figures/plot_pose_trajectories`, `figures/plot_streaming_cost`, `figures/plot_noise_robustness` |
-| SPAR noise and electrode loss, Supplementary Data 8 | `hdemg/dpose_spar_corruption`, `hdemg/n9_exact_intervals` |
-| SPAR ablation and held-out retrieval, Supplementary Data 9 | `hdemg/run_dpose_spar_ablation`, `hdemg/spar_ablation_statistics`, `hdemg/pose_recovery_heldout_statistics` |
+| SPAR noise and electrode loss, Supplementary Data 8 | `hdemg/hdemg_spar_corruption`, `hdemg/n9_exact_intervals` |
+| SPAR ablation and held-out retrieval, Supplementary Data 9 | `hdemg/run_hdemg_spar_ablation`, `hdemg/spar_ablation_statistics`, `hdemg/pose_recovery_heldout_statistics` |
 | Supplementary Figs. S1–S3 | `figures/plot_supp_figures` (reads `data/supplementary/` only) |
 | Supplementary Fig. S4 | `figures/make_token_history_supplement`, `hdemg/token_history_shuffle_roundness` |
 | Supplementary Fig. S5 | `figures/plot_robustness_supplement` |
@@ -134,7 +134,7 @@ public dataset; older docstrings call it "Meta".
 
 **`common/`**
 - *`paths`*: where inputs are read and outputs written; set `MYOJI_HDEMG`, `MYOJI_EMG2POSE`, `MYOJI_ASSETS`.
-- *`dpose_figure_statistics`*: exact paired sign-flip tests, intervals and Holm adjustment used across the HD-EMG analyses.
+- *`hdemg_figure_statistics`*: exact paired sign-flip tests, intervals and Holm adjustment used across the HD-EMG analyses.
 - *`figstyle`*, `simpetru*.mplstyle`: the paper's figure style.
 - *`paper_plot_style`*, *`tokenizer_diagnostic_style`*: print sizes and colours for the Fig. 4 and supplementary builders.
 - `switzer_font`: uses Switzer for the figures when it is installed; running it checks that the static regular and bold fonts are picked up.
@@ -145,30 +145,30 @@ public dataset; older docstrings call it "Meta".
 - `audit_tokenizer_release`: freezes validation inputs and checks that the exported tokenizer is deterministic, including after a reload.
 
 **`hdemg/`**: HD-EMG campaigns
-- `run_dpose_pilot`: participant-1 pilot that fixes the windows, preprocessing and splits the later campaigns reuse.
-- `run_dpose_within`: personalized decoding on chronologically separated recording blocks (the shared split).
-- `run_dpose_v20`, `run_dpose_v20_continuous`: learned tokens, and the matched continuous features, decoded by the spatial CNN + TCN.
-- *`report_dpose_v20`*: rechecks the V20 predictions against the frozen decoder.
-- `run_dpose_v20_one_euro`: One Euro smoothing of the V20 outputs, chosen on validation (Fig. 5).
-- `run_dpose_spar_simple`: SPAR pilot on participant 1 (EMG → SPAR → codebook → decoder).
-- `run_dpose_spar_full`, `run_dpose_spar_v64`: SPAR on nine participants with 1,024 and 64 codes.
-- `run_dpose_spar_ablation`: SPAR with parts of the descriptor removed (Supplementary Data 9).
+- `run_hdemg_pilot`: participant-1 pilot that fixes the windows, preprocessing and splits the later campaigns reuse.
+- `run_hdemg_within`: personalized decoding on chronologically separated recording blocks (the shared split).
+- `run_hdemg_v20`, `run_hdemg_v20_continuous`: learned tokens, and the matched continuous features, decoded by the spatial CNN + TCN.
+- *`report_hdemg_v20`*: rechecks the V20 predictions against the frozen decoder.
+- `run_hdemg_v20_one_euro`: One Euro smoothing of the V20 outputs, chosen on validation (Fig. 5).
+- `run_hdemg_spar_simple`: SPAR pilot on participant 1 (EMG → SPAR → codebook → decoder).
+- `run_hdemg_spar_full`, `run_hdemg_spar_v64`: SPAR on nine participants with 1,024 and 64 codes.
+- `run_hdemg_spar_ablation`: SPAR with parts of the descriptor removed (Supplementary Data 9).
 - `run_p1_continuous`: continuous test-block predictions for participant 1 (Fig. 5 traces).
-- `run_dpose_tokenizer_reuse`: tokenizers trained only on donor participants, then personalized decoders.
-- `run_dpose_noise` (with *`dpose_noise`*, *`report_dpose_noise`*): paired added-noise test of the learned route.
-- `run_dpose_v20_noise_followup`, `collect_dpose_v20_noise_followup`: the same noise test for token V20, continuous V20 and the adapted CNN, and its independent audit.
-- `run_dpose_dropout` (with *`dpose_dropout`*): paired electrode-dropout test.
-- `dpose_spar_corruption`: the noise and dropout tests on the SPAR route (Supplementary Data 8).
-- `dpose_spar_63_electrodes`: SPAR with the 63 electrodes the Cortex-M55 firmware handles in 20 ms.
-- `dpose_raw_link_budget`: raw EMG from only as many electrodes as the assumed Bluetooth LE throughput carries, decoded by the adapted CNN.
-- `dpose_spar_transfer_checks`, `dpose_spar_onset_calibration`: frozen SPAR pipelines on transfer checks, and with one calibration per recording.
-- *`dpose_one_euro`*: the causal One Euro filter.
-- `dpose_claim_statistics`: the paired statistics behind the main claims (Supplementary Data 2 and 3).
-- `n9_exact_intervals`: exact intervals for the nine-participant contrasts outside the four headline claims of `dpose_claim_statistics`.
-- `dpose_movement_analysis`, `dpose_absolute_change_analysis`: per-movement errors and token-minus-continuous changes (Fig. 4).
-- `benchmark_dpose_workstation`, `benchmark_dpose_all_variants`, `benchmark_dpose_tbme2024_inference`: decoder latency and resource measurements (Fig. 4).
-- `select_dpose_movement_cycles`: picks the movement cycles shown in the figures before any prediction is read.
-- `replay_dpose_spar_figure_video`: replays the two nine-participant SPAR decoders on the selected movement cycles and measures their latency (Fig. 4).
+- `run_hdemg_tokenizer_reuse`: tokenizers trained only on donor participants, then personalized decoders.
+- `run_hdemg_noise` (with *`hdemg_noise`*, *`report_hdemg_noise`*): paired added-noise test of the learned route.
+- `run_hdemg_v20_noise_followup`, `collect_hdemg_v20_noise_followup`: the same noise test for token V20, continuous V20 and the adapted CNN, and its independent audit.
+- `run_hdemg_dropout` (with *`hdemg_dropout`*): paired electrode-dropout test.
+- `hdemg_spar_corruption`: the noise and dropout tests on the SPAR route (Supplementary Data 8).
+- `hdemg_spar_63_electrodes`: SPAR with the 63 electrodes the Cortex-M55 firmware handles in 20 ms.
+- `hdemg_raw_link_budget`: raw EMG from only as many electrodes as the assumed Bluetooth LE throughput carries, decoded by the adapted CNN.
+- `hdemg_spar_transfer_checks`, `hdemg_spar_onset_calibration`: frozen SPAR pipelines on transfer checks, and with one calibration per recording.
+- *`hdemg_one_euro`*: the causal One Euro filter.
+- `hdemg_claim_statistics`: the paired statistics behind the main claims (Supplementary Data 2 and 3).
+- `n9_exact_intervals`: exact intervals for the nine-participant contrasts outside the four headline claims of `hdemg_claim_statistics`.
+- `hdemg_movement_analysis`, `hdemg_absolute_change_analysis`: per-movement errors and token-minus-continuous changes (Fig. 4).
+- `benchmark_hdemg_workstation`, `benchmark_hdemg_all_variants`, `benchmark_hdemg_tbme2024_inference`: decoder latency and resource measurements (Fig. 4).
+- `select_hdemg_movement_cycles`: picks the movement cycles shown in the figures before any prediction is read.
+- `replay_hdemg_spar_figure_video`: replays the two nine-participant SPAR decoders on the selected movement cycles and measures their latency (Fig. 4).
 - `build_token_umap_cache`: encodes one task into both token types, aligned to the hand kinematics (Fig. 6).
 - `pose_recovery/` (`pose_recovery`, `pose_recovery_heldout`, `aggregate`): nearest-repetition pose retrieval, also on held-out data.
 - `pose_recovery_heldout_statistics`, `spar_ablation_statistics`: statistics for held-out retrieval and the SPAR ablation (Supplementary Data 9).
@@ -176,11 +176,11 @@ public dataset; older docstrings call it "Meta".
 - `token_history_shuffle_roundness`: the shuffled-history control for the token-history figure (Supplementary Fig. S4).
 
 **`receivers/`**: the other HD-EMG decoders
-- `run_dpose_matched` (with *`dpose_matched_core`*, `report_dpose_matched`): TCN, Transformer and waveform CNN with matched capacity and training.
-- `run_dpose_transformer`, `report_dpose_transformer`: the small token Transformer.
-- `run_dpose_raulnet` (with *`dpose_raulnet_model`*, `report_dpose_raulnet`): the adapted raw-EMG CNN (RaulNet V19).
-- `run_dpose_tbme2024` (with *`dpose_tbme2024`*): the TBME 2024 CNN retrained on the same windows.
-- `run_dpose_llm_pilot`, `run_dpose_llm_full` (with *`dpose_llm_core`*, `hpc/dpose_llm_worker`): the frozen Qwen3 receiver, pilot then nine participants; the worker runs it on a cluster GPU.
+- `run_hdemg_matched` (with *`hdemg_matched_core`*, `report_hdemg_matched`): TCN, Transformer and waveform CNN with matched capacity and training.
+- `run_hdemg_transformer`, `report_hdemg_transformer`: the small token Transformer.
+- `run_hdemg_raulnet` (with *`hdemg_raulnet_model`*, `report_hdemg_raulnet`): the adapted raw-EMG CNN (RaulNet V19).
+- `run_hdemg_tbme2024` (with *`hdemg_tbme2024`*): the TBME 2024 CNN retrained on the same windows.
+- `run_hdemg_llm_pilot`, `run_hdemg_llm_full` (with *`hdemg_llm_core`*, `hpc/hdemg_llm_worker`): the frozen Qwen3 receiver, pilot then nine participants; the worker runs it on a cluster GPU.
 - `tabpfn_pose/`: the TabPFN receiver; `run` (participant 1), `cohort` (nine), `analyze_cohort`, `benchmark_cohort` (latency), `finish_cohort` (starts the latency stage), *`_support`*.
 
 **`emg2pose/`**
@@ -193,8 +193,8 @@ public dataset; older docstrings call it "Meta".
 - `build_completion_results`: rechecks the paired statistics of the replication and draws its overview figures.
 
 **`figures/`**
-- `build_dpose_combined` (with *`build_dpose_all_variants`*, *`dpose_spar_figure_extension`*, *`dpose_tabpfn_figure_extension`*, *`dpose_tbme_figure_data`*): Fig. 4, errors and decoder costs.
-- `build_dpose_resource_overview`: payload budgets next to measured decoder costs, as a separate overview.
+- `build_hdemg_combined` (with *`build_hdemg_all_variants`*, *`hdemg_spar_figure_extension`*, *`hdemg_tabpfn_figure_extension`*, *`hdemg_tbme_figure_data`*): Fig. 4, errors and decoder costs.
+- `build_hdemg_resource_overview`: payload budgets next to measured decoder costs, as a separate overview.
 - `plot_fig3_signed_panel`: Fig. 4C, the signed effect of quantization per decoder.
 - `plot_decoding_examples`: Fig. 5, decoded movements of one participant.
 - `make_token_pose_recovery_figure`: Fig. 6 panels.
@@ -221,23 +221,23 @@ These steps read the authors' intermediate files or check files against the auth
   The SPAR campaigns fit the codebooks; `spar/codebooks-1024.npz` holds them per participant as
   `subject_XX/{codebook,feature_mean,feature_scale,mask}`. The firmware fixtures
   (`firmware/raw_tokenizer_benchmark/prepare.py`) accept only the authors' tokenizer, by hash.
-- The participant-level test predictions. `hdemg/dpose_movement_analysis` checks the
-  authors' prediction files by hash (`data/figure_inputs/dpose_movement_source_receipt.json`).
-  `hdemg/dpose_absolute_change_analysis` checks the movement analysis computed from them. Run on the
+- The participant-level test predictions. `hdemg/hdemg_movement_analysis` checks the
+  authors' prediction files by hash (`data/figure_inputs/hdemg_movement_source_receipt.json`).
+  `hdemg/hdemg_absolute_change_analysis` checks the movement analysis computed from them. Run on the
   authors' run folders, both reproduce the published records.
 - The decoded movement cycles of an earlier inference run are read by:
   - the SPAR latency benchmark used in Fig. 4;
-  - the movement replay (`hdemg/replay_dpose_spar_figure_video`);
+  - the movement replay (`hdemg/replay_hdemg_spar_figure_video`);
   - the EMG strip in Fig. 1 (`figures/make_teaser`, through `figures/export_token_explorer_context`).
-  The same holds for `figures/build_tokenizer_mechanism` and `figures/dpose_spar_figure_extension`, which read
-  participant 1's excerpt `results/dpose_spar_simple_full_v1/subject_01/figure-video-inputs.npz`.
+  The same holds for `figures/build_tokenizer_mechanism` and `figures/hdemg_spar_figure_extension`, which read
+  participant 1's excerpt `results/hdemg_spar_simple_full_v1/subject_01/figure-video-inputs.npz`.
 - `emg2pose/build_pose_paper_assets` checks that the emg2pose millimetre conversion
   (`data/reference/meta_millimetre_conversion.json`) belongs to the authors'
   `paper_completion_v1/results.json`. It also reads a paired-participant audit of the matched
-  receivers (`results/dpose_matched_v1/paired_participant_audit.json`) that no script writes.
+  receivers (`results/hdemg_matched_v1/paired_participant_audit.json`) that no script writes.
 - The hand renders in Fig. 1 (`figures/render_teaser_hands.py`) run inside Blender with a commercial hand
   model.
-- `hdemg/run_dpose_v20_noise_followup` records the GPU model of the adapted-CNN evaluation from its job
+- `hdemg/run_hdemg_v20_noise_followup` records the GPU model of the adapted-CNN evaluation from its job
   log. Locally, write that log yourself:
-  `uv run python -m paper.receivers.run_dpose_raulnet evaluate --root paper/results/dpose_raulnet_v1 2>&1 | tee paper/results/dpose_raulnet_v1/evaluate-local.out`,
+  `uv run python -m paper.receivers.run_hdemg_raulnet evaluate --root paper/results/hdemg_raulnet_v1 2>&1 | tee paper/results/hdemg_raulnet_v1/evaluate-local.out`,
   then append the output of `nvidia-smi --query-gpu=name,pci.bus_id --format=csv,noheader` to that file.

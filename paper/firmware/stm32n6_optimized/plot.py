@@ -123,7 +123,7 @@ def main():
     from paper.common import switzer_font
     from paper.common import figstyle as sf
     plt.rcParams.update(switzer_font.rcparams())
-    # House style copied from Figure 3 (build_dpose_combined.py): Title Case
+    # House style copied from Figure 3 (build_hdemg_combined.py): Title Case
     # labels at 9.5 pt, 9 pt ticks, no y spines but a light grid, grey dashed
     # reference rules named at the rule in 8.5 pt, bold 11 pt panel letters.
     REF, DASH, GRID, GRID_W, INK = 'black', (0, (4, 3)), '#DEDEDE', .55, '#232323'

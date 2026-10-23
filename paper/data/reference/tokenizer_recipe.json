@@ -21,7 +21,7 @@
     "report_every": 1000,
     "checkpoint_every": 2000,
     "resume": null,
-    "dpose_batches_per_recording": 64
+    "hdemg_batches_per_recording": 64
   },
   "data_contract": {
     "split_protocol": "official",

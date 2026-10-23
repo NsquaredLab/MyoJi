@@ -242,7 +242,7 @@ def main():
         outputs={p.name:digest(p) for p in sorted(OUT.iterdir())
             if p.suffix in {'.svg','.pdf','.png','.csv','.npz'} and '-affinity' not in p.stem})
     (OUT/'provenance.json').write_text(json.dumps(metadata, indent=2)+'\n')
-    caption=(f"One recorded example from DPose participant {metadata['participant']}, electrode {CHANNEL+1} "
+    caption=(f"One recorded example from HD-EMG participant {metadata['participant']}, electrode {CHANNEL+1} "
         f"(index {CHANNEL}), task {metadata['task']}, cached training window {metadata['cached_window']}. "
         "The waveform shows the complete 480 ms input support for one encoder output; the last 160 ms is its current patch. "
         "Time is relative to the first plotted sample (sample centers 0–479.5 ms). Normalization uses a preceding, separate "

@@ -67,7 +67,7 @@ def analyze(root, source):
                     by_method[name].append(score)
         controls[arm]={name:dict(mean_mm=float(np.mean(values)),participant_sd_mm=float(np.std(values,ddof=1)),
             participant_means_mm=dict(zip(map(str,SUBJECTS),values))) for name,values in by_method.items()}
-    from paper.common import dpose_figure_statistics as stats
+    from paper.common import hdemg_figure_statistics as stats
     definitions=[("tokens_vs_v20_tokens","tabpfn","tokens","v20","tokens"),
                  ("features_vs_v20_features","tabpfn","continuous","v20","continuous"),
                  ("tokens_vs_features","tabpfn","tokens","tabpfn","continuous")]
@@ -89,7 +89,7 @@ def analyze(root, source):
         control_scope="Descriptive controls fixed in preparation: Ridge alpha=1 on the identical PCA table, and training-target mean. "
                       "One deterministic fit per participant/input, no seed replication or additional significance tests.")
     pilot.write(root/"primary-statistics.json",report)
-    lines=["# TabPFN 3.5: all nine DPose participants","",result["scope"],"",
+    lines=["# TabPFN 3.5: all nine HD-EMG participants","",result["scope"],"",
         "Frozen participant-specific SPAR tokenizers; unchanged V20 splits and endpoints. Both inputs use the same causal summaries, "
         "128 PCA components fitted only on training data, eight ensemble members and 60 scalar regressors. Three algorithm seeds per participant/input.","",
         "| Decoder | Input | Mean 3D error (mm) | Participant SD (mm) |",

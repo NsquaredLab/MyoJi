@@ -145,7 +145,7 @@ def main():
         'For a single diagram block marked “×4”, call the inset “Intermediate features (block 2/4)” '
         'so it is not mistaken for an operation inside every block.\n\n'
         'The dots are the actual 256 output activations of `temporal_encoder.1`, captured by a forward hook '
-        'from the frozen released tokenizer. They use the same DPose subject 1, electrode 1, '
+        'from the frozen released tokenizer. They use the same HD-EMG subject 1, electrode 1, '
         'and final time point as the normalized EMG and prequantization examples. '
         'These activations are **before the final LayerNorm and quantization**; their magnitudes '
         'are plotted directly, without rescaling or smoothing. The block-2 output has 320 ms '

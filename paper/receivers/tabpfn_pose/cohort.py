@@ -55,7 +55,7 @@ def protocol(source, checkpoint):
     pilot.validate_separation(upstream["windows"])
     return dict(
         subjects=SUBJECTS, arms=ARMS, seeds=SEEDS, tasks=TASKS, channels=320,
-        source_campaign="dpose_spar_simple_full_v1", source_protocol_sha256=pilot.sha256(source / "protocol.json"),
+        source_campaign="hdemg_spar_simple_full_v1", source_protocol_sha256=pilot.sha256(source / "protocol.json"),
         checkpoint=checkpoint.name, checkpoint_sha256=pilot.sha256(checkpoint),
         n_estimators=8, components=128, pca_seed=260921, spans=SPANS, score_start=50,
         split_windows=dict(train=64, val=16, test=16), coordinate_regressors=60,

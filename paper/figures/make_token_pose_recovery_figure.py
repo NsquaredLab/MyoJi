@@ -3,7 +3,7 @@ decoder's accuracy-payload trade-off.
 
 Numbers come from results/token_umap/pose_recovery/ (per-participant nearest-repetition
 pose recovery, computed by pose_recovery/pose_recovery.py) and from the two SPAR
-decoder campaigns (results/dpose_spar_simple_full_v1 with 1,024 codes, _v64 with 64).
+decoder campaigns (results/hdemg_spar_simple_full_v1 with 1,024 codes, _v64 with 64).
 The UMAP is illustration only: every quoted number is computed in the native
 5,760-value frame space or by the trained decoder.
 
@@ -63,8 +63,8 @@ if os.environ.get("FIG5_UMAP"):                       # comparison renders only,
 # share its movement. Such frames have no movement structure for panel A to show
 # and are omitted from A and B only; every number in C and D keeps every frame.
 AMBIGUOUS_K, AMBIGUOUS_SHARE = 15, 0.5
-CAMPAIGNS = {"1024": ROOT / "results/dpose_spar_simple_full_v1/results.json",
-             "64": ROOT / "results/dpose_spar_simple_full_v64/results.json"}
+CAMPAIGNS = {"1024": ROOT / "results/hdemg_spar_simple_full_v1/results.json",
+             "64": ROOT / "results/hdemg_spar_simple_full_v64/results.json"}
 OUT, PDFS = ROOT / "output/figures", ROOT / "output/pdf"
 STEM = "token-pose-recovery"
 # The author's hand drawing: one open hand, each finger banded with the colours of
@@ -84,7 +84,7 @@ CLOSURE_CMAP_NAME = os.environ.get("FIG5_CMAP", "plasma_r")       # author's pic
 _clip = {"Blues": .25, "Greys": .3, "YlGnBu": .08}.get(CLOSURE_CMAP_NAME, .05)
 CLOSURE_CMAP = matplotlib.colors.LinearSegmentedColormap.from_list(
     "closure", (colorcet.cm[CLOSURE_CMAP_NAME] if CLOSURE_CMAP_NAME in colorcet.cm else plt.get_cmap(CLOSURE_CMAP_NAME))(np.linspace(_clip, 1, 256)))
-# The DPose movement colours used in the earlier papers (matplotlib tab10):
+# The HD-EMG movement colours used in the earlier papers (matplotlib tab10):
 # Thumb blue, Index orange, Middle green, Ring red, Little purple, Fist brown,
 # three-finger pinch pink, two-finger pinch grey.
 MOVEMENT_ORDER = ["Thumb", "Index", "Middle", "Ring", "Little", "Two-finger pinch", "Three-finger pinch", "Fist"]
@@ -357,7 +357,7 @@ def main():
     for k, mi in enumerate(order):
         m = (label == mi) & shown
         ax_a.scatter(emb[m, 0], emb[m, 1], s=1.3, c=OKABE_ITO[k], lw=0, alpha=.55, rasterized=True)
-    short = {"Two-finger pinch": "2-Pinch", "Three-finger pinch": "3-Pinch", "Little": "Pinky"}   # as in the DPose papers
+    short = {"Two-finger pinch": "2-Pinch", "Three-finger pinch": "3-Pinch", "Little": "Pinky"}   # as in the group's earlier HD-EMG papers
     centres = np.array([[np.median(emb[(label == mi) & shown, 0]), np.median(emb[(label == mi) & shown, 1])] for mi in order])
     span = np.percentile(emb, 99.5, axis=0) - np.percentile(emb, .5, axis=0)
     # Labels start on their island; at this panel size they rarely need moving, and
@@ -521,7 +521,7 @@ def main():
     # Paired tests in the paper's convention (Figure 3): two-sided exact sign-flip
     # of the mean difference over all 512 participant sign patterns, Holm over the
     # three declared contrasts; stars as there, exact values in the caption.
-    from paper.common.dpose_figure_statistics import exact_paired_test, holm_adjust
+    from paper.common.hdemg_figure_statistics import exact_paired_test, holm_adjust
     tests = [exact_paired_test(vals[:, i].tolist(), vals[:, 0].tolist()) for i in range(1, len(positions))]
     holm = holm_adjust([t[1] for t in tests])
     def stars(q): return "***" if q < .001 else "**" if q < .01 else "*" if q < .05 else "n.s."

@@ -3,7 +3,7 @@
 Declared before running (2026-10-10). Host build of the shipped optimized code (arm64, standardization constants
 zeroed, as in validate.py) replays the 16 test windows of each participant on the first 63 electrodes: C
 calibration and normalization, spectra and matrix logarithms in C with band weights over the 63 channels, then
-each participant's refitted 63-electrode standardization and codebook (results/dpose_spar_63_electrodes_v1) and the
+each participant's refitted 63-electrode standardization and codebook (results/hdemg_spar_63_electrodes_v1) and the
 port's batched nearest-code search. Two montages: "board", the firmware's N-channel rule (benchmark.c montage():
 an absent neighbour is replaced by the electrode itself and its coupling masked), and "reference", the
 grid_layout rule of the accuracy study (mirrored neighbour substituted, coupling masked). Outputs: token agreement
@@ -25,11 +25,11 @@ import torch
 
 BASE = Path(__file__).resolve().parents[2]
 from paper.firmware.stm32n6_pose_validation import validate as V  # noqa: E402
-from paper.hdemg import run_dpose_spar_simple as pilot  # noqa: E402
+from paper.hdemg import run_hdemg_spar_simple as pilot  # noqa: E402
 from myoji.spar import grid_layout  # noqa: E402
 
 N = 63
-RUN63 = BASE / "results/dpose_spar_63_electrodes_v1"
+RUN63 = BASE / "results/hdemg_spar_63_electrodes_v1"
 OUT = BASE / "results/stm32n6_pose_validation_v1/replay63"
 
 

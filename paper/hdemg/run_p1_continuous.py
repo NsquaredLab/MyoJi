@@ -3,7 +3,7 @@
 Each movement's two test windows start 6000 samples apart; only their last second is
 scored. Two extra 3 s windows starting 2000 and 4000 samples after the first test window
 make the scored seconds tile 4 s without gaps. All four windows lie inside the test block.
-The frozen pipeline (run_dpose_spar_simple / run_dpose_spar_full) is reused unchanged, and
+The frozen pipeline (run_hdemg_spar_simple / run_hdemg_spar_full) is reused unchanged, and
 the run is gated: for the original test windows it must reproduce the cached features,
 tokens and the stored test predictions.
 
@@ -21,12 +21,12 @@ import torch
 from scipy.signal import firwin, upfirdn
 
 from paper.common import paths
-from paper.hdemg import run_dpose_spar_simple as pilot
+from paper.hdemg import run_hdemg_spar_simple as pilot
 from myoji.codebook import standardize, tokenize
 from myoji.spar import grid_layout, spar_simple_dataset_batched
 
 ROOT = Path(__file__).resolve().parents[1]
-RUN = paths.RESULTS / 'dpose_spar_simple_full_v1'
+RUN = paths.RESULTS / 'hdemg_spar_simple_full_v1'
 
 SUBJECT = int(next((a for a in sys.argv[1:] if a.isdigit()), 1))
 SEED = 260911

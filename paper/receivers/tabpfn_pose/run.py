@@ -17,7 +17,7 @@ from sklearn.linear_model import Ridge
 from paper.common import paths
 from ._support import Monitor, sha256, validate_separation
 
-DEFAULT_CACHE = paths.RESULTS / "dpose_spar_simple_pilot_v1"
+DEFAULT_CACHE = paths.RESULTS / "hdemg_spar_simple_pilot_v1"
 SEEDS = [260911, 260912, 260913]
 
 
@@ -121,7 +121,7 @@ def prepare(args):
                             tasks=arrays[f"tasks_{split}"], starts=arrays[f"starts_{split}"])
     references = {}
     target = arrays["y_test"].reshape(16, 50, 60)
-    for folder, label in ((source, "SPAR V20"), (paths.RESULTS / "dpose_v20_v1/subject_01", "Spectral V20")):
+    for folder, label in ((source, "SPAR V20"), (paths.RESULTS / "hdemg_v20_v1/subject_01", "Spectral V20")):
         for arm in (("tokens", "continuous") if label == "SPAR V20" else ("tokens",)):
             for seed in SEEDS:
                 file = folder / "fits" / f"{arm}_{seed}" / "test_predictions.npz"

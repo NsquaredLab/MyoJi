@@ -141,7 +141,7 @@ def meta_overview(r, mm_per_palm):
     draw(r, mm_per_palm)
 
 
-def dpose(r, audit):
+def hdemg(r, audit):
     arms = [("v19", "RaulNetV19", "v19"), ("tcn_continuous", "TCN / continuous", "continuous"),
             ("tcn_tokens", "TCN / tokens", "vq"),
             ("transformer_continuous", "Transformer / continuous", "continuous"),
@@ -176,7 +176,7 @@ def dpose(r, audit):
         ax.grid(axis="x"); ax.tick_params(axis="y", length=0)
     panel(axes[0], "A", "Nine participants; three seeds")
     panel(axes[1], "B", "Paired comparisons")
-    save(fig, "dpose_matched", {"per_participant": {k: v.tolist() for k, v in vectors.items()},
+    save(fig, "hdemg_matched", {"per_participant": {k: v.tolist() for k, v in vectors.items()},
                                  "participants": people, "comparisons": audit["comparisons"]})
 
 
@@ -327,13 +327,13 @@ def main():
         path = f"results/paper_completion_v1/runtime_{device}.json"
         read(path)
         assert SOURCES[path] == r["runtime"][device]["sha256"]
-    d = read("results/dpose_matched_v1/results.json")
-    da = read("results/dpose_matched_v1/paired_participant_audit.json")
-    assert d["complete"] and da["source_results_sha256"] == SOURCES["results/dpose_matched_v1/results.json"]
-    n = read("results/dpose_v20_noise_followup_v2/results.json")
-    na = read("results/dpose_v20_noise_followup_v2/independent_audit.json")
-    assert n["complete"] and na["results_sha256"] == SOURCES["results/dpose_v20_noise_followup_v2/results.json"]
-    pipeline(); meta_overview(r, mm_per_palm); dpose(d, da); trajectories(); noise(n); codec_diagnostics(); tables(r, d, n, mm_per_palm)
+    d = read("results/hdemg_matched_v1/results.json")
+    da = read("results/hdemg_matched_v1/paired_participant_audit.json")
+    assert d["complete"] and da["source_results_sha256"] == SOURCES["results/hdemg_matched_v1/results.json"]
+    n = read("results/hdemg_v20_noise_followup_v2/results.json")
+    na = read("results/hdemg_v20_noise_followup_v2/independent_audit.json")
+    assert n["complete"] and na["results_sha256"] == SOURCES["results/hdemg_v20_noise_followup_v2/results.json"]
+    pipeline(); meta_overview(r, mm_per_palm); hdemg(d, da); trajectories(); noise(n); codec_diagnostics(); tables(r, d, n, mm_per_palm)
     AUDIT.update({"complete": True, "source_sha256": SOURCES, "builder_sha256": sha(Path(__file__)),
                   "new_training": False, "intervals": "Pointwise participant bootstrap; fixed trained encoders, not a population interval over tokenizer training."})
     for p in TABLES.glob("*.tex"):

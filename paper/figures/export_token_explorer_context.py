@@ -30,7 +30,7 @@ def main():
     p.add_argument("--output", type=Path, default=paths.OUTPUT / "token-explorer", help="the built token explorer to extend")
     args = p.parse_args()
     from myoji.preprocessing import calibration_normalize
-    from paper.hdemg.run_dpose_pilot import resample
+    from paper.hdemg.run_hdemg_pilot import resample
 
     torch.set_num_threads(4)
     torch.set_num_interop_threads(1)

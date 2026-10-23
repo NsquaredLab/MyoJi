@@ -23,7 +23,7 @@ def example(vector, book, expected, **metadata):
 
 paths = [ROOT/'manuscript/figures/encoder_examples/example-data.npz',
          ROOT/'checkpoints/clean_release.pt',
-         ROOT/'results/dpose_spar_simple_full_v1/subject_01/figure-video-inputs.npz']
+         ROOT/'results/hdemg_spar_simple_full_v1/subject_01/figure-video-inputs.npz']
 with np.load(paths[0], allow_pickle=False) as learned:
     book = torch.load(paths[1], map_location='cpu', weights_only=True)['state_dict']['quantizer.codebook'].numpy()
     # Min/max pairs preserve peaks in each four-sample display bin.
@@ -31,13 +31,13 @@ with np.load(paths[0], allow_pickle=False) as learned:
     trace = np.column_stack((signal.min(1), signal.max(1))).reshape(-1).tolist()
     a = example(learned['prequantization_vector'], book, 93,
                 name='Learned encoder', waveform=trace,
-                provenance='DPose participant 1, electrode 1, task 2, training window 2. The recorded example used in the manuscript encoder figure.',
+                provenance='HD-EMG participant 1, electrode 1, task 2, training window 2. The recorded example used in the manuscript encoder figure.',
                 context_ms=480, patch_ms=160, update_ms=20)
 with np.load(paths[2], allow_pickle=False) as spar:
     assert spar['mask'][27].all()
     b = example(spar['val_continuous'][0, 27, 49], spar['codebook'], 239,
                 name='SPAR', waveform=None,
-                provenance='DPose participant 1, electrode 28 (zero-based index 27), validation window 0, frame 49. The recorded example used in the manuscript mechanism assets.',
+                provenance='HD-EMG participant 1, electrode 28 (zero-based index 27), validation window 0, frame 49. The recorded example used in the manuscript mechanism assets.',
                 context_ms=160, patch_ms=160, update_ms=20)
 payload = dict(learned=a, spar=b)
 OUT.mkdir(parents=True, exist_ok=True)

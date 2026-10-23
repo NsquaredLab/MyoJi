@@ -4,7 +4,7 @@ Token error minus continuous-feature error, per participant (circles) and as the
 its exact 95 % sign-flip interval, for the six paired decoders grouped by tokenizer, each
 group followed by its pooled estimate (claims C1 and C2). The grey dashed rule is the 1 mm
 non-inferiority margin; an interval entirely left of it is non-inferior. Values are read
-from results/dpose_claim_statistics.json, so nothing is recomputed. Drawn at the exact size
+from results/hdemg_claim_statistics.json, so nothing is recomputed. Drawn at the exact size
 of the Affinity panel it replaces (1,079 x 467 px at 300 dpi).
 
     uv run python -m paper.figures.plot_fig3_signed_panel
@@ -21,7 +21,7 @@ from paper.common import paths
 from paper.common import switzer_font
 
 ROOT = Path(__file__).resolve().parents[1]
-RECORD = ROOT / 'results/dpose_claim_statistics.json'
+RECORD = ROOT / 'results/hdemg_claim_statistics.json'
 # (row label, contrast id or claim id); groups are separated by a gap.
 GROUPS = [[('TCN', 'matched_tcn_tokens_vs_features'), ('Transformer', 'matched_transformer_tokens_vs_features'),
            ('Qwen3', 'pretrained_qwen_tokens_vs_features'), ('Proposed (Learned)', 'proposed_tokens_vs_features'),

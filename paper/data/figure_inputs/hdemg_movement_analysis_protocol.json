@@ -1,0 +1,186 @@
+{
+  "defined_at_utc": "2026-09-11T19:47:37.254848+00:00",
+  "scope": "Exploratory subject-by-movement reformulation after prior aggregate p-values were inspected; not preregistered confirmation. Fixed before computing movement-level outcomes.",
+  "previous_figure_archive": "output/figures/archive/before-movement-panel-c-20260911T194737Z",
+  "reference_protocol": "results/hdemg_cnn_maxT_analysis_protocol.json",
+  "reference_protocol_sha256": "85f746f0dfd49e4bdf416bc1a343051e3aa94302cc2207dda3c6657ab9a4e6c0",
+  "reference_analysis_archive": "output/figures/archive/before-movement-panel-c-20260911T194737Z/results/hdemg_cnn_maxT_analysis.json",
+  "subjects": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "task_ids": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    15,
+    18,
+    19
+  ],
+  "seeds": [
+    260911,
+    260912,
+    260913
+  ],
+  "windows_per_subject_task": 2,
+  "scored_endpoints_per_window": 50,
+  "landmarks_per_endpoint": 20,
+  "unit": "mm",
+  "aggregation": "Recompute Euclidean landmark distances from saved predictions and targets in float64. Average endpoints and landmarks, the two windows within subject/task/seed, then the three seed errors (never average predictions). Equal weights for all eight tasks and nine participants.",
+  "cell_definition": "Subject by recorded movement-task type; window is not an independently segmented movement repetition.",
+  "gap_contrasts": [
+    {
+      "id": "matched_tcn_gap_vs_proposed",
+      "alternative": [
+        "representation_gap",
+        "matched_tcn"
+      ],
+      "reference": [
+        "representation_gap",
+        "proposed"
+      ],
+      "alternative_models": {
+        "tokens": [
+          "hdemg_matched_v1",
+          "tcn_tokens"
+        ],
+        "features": [
+          "hdemg_matched_v1",
+          "tcn_continuous"
+        ]
+      },
+      "reference_models": {
+        "tokens": [
+          "hdemg_v20_v1",
+          "tokens"
+        ],
+        "features": [
+          "hdemg_v20_continuous_v1",
+          "continuous"
+        ]
+      },
+      "label": "TCN (matched) token−feature gap versus proposed",
+      "display_label": "TCN",
+      "table_label": "TCN (matched)",
+      "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+    },
+    {
+      "id": "matched_transformer_gap_vs_proposed",
+      "alternative": [
+        "representation_gap",
+        "matched_transformer"
+      ],
+      "reference": [
+        "representation_gap",
+        "proposed"
+      ],
+      "alternative_models": {
+        "tokens": [
+          "hdemg_matched_v1",
+          "transformer_tokens"
+        ],
+        "features": [
+          "hdemg_matched_v1",
+          "transformer_continuous"
+        ]
+      },
+      "reference_models": {
+        "tokens": [
+          "hdemg_v20_v1",
+          "tokens"
+        ],
+        "features": [
+          "hdemg_v20_continuous_v1",
+          "continuous"
+        ]
+      },
+      "label": "Transformer (matched) token−feature gap versus proposed",
+      "display_label": "Transformer",
+      "table_label": "Transformer (matched)",
+      "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+    },
+    {
+      "id": "pretrained_qwen_gap_vs_proposed",
+      "alternative": [
+        "representation_gap",
+        "pretrained_qwen"
+      ],
+      "reference": [
+        "representation_gap",
+        "proposed"
+      ],
+      "alternative_models": {
+        "tokens": [
+          "hdemg_llm_full_v1",
+          "tokens_pretrained"
+        ],
+        "features": [
+          "hdemg_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      },
+      "reference_models": {
+        "tokens": [
+          "hdemg_v20_v1",
+          "tokens"
+        ],
+        "features": [
+          "hdemg_v20_continuous_v1",
+          "continuous"
+        ]
+      },
+      "label": "Qwen3 (pretrained) token−feature gap versus proposed",
+      "display_label": "Qwen3",
+      "table_label": "Qwen3 (pretrained)",
+      "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+    }
+  ],
+  "model": {
+    "formula": "D[subject,task] = beta[task] + epsilon[subject,task]",
+    "response": "Other decoder (token minus feature error) minus proposed (token minus feature error), within the same subject and task.",
+    "fixed_effects": "Eight task-specific means, fitted by ordinary least squares without an extra intercept.",
+    "dependence": "Arbitrary covariance across the eight task cells within each participant; participants independent. Model concerns these fixed eight tasks.",
+    "covariance": "V(beta_hat) = sum_s (D_s-beta_hat)(D_s-beta_hat)^T / (n*(n-1)); n=9.",
+    "estimand": "mu = c^T beta, c=(1/8,...,1/8), equal-task mean contrast.",
+    "standard_error": "sqrt(c^T V c). This equals sample SD of the nine participant marginal contrasts divided by sqrt(9).",
+    "null": "c^T beta = 0; individual movement-specific effects need not equal zero.",
+    "method_name": "Balanced repeated-measures model with fixed movement effects and participant-cluster covariance; not a mixed-effects model."
+  },
+  "inference": {
+    "method": "Exact two-sided synchronized participant sign-flip single-step max-|t|",
+    "family_size": 51,
+    "new_hypotheses": 0,
+    "permutations": 512,
+    "implementation": "For each participant sign pattern multiply all eight movement cells together, refit beta and the cluster covariance, compute the equal-task marginal t, and combine the three C t statistics with the existing 48 t statistics in the same maximum reference distribution.",
+    "exactness": "Follows from reduction to participant marginal contrasts and their joint true-null central sign symmetry. Do not claim a generic nuisance-adjusted permutation regression; arbitrary covariance alone does not establish exactness.",
+    "assumptions": "Independent participants and jointly centrally symmetric true-null participant-marginal contrast vectors. This cannot be established with nine participants. No cell-wise flips, no asymptotic cluster Wald p-values, and no task-wise hypothesis tests.",
+    "expected_equivalence": "With complete balanced data the marginal t equals the prior participant-mean t under every sign pattern. Rescoring float32 predictions in float64 can cause small numerical differences; record and report these, never force equality by changing cells.",
+    "significance_thresholds": {
+      "*": 0.05,
+      "**": 0.01,
+      "***": 0.001
+    },
+    "intervals": "Existing pointwise sign-flip location-interval method on the reconstructed participant marginal contrasts, reported in table only."
+  },
+  "display": "Replace C with four token-feature gap distributions of all 72 correlated subject-by-task cells per decoder, equally weighted red overall mean, and existing three other-minus-proposed comparisons. Use distinct cell marker and caption/legend so A participant dots remain unambiguous. Retain all data with honest axis/outlier treatment.",
+  "review_before_movement_outcomes": {
+    "reviewer": ".",
+    "result": "Pass with clarified marginal-null symmetry, fixed-task scope, nine independent participants, explicit precision audit and unambiguous C marker legend."
+  },
+  "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4010955/",
+    "https://fsl.fmrib.ox.ac.uk/fsl/docs/statistics/glm.html",
+    "https://fsl.fmrib.ox.ac.uk/fsl/docs/statistics/palm/user_guide.html",
+    "https://doi.org/10.1198/016214504000000539",
+    "https://d-nb.info/1093020903/34"
+  ]
+}

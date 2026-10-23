@@ -1,7 +1,7 @@
 """SPAR feature ablation and held-out pose retrieval: statistics and Supplementary Data 9.
 
-Ablation: results/dpose_spar_ablation_v1/{logpower,diagonal} against the published full-SPAR campaign
-results/dpose_spar_simple_full_v1 (same windows, 1,024-code codebooks, seeds, decoder and gates).
+Ablation: results/hdemg_spar_ablation_v1/{logpower,diagonal} against the published full-SPAR campaign
+results/hdemg_spar_simple_full_v1 (same windows, 1,024-code codebooks, seeds, decoder and gates).
 Per descriptor: mean error with tokens and with continuous features and their paired difference;
 between descriptors: each six-value descriptor minus full SPAR. Exact sign-flip over all 512
 participant patterns with exact 95 % intervals; the two token contrasts against full SPAR form one Holm
@@ -16,12 +16,12 @@ from pathlib import Path
 import numpy as np
 
 from paper.common import paths
-from paper.common.dpose_figure_statistics import exact_location_interval, exact_paired_test, holm_adjust
+from paper.common.hdemg_figure_statistics import exact_location_interval, exact_paired_test, holm_adjust
 
 ROOT = Path(__file__).resolve().parents[1]
-RUNGS = {'logpower': 'results/dpose_spar_ablation_v1/logpower/results.json',
-         'diagonal': 'results/dpose_spar_ablation_v1/diagonal/results.json',
-         'full': 'results/dpose_spar_simple_full_v1/results.json'}
+RUNGS = {'logpower': 'results/hdemg_spar_ablation_v1/logpower/results.json',
+         'diagonal': 'results/hdemg_spar_ablation_v1/diagonal/results.json',
+         'full': 'results/hdemg_spar_simple_full_v1/results.json'}
 NAMES = {'logpower': 'Centre log band power (6 values)', 'diagonal': 'Matrix-log diagonal (6 values)',
          'full': 'Full SPAR (18 values)'}
 RETRIEVAL = ROOT / 'output/figures/token-pose-recovery-heldout.json'

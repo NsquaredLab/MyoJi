@@ -275,11 +275,11 @@ uv run python -m paper.firmware.stm32n6_pose_validation.replay63 --data paper/re
 
 | Stage | Inputs |
 |---|---|
-| `prepare` (GPU host) | HD-EMG recordings (`MYOJI_HDEMG`); `paper/results/dpose_spar_simple_full_v1/subject_XX/{protocol.json,cache-receipt.json}` from `run_dpose_spar_full.py`. Writes `windows.npy` (about 0.7 GB per participant), `cache.npz` and `prepare.json` to `--work` (default `paper/results/stm32n6_pose_validation_v1/prepare/`). |
+| `prepare` (GPU host) | HD-EMG recordings (`MYOJI_HDEMG`); `paper/results/hdemg_spar_simple_full_v1/subject_XX/{protocol.json,cache-receipt.json}` from `run_hdemg_spar_full.py`. Writes `windows.npy` (about 0.7 GB per participant), `cache.npz` and `prepare.json` to `--work` (default `paper/results/stm32n6_pose_validation_v1/prepare/`). |
 | `build` (arm64 host) | The raw-tokenizer fixtures, and `STM32CUBEN6_ROOT`. Builds both variants with zeroed standardization, so that they return raw matrix-log entries. |
 | `fixture` | `reference.npz`, `host_outputs.npz`, `raw_320x2120.f32`, and participant 1's standardization and mask from `$MYOJI_ASSETS/spar/codebooks-1024.npz` |
-| `subject` | The `prepare` outputs (`--data`, same default), and the campaign's frozen decoders `dpose_spar_simple_full_v1/subject_XX/fits/tokens_{260911,260912,260913}/{best.pt,test_predictions.npz}` |
-| `replay63.py` | The `prepare` outputs; `paper/results/dpose_spar_63_electrodes_v1/subject_XX/{features.h5,fits/tokens_*/best.pt}` from `dpose_spar_63_electrodes.py`; and the `build` stage's default library |
+| `subject` | The `prepare` outputs (`--data`, same default), and the campaign's frozen decoders `hdemg_spar_simple_full_v1/subject_XX/fits/tokens_{260911,260912,260913}/{best.pt,test_predictions.npz}` |
+| `replay63.py` | The `prepare` outputs; `paper/results/hdemg_spar_63_electrodes_v1/subject_XX/{features.h5,fits/tokens_*/best.pt}` from `hdemg_spar_63_electrodes.py`; and the `build` stage's default library |
 
 The results are written to `paper/results/stm32n6_pose_validation_v1/`. No
 model is fitted.

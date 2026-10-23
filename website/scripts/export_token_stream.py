@@ -13,7 +13,7 @@ import json
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-RUN = ROOT / 'results/dpose_spar_simple_full_v1'
+RUN = ROOT / 'results/hdemg_spar_simple_full_v1'
 OUT = ROOT / 'website/static/data/token-stream.json'
 with np.load(RUN / 'subject_01/figure-video-inputs.npz', allow_pickle=False) as z:
     tokens, features, mask = z['val_tokens'][0], z['val_continuous'][0], z['mask']

@@ -1,7 +1,7 @@
 """Replay recorded HD-EMG through three SPAR tokenizers and score the frozen decoders.
 
 Streams per participant (1-9), same windows, normalization, standardization and
-codebook as the nine-participant campaign (results/dpose_spar_simple_full_v1):
+codebook as the nine-participant campaign (results/hdemg_spar_simple_full_v1):
   pytorch  released tokenizer (myoji.spar), regenerated here;
   exact    host build of the N6 port with STM32N6_EXACT=1 (radix-2 FFT, libm hypotf);
   fast     host build of the shipped N6 port (CMSIS rfft, sqrt hypot), scalar CMSIS.
@@ -36,9 +36,9 @@ import torch
 
 BASE = Path(__file__).resolve().parents[2]
 from paper.common import paths  # noqa: E402
-from paper.hdemg import run_dpose_spar_simple as pilot  # noqa: E402
+from paper.hdemg import run_hdemg_spar_simple as pilot  # noqa: E402
 
-CAMPAIGN = BASE / "results/dpose_spar_simple_full_v1"
+CAMPAIGN = BASE / "results/hdemg_spar_simple_full_v1"
 OUT = BASE / "results/stm32n6_pose_validation_v1"
 SEEDS = pilot.SEEDS
 ENDS = pilot.ENDS
@@ -62,7 +62,7 @@ def write(path, value):
 def prepare(subject, work, device):
     """Regenerate the campaign cache with the released tokenizer; export windows and a compact extract."""
     import h5py
-    from paper.hdemg import run_dpose_spar_full as full
+    from paper.hdemg import run_hdemg_spar_full as full
     from myoji.codebook import fit_standardization
     t0 = time.monotonic()
     root = work / f"subject_{subject:02d}"
@@ -331,7 +331,7 @@ def run_subject(subject, libs, data, device):
 
 
 def report():
-    from paper.common.dpose_figure_statistics import exact_paired_test
+    from paper.common.hdemg_figure_statistics import exact_paired_test
     results = [json.loads((OUT / f"subject_{s:02d}/result.json").read_text()) for s in range(1, 10) if (OUT / f"subject_{s:02d}/result.json").exists()]
     subjects = [r["subject"] for r in results]
     err = {name: np.array([r["decoder_error_mean_mm"][name] for r in results]) for name in ("pytorch", "exact", "fast")}

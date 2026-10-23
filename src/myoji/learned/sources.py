@@ -130,18 +130,18 @@ class EMG2PoseBatchSource(EMGBatchSource):
         return self._batch(arrays, target_rate_hz)
 
 
-class DPosePickleBatchSource(EMGBatchSource):
-    """Lazy one-participant-at-a-time access to the 320-channel DPose pickles."""
+class HDEMGPickleBatchSource(EMGBatchSource):
+    """Lazy one-participant-at-a-time access to the 320-channel HD-EMG pickles."""
 
     def __init__(
         self,
         paths: list[Path] | tuple[Path, ...],
         source_rate_hz: int = 2_048,
         batches_per_participant: int = 1,
-        name: str = "dpose_hd",
+        name: str = "hdemg",
     ) -> None:
         if not paths:
-            raise ValueError("at least one DPose pickle is required")
+            raise ValueError("at least one HD-EMG pickle is required")
         self.paths = tuple(Path(path) for path in paths)
         self.source_rate_hz = source_rate_hz
         self.batches_per_participant = batches_per_participant
@@ -174,7 +174,7 @@ class DPosePickleBatchSource(EMGBatchSource):
         task = list(self._cache)[int(rng.integers(0, len(self._cache)))]
         emg = np.asarray(self._cache[task])
         if emg.ndim != 2 or emg.shape[0] != 320:
-            raise ValueError(f"DPose task {task!r} has unexpected shape {emg.shape}")
+            raise ValueError(f"HD-EMG task {task!r} has unexpected shape {emg.shape}")
         return emg
 
     def sample_batch(

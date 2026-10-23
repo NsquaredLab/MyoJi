@@ -25,8 +25,8 @@ from paper.common import paths
 ROOT = Path(__file__).resolve().parents[1]
 OUT = paths.OUTPUT/'figures/pose_paper'
 BUILD = paths.OUTPUT/'build/tokenizer-mechanism'
-SOURCE = ROOT/'results/dpose_spar_simple_full_v1/subject_01/figure-video-inputs.npz'
-CKPT = ROOT/'results/dpose_spar_simple_full_v1/subject_01/fits/tokens_260911/best.pt'
+SOURCE = ROOT/'results/hdemg_spar_simple_full_v1/subject_01/figure-video-inputs.npz'
+CKPT = ROOT/'results/hdemg_spar_simple_full_v1/subject_01/fits/tokens_260911/best.pt'
 TIKZ = paths.DATA/'figure_inputs/tokenizer_mechanism.tex'
 EXAMPLE = dict(participant=1, validation_window=0, frame=49, channel=27)
 
@@ -162,7 +162,7 @@ def build():
         target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(BUILD/f'mechanism.{ext}',target)
     sources={rel(p):sha(p) for p in [SOURCE,CKPT,TIKZ,Path(__file__),
         paths.REPO/'src/myoji/codebook.py',paths.REPO/'src/myoji/spar.py',
-        ROOT/'hdemg/run_dpose_spar_simple.py',paths.REPO/'src/myoji/decoders.py',
+        ROOT/'hdemg/run_hdemg_spar_simple.py',paths.REPO/'src/myoji/decoders.py',
         paths.REPO/'src/myoji/_vendor/raulnet_v20.py',
         paths.REPO/'src/myoji/learned/encoder.py',
         paths.REPO/'src/myoji/learned/quantizer.py',paths.REPO/'src/myoji/learned/config.py']}

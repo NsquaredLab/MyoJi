@@ -26,7 +26,7 @@ from myoji.learned import (
     training_state,
 )
 from myoji.learned.sources import (
-    DPosePickleBatchSource,
+    HDEMGPickleBatchSource,
     EMG2PoseBatchSource,
     FrozenEMG2PoseSource,
 )
@@ -42,7 +42,7 @@ def parse_args(argv=None) -> argparse.Namespace:
         choices=("official", "legacy-mini"),
         default="official",
     )
-    parser.add_argument("--dpose-dir", type=Path, default=paths.HDEMG)
+    parser.add_argument("--hdemg-dir", type=Path, default=paths.HDEMG)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--window-seconds", type=float, default=2.0)
     parser.add_argument("--batch-size", type=int, default=2)
@@ -68,7 +68,7 @@ def parse_args(argv=None) -> argparse.Namespace:
         type=Path,
         help="resume a run from a periodic .last.pt training checkpoint",
     )
-    parser.add_argument("--dpose-batches-per-recording", type=int, default=1)
+    parser.add_argument("--hdemg-batches-per-recording", type=int, default=1)
     return parser.parse_args(argv)
 
 
@@ -116,12 +116,12 @@ def build_sources(args: argparse.Namespace, window_samples: int):
         )
         sources.append(EMG2PoseBatchSource(dataset))
 
-    dpose_paths = sorted(args.dpose_dir.glob("Sub*_emg.pkl"))
-    if dpose_paths:
+    hdemg_paths = sorted(args.hdemg_dir.glob("Sub*_emg.pkl"))
+    if hdemg_paths:
         sources.append(
-            DPosePickleBatchSource(
-                dpose_paths,
-                batches_per_participant=args.dpose_batches_per_recording,
+            HDEMGPickleBatchSource(
+                hdemg_paths,
+                batches_per_participant=args.hdemg_batches_per_recording,
             )
         )
 
@@ -297,7 +297,7 @@ def main() -> None:
     positive_controls = (
         args.report_every,
         args.checkpoint_every,
-        args.dpose_batches_per_recording,
+        args.hdemg_batches_per_recording,
     )
     if min(positive_controls) <= 0:
         raise ValueError(

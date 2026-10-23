@@ -18,7 +18,7 @@ from paper.hdemg.pose_recovery.aggregate import balanced  # noqa: E402
 from paper.common import paths  # noqa: E402
 
 RECOVERY = paths.RESULTS / 'token_umap/pose_recovery'
-from paper.common.dpose_figure_statistics import exact_location_interval, exact_paired_test, holm_adjust  # noqa: E402
+from paper.common.hdemg_figure_statistics import exact_location_interval, exact_paired_test, holm_adjust  # noqa: E402
 
 OUT = ROOT / 'output/figures/token-pose-recovery-heldout.json'
 SUBJECTS = range(1, 10)

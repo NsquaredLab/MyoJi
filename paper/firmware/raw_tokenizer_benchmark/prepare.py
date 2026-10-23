@@ -37,7 +37,7 @@ def raw_fixture():
     """
     import joblib
     from myoji.learned import Tokenizer
-    from paper.hdemg.run_dpose_pilot import resample  # the paper's causal 2,048 -> 2,000 Hz FIR
+    from paper.hdemg.run_hdemg_pilot import resample  # the paper's causal 2,048 -> 2,000 Hz FIR
     path = paths.HDEMG / "Sub1_emg.pkl"
     assert sha(path) == "3c4e6bb5c8a6f667bc621472e9dd19ba6465a1f621ce5bbfe971a84c1a100db2", \
         "expects the paper's 8-task export of participant 1"
@@ -46,7 +46,7 @@ def raw_fixture():
     encoded = Tokenizer(paths.LEARNED_TOKENIZER).encode(raw, sample_rate_hz=2000)
     assert encoded["end_sample_indices"][-3:] == [2039,2079,2119]
     saved = np.asarray(encoded["tokens"])[:,-3:].T.astype(np.uint16)
-    return raw, saved, dict(dataset="DPose", participant=1, recording=path.name, recording_sha256=sha(path), task=2,
+    return raw, saved, dict(dataset="HD-EMG", participant=1, recording=path.name, recording_sha256=sha(path), task=2,
         recording_start_sample=2000, cached_window=2, source_split="train",
         selection="First campaign window of participant 1, task 2; first three token endpoints (2039,2079,2119), chosen before running the C port",
         input_interface="320 channels of raw float32 EMG at 2000 Hz, before prefix normalization",

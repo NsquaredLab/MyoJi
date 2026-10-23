@@ -167,7 +167,7 @@ def main():
         'outputs supported by a full 320 ms recorded input history within the same illustrated 480 ms '
         'EMG segment. The eight earlier outputs that depend on startup padding are excluded. '
         'The final column is exactly the previously plotted block-2 vector. This remains a recorded '
-        'DPose participant-1/electrode-1 training example for illustration, not an evaluation result.\n\n'
+        'HD-EMG participant-1/electrode-1 training example for illustration, not an evaluation result.\n\n'
         'Colours show signed raw activations on one shared linear scale, before the final LayerNorm. '
         'There is no per-feature normalization, sorting, interpolation, smoothing, or clipping. '
         'Use the separate colour key when the figure must be interpreted quantitatively. '

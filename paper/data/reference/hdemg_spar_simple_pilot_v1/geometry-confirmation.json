@@ -1,0 +1,12 @@
+{
+  "status": "Confirmed by dataset owner",
+  "confirmed_at_utc": "2026-09-12 10:13:41 UTC",
+  "run": "hdemg_spar_simple_pilot_v1",
+  "channel_order": "Three 8x8 grids, followed by two 13x5 grids with 64 recorded sites each; row-major within each grid.",
+  "exact_match_to_used_mapping": true,
+  "channels": 320,
+  "retained_horizontal_edges": 270,
+  "retained_vertical_edges": 286,
+  "geometry_canonical_json_sha256": "d26745786f186945181383c39be47587b3847e4f1b475bce8d716a5e7424d110",
+  "protocol_sha256": "d29b1d82aa05b0229707ba1f004c4c4b9b9a532759ec1212ec1bbf7e506563ca"
+}

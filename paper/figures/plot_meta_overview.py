@@ -33,7 +33,7 @@ from paper.common import tokenizer_diagnostic_style as style
 from paper.common import switzer_font
 
 from paper.common import figstyle as sf
-from paper.common import dpose_figure_statistics as stats
+from paper.common import hdemg_figure_statistics as stats
 
 # Groups say why each row exists; continuous -> token pairs share source features.
 # Bits are payload bits per channel per 20 ms update, before the 9-byte header.

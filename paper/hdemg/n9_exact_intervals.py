@@ -3,7 +3,7 @@
 The experiment receipts carry participant-bootstrap intervals, which cover about 90 % at
 n = 9 and can disagree with their own exact p-values. This ledger recomputes each
 contrast's exact 95 % interval (inversion of the two-sided sign-flip test, as in
-`dpose_figure_statistics.exact_location_interval`) from the stored per-participant values,
+`hdemg_figure_statistics.exact_location_interval`) from the stored per-participant values,
 asserts that the exact p-values and Holm adjustments reproduce the receipts, and
 supersedes the bootstrap intervals. It also rewrites the HD-EMG rows of Supplementary
 Data 6 and 8. Nothing is refitted.
@@ -16,7 +16,7 @@ from pathlib import Path
 
 import numpy as np
 
-from paper.common.dpose_figure_statistics import exact_location_interval, exact_paired_test, holm_adjust
+from paper.common.hdemg_figure_statistics import exact_location_interval, exact_paired_test, holm_adjust
 from paper.common import paths
 from paper.figures import plot_noise_robustness as nr
 
@@ -24,15 +24,15 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'results/n9_exact_intervals.json'
 DATA = paths.SUPPLEMENTARY
 SOURCES = {
-    'transfer': 'results/dpose_tokenizer_reuse_v1/results.json',
-    'spar_corruption': 'results/dpose_spar_corruption_v1/summary.json',
+    'transfer': 'results/hdemg_tokenizer_reuse_v1/results.json',
+    'spar_corruption': 'results/hdemg_spar_corruption_v1/summary.json',
     'learned_noise': nr.NOISE,
     'learned_dropout': nr.DROPOUT,
-    'onset_calibration': 'results/dpose_spar_onset_calibration_v1/summary.json',
-    'replays': 'results/dpose_spar_transfer_checks_v1/summary.json',
-    'electrodes_63': 'results/dpose_spar_63_electrodes_v1/summary.json',
-    'raw_link_budget': 'results/dpose_raw_link_budget_v1/summary.json',
-    'spar_64_codes': 'results/dpose_spar_simple_full_v64/results.json',
+    'onset_calibration': 'results/hdemg_spar_onset_calibration_v1/summary.json',
+    'replays': 'results/hdemg_spar_transfer_checks_v1/summary.json',
+    'electrodes_63': 'results/hdemg_spar_63_electrodes_v1/summary.json',
+    'raw_link_budget': 'results/hdemg_raw_link_budget_v1/summary.json',
+    'spar_64_codes': 'results/hdemg_spar_simple_full_v64/results.json',
     'pose_recovery': 'output/figures/token-pose-recovery.json',
     'direction': 'output/figures/direction-at-matched-closure.json',
     'direction_continuous': 'results/direction_continuous_spar_v1/summary.json',

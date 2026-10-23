@@ -90,7 +90,7 @@ def freeze(args):
         raise FileExistsError("completion protocol already frozen")
     args.storage.mkdir(parents=True, exist_ok=True)
     parents = [paths.RESULTS / f"{name}/protocol.json"
-               for name in ("meta_sessions_v1", "tokenizer_seeds_v1", "dpose_v20_noise_followup_v2")]
+               for name in ("meta_sessions_v1", "tokenizer_seeds_v1", "hdemg_v20_noise_followup_v2")]
     with h5py.File(paths.RESULTS / "clean_temporal_v1/full.h5") as h:
         manifest = json.loads(h.attrs["manifest"])
         if not h.attrs["complete"] or manifest["calibration_samples"] != 1000:

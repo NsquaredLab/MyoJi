@@ -58,7 +58,7 @@ def codebook(subject):
 
 def protocols():
     """Per participant: the SPAR campaign's windows and the sha256 of its normalized raw windows."""
-    campaign = paths.RESULTS / "dpose_spar_simple_full_v1"
+    campaign = paths.RESULTS / "hdemg_spar_simple_full_v1"
     out = {}
     for subject in range(1, 10):
         folder = campaign / f"subject_{subject:02d}"

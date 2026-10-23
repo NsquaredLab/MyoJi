@@ -180,7 +180,7 @@ def circular_bipolar_montage(channels: int = 16) -> ChannelMontage:
 
 
 def hd_monopolar_montage() -> ChannelMontage:
-    """The 320-channel DPose montage in its five native grid geometries.
+    """The 320-channel HD-EMG montage in its five native grid geometries.
 
     The proximal three grids are 8x8.  The two wrist grids are 13x5 with the
     first 64 of 65 sites recorded.  Coordinates are sensor-local and normalized

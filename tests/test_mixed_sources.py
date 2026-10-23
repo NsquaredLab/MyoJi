@@ -1,7 +1,7 @@
 import joblib
 import numpy as np
 
-from myoji.learned.sources import DPosePickleBatchSource, resampled_window
+from myoji.learned.sources import HDEMGPickleBatchSource, resampled_window
 
 
 def test_resampled_window_has_exact_target_shape() -> None:
@@ -13,14 +13,14 @@ def test_resampled_window_has_exact_target_shape() -> None:
     assert window.shape == (8, 1_000)
 
 
-def test_dpose_source_loads_one_participant_lazily(tmp_path) -> None:
+def test_hdemg_source_loads_one_participant_lazily(tmp_path) -> None:
     path = tmp_path / "Sub1_emg.pkl"
     joblib.dump(
         {"task": np.zeros((320, 2_048), dtype=np.int16)},
         path,
         compress=3,
     )
-    source = DPosePickleBatchSource([path])
+    source = HDEMGPickleBatchSource([path])
 
     batch = source.sample_batch(1, 2_000, 1_000, np.random.default_rng(1))
 

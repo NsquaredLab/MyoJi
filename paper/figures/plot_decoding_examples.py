@@ -22,16 +22,16 @@ from matplotlib.lines import Line2D
 ROOT = Path(__file__).resolve().parents[1]
 from paper.common import paths  # noqa: E402
 from paper.common import switzer_font  # noqa: E402
-from paper.hdemg.dpose_one_euro import smooth  # noqa: E402  (causal One Euro filter)
-from paper.common import dpose_figure_statistics as stats  # noqa: E402  (exact sign-flip intervals, as in Fig. 3)
+from paper.hdemg.hdemg_one_euro import smooth  # noqa: E402  (causal One Euro filter)
+from paper.common import hdemg_figure_statistics as stats  # noqa: E402  (exact sign-flip intervals, as in Fig. 3)
 
 # Display filter: the causal One Euro setting selected on validation data for the
-# learned-token decoder (results/dpose_v20_one_euro_v1/selection.json), applied unchanged to
+# learned-token decoder (results/hdemg_v20_one_euro_v1/selection.json), applied unchanged to
 # both SPAR arms. It uses past updates only, so the decoder's real lag stays visible.
-FILTER = json.loads((paths.REFERENCE / 'dpose_v20_one_euro_v1/selection.json').read_text())['selected']['config']
+FILTER = json.loads((paths.REFERENCE / 'hdemg_v20_one_euro_v1/selection.json').read_text())['selected']['config']
 assert FILTER == {'kind': 'one_euro', 'mincutoff': 1.0, 'beta': 0.1, 'dcutoff': 1.0, 'freq': 50.0}
 
-CAMPAIGN, SEED = 'results/dpose_spar_simple_full_v1', 260911
+CAMPAIGN, SEED = 'results/hdemg_spar_simple_full_v1', 260911
 TIPS = {'thumb': 0, 'index': 4, 'middle': 8, 'ring': 12, 'pinky': 16}
 # task id -> (title, fingertip distance from one (50, 20, 3) window); one y label for all panels
 dist = lambda w, a: np.linalg.norm(w[:, a], axis=-1)

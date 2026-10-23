@@ -1,4 +1,4 @@
-"""Current DPose models on the original, target-only selected test windows."""
+"""Current HD-EMG models on the original, target-only selected test windows."""
 import json
 
 import numpy as np
@@ -17,9 +17,9 @@ MEASURED = '#BDBDBD'   # wide light underlay: the reference greys, separable fro
 GRID, GRID_WIDTH = '#DEDEDE', .55
 # Line form, not only hue, separates the models, so the figure survives greyscale print.
 MODELS = [
-    ('SPAR Tokens', 'dpose_spar_simple_full_v1', 'tokens', '#d80032', '-'),
-    ('Learned Tokens', 'dpose_v20_v1', 'tokens', '#570014', (0, (4, 1.6))),
-    ('Adapted CNN', 'dpose_raulnet_v1', 'raulnet', '#6d6f72', (0, (1, 1.3)))]
+    ('SPAR Tokens', 'hdemg_spar_simple_full_v1', 'tokens', '#d80032', '-'),
+    ('Learned Tokens', 'hdemg_v20_v1', 'tokens', '#570014', (0, (4, 1.6))),
+    ('Adapted CNN', 'hdemg_raulnet_v1', 'raulnet', '#6d6f72', (0, (1, 1.3)))]
 STRATA = ['Lower', 'Middle', 'Upper']   # training-defined speed bins
 
 
@@ -32,10 +32,10 @@ def windows(campaign, arm, subject):
 def select_examples():
     training, candidates = [], []
     for subject in range(1, 10):
-        root = f'results/dpose_matched_v1/subject_{subject:02d}'
+        root = f'results/hdemg_matched_v1/subject_{subject:02d}'
         train = data.npz(root+'/baseline_training_targets.npz')['target'].astype(float).reshape(-1, 50, 20, 3)
         training.extend(np.linalg.norm(np.diff(train, axis=1)*50, axis=-1).mean((1, 2)).tolist())
-        target, _ = windows('dpose_matched_v1', 'tcn_tokens', subject)
+        target, _ = windows('hdemg_matched_v1', 'tcn_tokens', subject)
         for w, speed in enumerate(np.linalg.norm(np.diff(target, axis=1)*50, axis=-1).mean((1, 2))):
             candidates.append((float(speed), subject, w))
     thresholds = np.quantile(training, [1/3, 2/3])
@@ -92,7 +92,7 @@ def draw():
     time = np.arange(50)/50
     examples, spans = [], []
     for col, (speed, subject, w) in enumerate(selected):
-        reference_target, _ = windows('dpose_matched_v1', 'tcn_tokens', subject)
+        reference_target, _ = windows('hdemg_matched_v1', 'tcn_tokens', subject)
         target = reference_target[w]
         landmark = moving_landmark(target)
         coordinate = int(np.ptp(target[:, landmark], axis=0).argmax())
@@ -162,7 +162,7 @@ def draw():
         'thresholds_from_training_mm_s': thresholds.tolist(), 'examples': examples,
         'position_span_mm': float(span), 'position_tick_step_mm': float(step),
         'context_greatest_variance_landmark': context(selected),
-        'anatomy': 'DPose millimetres; landmark numbers 1-20 relative to wrist point 0, no inferred finger names.',
+        'anatomy': 'HD-EMG millimetres; landmark numbers 1-20 relative to wrist point 0, no inferred finger names.',
         'error': 'Euclidean 3D error of the selected landmark at each scored time; not the aggregate over all 20 landmarks.',
         'new_inference': False}
     (data.OUT / 'pose_trajectories.json').write_text(json.dumps(receipt, indent=1) + '\n')

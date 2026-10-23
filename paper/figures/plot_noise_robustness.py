@@ -24,8 +24,8 @@ from paper.common import tokenizer_diagnostic_style as style
 
 from paper.common import figstyle as sf
 
-DROPOUT = 'results/dpose_dropout_v1/results.json'
-NOISE = 'results/dpose_v20_noise_followup_v2/results.json'
+DROPOUT = 'results/hdemg_dropout_v1/results.json'
+NOISE = 'results/hdemg_v20_noise_followup_v2/results.json'
 # Electrodes silenced by each level, so scattered and array loss share one axis.
 # 320 channels in five 64-channel arrays; the three draws per level are averaged.
 # No count is shared by both kinds: never call the axis "matched".
@@ -41,7 +41,7 @@ INK = '#303030'
 def amplitude(snr_db):
     """Noise RMS as a percentage of the channel's EMG RMS.
 
-    dpose_noise.perturb_native scales unit Gaussian noise by
+    hdemg_noise.perturb_native scales unit Gaussian noise by
     sqrt(signal power) * 10**(-SNR/20), so this is exact, not a conversion
     convention: 10 dB is noise at 31.6 % of the signal's amplitude. It runs
     left to right with severity, which the reversed dB axis did not.

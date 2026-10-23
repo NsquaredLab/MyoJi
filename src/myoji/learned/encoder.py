@@ -93,14 +93,14 @@ def hd_channel_positions(
     columns: int = 8,
     geometry_dim: int = 3,
 ) -> torch.Tensor:
-    """Return descriptors for the native five-grid DPose montage.
+    """Return descriptors for the native five-grid HD-EMG montage.
 
     The retained arguments are accepted for API compatibility, but the real
     montage is fixed: three 8x8 grids plus two 13x5 grids with 64 recorded
     sites each.
     """
     if (grids, rows, columns) != (5, 8, 8):
-        raise ValueError("the documented DPose montage is fixed at 320 channels")
+        raise ValueError("the documented HD-EMG montage is fixed at 320 channels")
     return _adapt_geometry(hd_monopolar_montage().descriptor(), geometry_dim)
 
 

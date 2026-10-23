@@ -83,7 +83,7 @@ def source_setup(p):
     if seeds.catalogue(parent["training_arguments"]) != parent["mixed_source_catalogue"]:
         raise ValueError("mixed-source files changed")
     values = parent["training_arguments"].copy()
-    for key in ("emg2pose_root", "emg2pose_metadata", "emg2pose_window_cache", "dpose_dir"):
+    for key in ("emg2pose_root", "emg2pose_metadata", "emg2pose_window_cache", "hdemg_dir"):
         if values.get(key) is not None:
             values[key] = Path(values[key])
     if pose.digest(values["emg2pose_window_cache"]) != parent["data_contract"]["window_cache_sha256"]:

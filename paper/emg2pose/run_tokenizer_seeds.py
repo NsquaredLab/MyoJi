@@ -21,7 +21,7 @@ SCOPES = ("official", "session")
 
 def catalogue(arguments):
     result = {}
-    for key, pattern in (("dpose_dir", "Sub*_emg.pkl"),):
+    for key, pattern in (("hdemg_dir", "Sub*_emg.pkl"),):
         result[key] = [
             {
                 "path": str(p.resolve()),
@@ -33,6 +33,9 @@ def catalogue(arguments):
         if not result[key]:
             raise ValueError("missing mixed source: " + key)
     return result
+
+
+LEGACY_ARGUMENTS = {"dpose_batches_per_recording": "hdemg_batches_per_recording"}
 
 
 def training_command(arguments, output, seed, smoke=False):
@@ -53,8 +56,11 @@ def training_command(arguments, output, seed, smoke=False):
         )
     accepted = vars(mixed.parse_args(["--output", str(output)]))
     command = [sys.executable, str(Path(__file__).with_name("train_mixed_sources.py"))]
+    unknown = sorted(set(values) - set(accepted))
+    if unknown:
+        raise ValueError(f"not training arguments: {unknown}")
     for key, value in values.items():
-        if value is not None and key in accepted:
+        if value is not None:
             command += ["--" + key.replace("_", "-"), str(value)]
     return command
 
@@ -68,11 +74,12 @@ def freeze(args):
         raise ValueError(
             "expected the original, independently initialized clean tokenizer"
         )
-    arguments = state["training_args"].copy()
+    # The released checkpoint predates the current argument name.
+    arguments = {LEGACY_ARGUMENTS.get(k, k): v for k, v in state["training_args"].items()}
     arguments["emg2pose_root"] = str(paths.EMG2POSE)
     arguments["emg2pose_metadata"] = str(paths.EMG2POSE / "emg2pose_metadata.csv")
     arguments["emg2pose_window_cache"] = str(paths.RESULTS / "clean_base_v1/train.h5")
-    arguments["dpose_dir"] = str(paths.HDEMG)
+    arguments["hdemg_dir"] = str(paths.HDEMG)
     if (
         pose.digest(arguments["emg2pose_window_cache"])
         != state["data_contract"]["window_cache_sha256"]

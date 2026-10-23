@@ -3,7 +3,7 @@
 Each panel starts from the clean input and shows the actual 3D error of the frozen
 decoders as noise is added (A) or electrodes are silenced (B): the learned route's token and
 continuous-feature decoders, the adapted CNN, and (dashed) the SPAR token and continuous-SPAR
-pipelines of results/dpose_spar_corruption_v1, scored on the same corrupted windows, so the reader sees how much
+pipelines of results/hdemg_spar_corruption_v1, scored on the same corrupted windows, so the reader sees how much
 worse each model gets rather than a difference of differences. Per-participant errors
 average three decoder seeds and three corruption draws; whiskers are exact 95 % sign-flip
 intervals over the nine participants. The paired tests are those of plot_noise_robustness.py (exact
@@ -23,7 +23,7 @@ from matplotlib.lines import Line2D
 ROOT = Path(__file__).resolve().parents[1]
 from paper.emg2pose import build_pose_paper_assets as data  # noqa: E402
 from paper.figures import plot_noise_robustness as nr      # noqa: E402  (loaders and paired tests)
-from paper.common.dpose_figure_statistics import exact_location_interval  # noqa: E402
+from paper.common.hdemg_figure_statistics import exact_location_interval  # noqa: E402
 from paper.common import paths                            # noqa: E402
 from paper.common import switzer_font                     # noqa: E402
 
@@ -31,7 +31,7 @@ ARMS = [('token_v20', 'Learned Tokens', '#d80032', 'o'),
         ('continuous_v20', 'Learned Features', '#5c618e', 's'),
         ('native_v19', 'Adapted CNN', '#6d6f72', 'D')]
 SPAR_ARMS = [('tokens', 'SPAR Tokens', '#d80032', '^'), ('continuous', 'Continuous SPAR', '#5c618e', 'v')]
-SPAR = ROOT / 'results/dpose_spar_corruption_v1'
+SPAR = ROOT / 'results/hdemg_spar_corruption_v1'
 
 
 def spar_level(arm, kind, lev):

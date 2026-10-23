@@ -1,4 +1,4 @@
-"""Encode one DPose task into both token representations, frame-aligned to kinematics.
+"""Encode one HD-EMG task into both token representations, frame-aligned to kinematics.
 
 Both routes see identical frames. The first 23 frames are dropped from both because
 the learned encoder needs 960 samples of history; dropping them from SPAR too keeps
@@ -32,7 +32,7 @@ from myoji.spar import spar_simple_dataset_batched
 from paper.firmware.raw_tokenizer_benchmark.prepare import torch_learned
 
 RAW = paths.HDEMG / "Sub1_emg.pkl"   # participant 1: task -> (320, T) int16 at 2048 Hz
-CYCLES = paths.RESULTS / "dpose_movement_video/kinematic-cycle-selection.npz"
+CYCLES = paths.RESULTS / "hdemg_movement_video/kinematic-cycle-selection.npz"
 # Participant 1's SPAR codebook and standardization, byte-identical to the full campaign's subject_01 cache.
 SPAR_SOURCE = paths.ASSETS / "spar/codebooks-1024.npz"
 CHECKPOINT = paths.LEARNED_TOKENIZER

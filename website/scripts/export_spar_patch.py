@@ -14,9 +14,9 @@ import sys
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-RUN = ROOT / 'results/dpose_spar_simple_full_v1'
+RUN = ROOT / 'results/hdemg_spar_simple_full_v1'
 sys.path.insert(0, str(RUN / 'code/scripts'))
-from dpose_spar_simple import grid_layout  # noqa: E402
+from hdemg_spar_simple import grid_layout  # noqa: E402
 
 OUT = ROOT / 'website/static/data/spar-patch.json'
 grids = json.loads((RUN / 'subject_01/protocol.json').read_text())['geometry']['grids']
