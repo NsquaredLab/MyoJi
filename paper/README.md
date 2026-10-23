@@ -23,7 +23,7 @@ paper/
   output/      figures and tables (not tracked)
 ```
 
-"dpose" in script names is the 320-channel HD-EMG dataset of the paper (nine decoding
+Script names that contain "dpose" refer to the paper's 320-channel HD-EMG dataset (nine decoding
 participants, 13 for tokenizer fitting). "V20" is RaulNet V20, the paper's spatial CNN + TCN pose
 decoder (`SparPose` in `myoji.decoders`); "RaulNet V19" is the raw-EMG CNN the paper calls the
 adapted CNN. A receiver is any pose decoder that reads the transmitted tokens or features.

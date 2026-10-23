@@ -105,10 +105,28 @@ outputs.
 
 ## Training your own models
 
-`python -m paper.pretraining.train_mixed_sources` pretrains a learned tokenizer on HD-EMG and
-emg2pose training windows, and `myoji.learned.export_checkpoint(..., calibration_samples=1000)`
-exports its checkpoint for `Tokenizer`. The campaigns in `paper/` fit the SPAR codebooks and the
-pose decoders.
+1. Pretrain a learned tokenizer on the HD-EMG and emg2pose training windows, with the data
+   folders set as in [`paper/README.md`](paper/README.md#setup):
+
+   ```bash
+   uv sync --group paper
+   uv run python -m paper.pretraining.train_mixed_sources --output tokenizer-full.pt
+   ```
+
+   The defaults make a short test run. For the paper's tokenizer, pass the training arguments in
+   `paper/data/reference/tokenizer_recipe.json`.
+
+2. Export the checkpoint in the format `Tokenizer` loads:
+
+   ```python
+   from pathlib import Path
+   from myoji.learned import export_checkpoint
+
+   export_checkpoint(Path("tokenizer-full.pt"), Path("tokenizer.pt"), calibration_samples=1000)
+   ```
+
+3. Fit the SPAR codebooks and the pose decoders with the campaigns in `paper/`
+   ([`paper/README.md`](paper/README.md#order)).
 
 ## Licence and citation
 
