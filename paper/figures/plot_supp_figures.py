@@ -172,7 +172,7 @@ def operating_points():
     ax.set_xscale('log'); ax.set_xlim(2.5, 2500)
     ax.set_xticks([10, 100, 1000], ['10', '100', '1,000']); ax.minorticks_off()
     ax.set_ylim(10.4, 15.7); ax.set_yticks([11, 13, 15])
-    rule(ax, LINK_KB_S, 'Link Budget', 13.3, 'right')
+    rule(ax, LINK_KB_S, 'BLE Limit', 13.3, 'right')
     ax.set_xlabel('Payload (kB/s)', fontsize=9.5, labelpad=2)
     ax.set_ylabel('3D Error (mm)', fontsize=9.5, labelpad=4)
     ax.tick_params(labelsize=8)
