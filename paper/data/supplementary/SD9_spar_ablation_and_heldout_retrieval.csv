@@ -1,0 +1,11 @@
+section,alternative,reference,mean_alternative_mm,mean_reference_mm,difference_mm,ci95_lower_mm,ci95_upper_mm,participants_alternative_higher,n_participants,p_unadjusted,p_holm,holm_family
+ablation,"Centre log band power (6 values), tokens","Centre log band power (6 values), continuous",13.309,13.061,+0.248,+0.020,+0.497,8,9,0.0234,,
+ablation,"Matrix-log diagonal (6 values), tokens","Matrix-log diagonal (6 values), continuous",11.123,11.183,-0.060,-0.245,+0.125,4,9,0.4531,,
+ablation,"Full SPAR (18 values), tokens","Full SPAR (18 values), continuous",10.812,10.946,-0.134,-0.320,+0.046,3,9,0.1289,,
+ablation,"Centre log band power (6 values), tokens","Full SPAR (18 values), tokens",13.309,10.812,+2.497,+1.600,+3.356,9,9,0.0039,0.0078,two token descriptors vs full SPAR
+ablation,"Matrix-log diagonal (6 values), tokens","Full SPAR (18 values), tokens",11.123,10.812,+0.311,+0.147,+0.501,8,9,0.0078,0.0078,two token descriptors vs full SPAR
+ablation,"Centre log band power (6 values), continuous","Full SPAR (18 values), continuous",13.061,10.946,+2.115,+1.344,+2.876,9,9,0.0039,,
+ablation,"Matrix-log diagonal (6 values), continuous","Full SPAR (18 values), continuous",11.183,10.946,+0.237,+0.078,+0.422,9,9,0.0039,,
+held-out pose retrieval,"Tokens (1,024 codes)",Continuous SPAR,8.012,7.924,+0.089,+0.004,+0.183,7,9,0.0430,0.0430,three token representations vs continuous
+held-out pose retrieval,Tokens (64 codes),Continuous SPAR,8.142,7.924,+0.218,+0.081,+0.358,8,9,0.0078,0.0156,three token representations vs continuous
+held-out pose retrieval,Token IDs (Hamming),Continuous SPAR,8.842,7.924,+0.918,+0.537,+1.292,9,9,0.0039,0.0117,three token representations vs continuous

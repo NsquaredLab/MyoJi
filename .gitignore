@@ -1,5 +1,24 @@
-.DS_Store
+.venv/
 __pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# Data, trained artifacts and everything the paper scripts generate
+/data/
+*.pt
+*.ckpt
+*.h5
+*.hdf5
+*.pkl
+*.npz
+!tests/fixtures/*.npz
+/paper/results/
+/paper/output/
+/paper/embedded/*/build/
+!paper/data/**/*.npz
+!paper/data/**/*.h5
 
 # Written by website/scripts/build.mjs; the Website workflow builds them.
 website/index.html

@@ -1,0 +1,312 @@
+{
+  "created_utc": "2026-09-09T09:01:21.101530+00:00",
+  "scope": "Unit conversion of existing Meta results; no refitting, new evaluation, or changed scoring population.",
+  "unit": "mm on the benchmark generic reference hand",
+  "mm_per_palm_length": 92.98797607421875,
+  "formula": "error_mm = error_palm_lengths * mean(norm(FK(zeros20)[[8,11,14,17]] - FK(zeros20)[5], axis=-1))",
+  "aggregation": "Mean Euclidean distance over 16 scored landmarks/valid frames within each participant, then equal participant weighting; errors averaged over existing fitted repetitions, not prediction ensembling.",
+  "limitations": [
+    "The reference hand is shared by all participants; these are not errors against participant-specific measured anatomy.",
+    "Converting units does not harmonize our capped protocol with the full published benchmark.",
+    "This conversion is specific to Meta targets and does not establish the physical units of DPose."
+  ],
+  "source": {
+    "path": "results/paper_completion_v1/results.json",
+    "sha256": "d77a5e64d4d72bff0a9be2af1d61be9140609c2dab7f5ebcc741bdbd929d1810"
+  },
+  "hand_model": {
+    "git_commit": "5f6f62b1a0a08426adffe55900842e75a8adb38c",
+    "sha256": "2eb8029a8e1cedc2cf5b40c14c0955e2004277024df3c6304ce0bb74106a7c31",
+    "matches_pinned_git_file": true,
+    "matches_hpc_model_sha256": true
+  },
+  "unit_evidence": [
+    "https://github.com/facebookresearch/emg2pose/blob/5f6f62b1a0a08426adffe55900842e75a8adb38c/emg2pose/UmeTrack/lib/batched_dataset/data_transform.py#L305-L306",
+    "https://github.com/facebookresearch/emg2pose/blob/5f6f62b1a0a08426adffe55900842e75a8adb38c/emg2pose/UmeTrack/lib/batched_dataset/sample.py#L33-L39",
+    "https://github.com/facebookresearch/emg2pose/blob/5f6f62b1a0a08426adffe55900842e75a8adb38c/emg2pose/UmeTrack/dataset/generic_hand_model.json"
+  ],
+  "validation": {
+    "pose_checks": 129,
+    "random_seed": 20260909,
+    "scale_range_mm": [
+      92.98797607421875,
+      92.98797607421875
+    ],
+    "normalization_round_trip_max_abs_error_mm": 1.52587890625e-05,
+    "local_normalization_source_sha256": "0c395f28520fd8e4cc1e0270694d1c43f079effcceab394af1c15aa00d824fcb"
+  },
+  "rows": [
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "VQ tokens",
+      "fits": 9,
+      "participants": 176,
+      "palm_lengths": 0.30111095180431924,
+      "reference_hand_mm": 27.99969798206527
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "Continuous",
+      "fits": 9,
+      "participants": 176,
+      "palm_lengths": 0.30157551985869324,
+      "reference_hand_mm": 28.04289722519025
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "BioCodec six books",
+      "fits": 9,
+      "participants": 176,
+      "palm_lengths": 0.3036482574066431,
+      "reference_hand_mm": 28.235636894707145
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "FSQ1000",
+      "fits": 3,
+      "participants": 176,
+      "palm_lengths": 0.30195533678537545,
+      "reference_hand_mm": 28.078215632481157
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "PCA4 q10",
+      "fits": 3,
+      "participants": 176,
+      "palm_lengths": 0.30406088779933554,
+      "reference_hand_mm": 28.274006559790326
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "Engineered K-means1024",
+      "fits": 3,
+      "participants": 176,
+      "palm_lengths": 0.3053143701967796,
+      "reference_hand_mm": 28.390565350973308
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "Engineered features67",
+      "fits": 3,
+      "participants": 176,
+      "palm_lengths": 0.30645109833312617,
+      "reference_hand_mm": 28.496267399718793
+    },
+    {
+      "cohort": "Official test",
+      "scope": "official",
+      "subgroup": "all",
+      "representation": "Raw supervised",
+      "fits": 3,
+      "participants": 176,
+      "palm_lengths": 0.29899804183380263,
+      "reference_hand_mm": 27.803222760279898
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "VQ tokens",
+      "fits": 9,
+      "participants": 20,
+      "palm_lengths": 0.2459603909886404,
+      "reference_hand_mm": 22.871358952457182
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "Continuous",
+      "fits": 9,
+      "participants": 20,
+      "palm_lengths": 0.24577993365581627,
+      "reference_hand_mm": 22.854578590310116
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "BioCodec six books",
+      "fits": 9,
+      "participants": 20,
+      "palm_lengths": 0.24893719184759733,
+      "reference_hand_mm": 23.14816563950758
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "FSQ1000",
+      "fits": 3,
+      "participants": 20,
+      "palm_lengths": 0.24852664398867358,
+      "reference_hand_mm": 23.10998962502466
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "PCA4 q10",
+      "fits": 3,
+      "participants": 20,
+      "palm_lengths": 0.25004471507633247,
+      "reference_hand_mm": 23.25115198300285
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "Engineered K-means1024",
+      "fits": 3,
+      "participants": 20,
+      "palm_lengths": 0.25195694469301827,
+      "reference_hand_mm": 23.42896634484764
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "Engineered features67",
+      "fits": 3,
+      "participants": 20,
+      "palm_lengths": 0.24947982763677395,
+      "reference_hand_mm": 23.198624243288553
+    },
+    {
+      "cohort": "Unseen participants",
+      "scope": "official",
+      "subgroup": "unseen_users",
+      "representation": "Raw supervised",
+      "fits": 3,
+      "participants": 20,
+      "palm_lengths": 0.24956510744767718,
+      "reference_hand_mm": 23.20655424030444
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "VQ tokens",
+      "fits": 9,
+      "participants": 10,
+      "palm_lengths": 0.16808037121575756,
+      "reference_hand_mm": 15.62945353715667
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "Continuous",
+      "fits": 9,
+      "participants": 10,
+      "palm_lengths": 0.16768415669561595,
+      "reference_hand_mm": 15.592610350837484
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "BioCodec six books",
+      "fits": 9,
+      "participants": 10,
+      "palm_lengths": 0.16750068941634322,
+      "reference_hand_mm": 15.575550099862069
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "FSQ1000",
+      "fits": 3,
+      "participants": 10,
+      "palm_lengths": 0.16932325467907838,
+      "reference_hand_mm": 15.74502675490699
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "PCA4 q10",
+      "fits": 3,
+      "participants": 10,
+      "palm_lengths": 0.16866621330119697,
+      "reference_hand_mm": 15.68392980698078
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "Engineered K-means1024",
+      "fits": 3,
+      "participants": 10,
+      "palm_lengths": 0.1736662841634707,
+      "reference_hand_mm": 16.14887627669129
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "Engineered features67",
+      "fits": 3,
+      "participants": 10,
+      "palm_lengths": 0.165541815760026,
+      "reference_hand_mm": 15.393398403176025
+    },
+    {
+      "cohort": "Held sessions",
+      "scope": "session",
+      "subgroup": "all",
+      "representation": "Raw supervised",
+      "fits": 3,
+      "participants": 10,
+      "palm_lengths": 0.16941167303566923,
+      "reference_hand_mm": 15.75324859893418
+    }
+  ],
+  "paired_differences": [
+    {
+      "cohort": "Official test",
+      "contrast": "VQ minus continuous",
+      "mean_difference_reference_hand_mm": -0.043199243124976146,
+      "ci95_reference_hand_mm": [
+        -0.15554620934144364,
+        0.06838267587952304
+      ],
+      "bootstrap": "Original pointwise 10000-draw participant interval scaled by the positive constant; no new statistical selection."
+    },
+    {
+      "cohort": "Unseen participants",
+      "contrast": "VQ minus continuous",
+      "mean_difference_reference_hand_mm": 0.01678036214706365,
+      "ci95_reference_hand_mm": [
+        -0.16338711834559005,
+        0.20593603704205812
+      ],
+      "bootstrap": "Original pointwise 10000-draw participant interval scaled by the positive constant; no new statistical selection."
+    },
+    {
+      "cohort": "Held sessions",
+      "contrast": "VQ minus continuous",
+      "mean_difference_reference_hand_mm": 0.03684318631918448,
+      "ci95_reference_hand_mm": [
+        -0.4902235714911031,
+        0.5608669843136853
+      ],
+      "bootstrap": "Original pointwise 10000-draw participant interval scaled by the positive constant; no new statistical selection."
+    }
+  ]
+}

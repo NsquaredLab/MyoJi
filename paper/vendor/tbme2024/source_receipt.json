@@ -1,0 +1,48 @@
+{
+  "commit": "236024dd7cd9ad79c259c83d711d781aaa6ac285",
+  "paper_archive_commit": "9ca239df5e5faf916f21fb30070187fdfaa45c49",
+  "doi": "10.1109/TBME.2024.3432800",
+  "files": {
+    "model.py": {
+      "original_path": "doc_octopy/models/definitions/raul_net/offline/v4.py",
+      "original_sha256": "5be28d5a47ad844dec8ae240735bfa42ed0da6a757261b2cad4573c2bc361820",
+      "vendored_sha256": "6c8f8fc2edb273aa99db71fd3f3d81b9612914ec3c4186398fd555c6fd319710",
+      "changes": [
+        "Lightning import namespace only",
+        "local vendored activation import only"
+      ]
+    },
+    "activation_functions.py": {
+      "original_path": "doc_octopy/models/components/activation_functions.py",
+      "original_sha256": "a4fdee3a8c00e12c19d6ef940aba2bbc2306e0f39d06f021d8e62985c12bd560",
+      "vendored_sha256": "a4fdee3a8c00e12c19d6ef940aba2bbc2306e0f39d06f021d8e62985c12bd560",
+      "changes": []
+    },
+    "original_dataset.py.txt": {
+      "original_path": "doc_octopy/datasets/kinematics_and_emg/as_2D.py",
+      "original_sha256": "157767a1ee8dcd1a86597f6cd60d6608f63e46701cf03ded6bb912bab096862e",
+      "vendored_sha256": "157767a1ee8dcd1a86597f6cd60d6608f63e46701cf03ded6bb912bab096862e",
+      "changes": []
+    },
+    "original_training.py.txt": {
+      "original_path": "doc_octopy/hpc/train/raul_net/v4/3D_points.py",
+      "original_sha256": "ef4c2892b8187225a18219381273cb72ccec94714f031d12de82fe8a541dcefe",
+      "vendored_sha256": "ef4c2892b8187225a18219381273cb72ccec94714f031d12de82fe8a541dcefe",
+      "changes": []
+    },
+    "original_augmentations.py.txt": {
+      "original_path": "doc_octopy/datasets/emg_augmentations.py",
+      "original_sha256": "7908da90c79799d4204287e33120b019b7ef8efa7da391faf8aa2201e13b9eff",
+      "vendored_sha256": "7908da90c79799d4204287e33120b019b7ef8efa7da391faf8aa2201e13b9eff",
+      "changes": []
+    },
+    "original_create_dataset.py.txt": {
+      "original_path": "doc_octopy/hpc/create_datasets/offline/as_2D__3D_points.py",
+      "original_sha256": "35931319ecbac079947d5184e9b87d4996a17f1d4f6e44427bd25e5b493357da",
+      "vendored_sha256": "35931319ecbac079947d5184e9b87d4996a17f1d4f6e44427bd25e5b493357da",
+      "changes": []
+    }
+  },
+  "repository": "lib-doc-octopy (the authors' internal library)",
+  "paper_archive": "code archive of Simpetru et al., TBME 2024 (internal)"
+}

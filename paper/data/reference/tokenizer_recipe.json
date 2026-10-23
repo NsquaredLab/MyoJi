@@ -1,0 +1,31 @@
+{
+  "training_arguments": {
+    "emg2pose_split_protocol": "official",
+    "window_seconds": 2.0,
+    "batch_size": 2,
+    "continuous_steps": 50000,
+    "calibration_steps": 128,
+    "quantized_steps": 250000,
+    "calibration_tokens": 65536,
+    "codebook_size": 1024,
+    "ema_decay": 0.95,
+    "codebook_update_tokens": 4096,
+    "embedding_dim": 256,
+    "spectral_bins": 64,
+    "learning_rate": 0.0003,
+    "usage_weight": 0.1,
+    "usage_target_fraction": 0.25,
+    "usage_temperature": 0.05,
+    "seed": 260905,
+    "device": "cuda",
+    "report_every": 1000,
+    "checkpoint_every": 2000,
+    "resume": null,
+    "dpose_batches_per_recording": 64
+  },
+  "data_contract": {
+    "split_protocol": "official",
+    "window_cache_sha256": "291a9805a0dac9734131284ec62cfb441cd32711d9969a87e04cd971583602f0",
+    "metadata_sha256": "0e7ad04a79a0f162385d22ec8d6f43af9b8360978ca11ef9d601bbf9594b09e6"
+  }
+}

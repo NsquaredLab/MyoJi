@@ -1,0 +1,28 @@
+{
+  "source": "Drivers/CMSIS/DSP/PrivateInclude/arm_vec_fft.h",
+  "repository": "https://github.com/STMicroelectronics/STM32CubeN6",
+  "package": "CMSIS-DSP 1.16.2 bundled with STM32CubeN6",
+  "cube_commit": "80a3a665fccaf9a429343a7ab96a97c1b8a6467a",
+  "upstream_sha256": "24e3894802d0e4a23ea65ef88566edbc10386778a379efd64edb84243b487305",
+  "patched_sha256": "8e6938e2ad15f00ef5e2601bdd595aa35e0f20f99e343c40245340f2c69b09e3",
+  "patched_sha256_without_notice": "e44925ffb1fb63dfe1bfff6ecc3604b58635f8b4cc97a4de1d0f2b591c5c94b0",
+  "reason": "GCC rejects the MVE vector assignments this header relies on; Arm Compiler reinterprets them implicitly. The patch adds an explicit cast to the declared type on each failing assignment and changes nothing else. Only bit-reversal index arithmetic is touched, not floating-point work.",
+  "notice": "Lines 24-34 are the Apache-2.0 section 4(b) modification notice. The measured firmware compiled this file before the notice was added (patched_sha256_without_notice); every code line is identical.",
+  "patched_lines": [
+    161,
+    166,
+    167,
+    171,
+    176,
+    177,
+    186,
+    191,
+    192,
+    215,
+    225,
+    226,
+    311,
+    317
+  ],
+  "verified_with": "arm-none-eabi-gcc 14.3.1, -mcpu=cortex-m55 -DARM_MATH_MVEF"
+}

@@ -1,0 +1,1238 @@
+{
+  "defined_at_utc": "2026-09-11T16:36:29.232604+00:00",
+  "reason": "User requested a better analysis after the exact paired test plus global Holm correction had inadequate resolution for the declared family.",
+  "scope": "Exploratory method amendment after prior results and the Holm limitation were inspected; not preregistered or independent confirmation. Method fixed before computing new max-T outcomes.",
+  "references": [
+    [
+      "dpose_matched_v1",
+      "v19"
+    ],
+    [
+      "dpose_raulnet_v1",
+      "raulnet_v19_q32"
+    ],
+    [
+      "dpose_tbme2024_v1",
+      "tbme2024_retrained"
+    ]
+  ],
+  "alternatives": [
+    [
+      "dpose_matched_v1",
+      "tcn_tokens"
+    ],
+    [
+      "dpose_matched_v1",
+      "tcn_continuous"
+    ],
+    [
+      "dpose_matched_v1",
+      "transformer_tokens"
+    ],
+    [
+      "dpose_matched_v1",
+      "transformer_continuous"
+    ],
+    [
+      "dpose_v20_v1",
+      "tokens"
+    ],
+    [
+      "dpose_v20_continuous_v1",
+      "continuous"
+    ],
+    [
+      "dpose_llm_full_v1",
+      "tokens_bypass"
+    ],
+    [
+      "dpose_llm_full_v1",
+      "tokens_random"
+    ],
+    [
+      "dpose_llm_full_v1",
+      "tokens_pretrained"
+    ],
+    [
+      "dpose_llm_full_v1",
+      "continuous_pretrained"
+    ],
+    [
+      "dpose_within_v1",
+      "raw"
+    ],
+    [
+      "dpose_within_v1",
+      "tokens"
+    ],
+    [
+      "dpose_within_v1",
+      "continuous"
+    ],
+    [
+      "dpose_transformer_v1",
+      "tokens"
+    ]
+  ],
+  "planned_contrasts": [
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_v20_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_bypass"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_random"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_within_v1",
+        "raw"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_within_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_within_v1",
+        "continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_transformer_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_v20_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_bypass"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_random"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_within_v1",
+        "raw"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_within_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_within_v1",
+        "continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ],
+      [
+        "dpose_transformer_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ],
+      [
+        "dpose_v20_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_v20_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_bypass"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_random"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_within_v1",
+        "raw"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_within_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_within_v1",
+        "continuous"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_transformer_v1",
+        "tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_matched_v1",
+        "v19"
+      ]
+    ],
+    [
+      [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ]
+    ],
+    [
+      [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ]
+    ],
+    [
+      [
+        "representation_gap",
+        "proposed"
+      ],
+      [
+        "representation_gap",
+        "matched_tcn"
+      ]
+    ],
+    [
+      [
+        "representation_gap",
+        "proposed"
+      ],
+      [
+        "representation_gap",
+        "matched_transformer"
+      ]
+    ],
+    [
+      [
+        "representation_gap",
+        "proposed"
+      ],
+      [
+        "representation_gap",
+        "pretrained_qwen"
+      ]
+    ]
+  ],
+  "family_size": 51,
+  "family": "One joint family: 44 CNN-reference contrasts, four within-decoder token-versus-feature contrasts, and three other-minus-proposed tokenization-gap contrasts.",
+  "method": "Single-step exact synchronized participant sign-flip max-|t| test.",
+  "statistic": "Per-contrast mean paired difference divided by its sample SD / sqrt(9). Recompute after each sign pattern.",
+  "randomization": "Enumerate all 512 sign vectors. Flip each participant row synchronously across all 51 contrasts. Include identity and complete reversal; inclusive tails with floating-point tolerance. Do not center observed differences before flipping.",
+  "adjustment": "For each sign vector retain the largest absolute t across all 51 contrasts. Adjusted p for each contrast is the proportion of these joint maxima at least as large as its observed absolute t. No extra Holm correction.",
+  "assumptions": [
+    "Participants are independent analysis units; three seeds are averaged within each participant.",
+    "For finite-sample strong familywise error control, each participant true-null contrast vector is jointly centrally symmetric around zero under independent whole-row sign reversals. Marginal symmetry alone is insufficient.",
+    "For pointwise location confidence intervals, participant differences are independent and symmetric about a common effect (equal to the mean when it exists).",
+    "These distributional assumptions cannot be established from nine participants. Inference is exploratory and conditional on the studied data/protocol and shared frozen representation."
+  ],
+  "effect_direction": "Alternative minus reference error (mm); for CNN comparisons negative favors the alternative. All four representation contrasts use tokens minus encoder features; positive favors features. Gap contrasts subtract the proposed signed token-minus-feature gap from each other decoder gap; positive favors proposed.",
+  "alpha": 0.05,
+  "intervals": "95% pointwise exact sign-flip location intervals obtained by inversion of the univariate two-sided test. Not simultaneous; not used to assign significance stars.",
+  "sensitivity": "Report all nine leave-one-participant-out mean differences and their range. Retain the previous global Holm results as sensitivity output; no method selection by result count.",
+  "no_pseudoreplication": "Do not count 27 seeds or test frames as independent participants.",
+  "minimum_possible_adjusted_p": 0.00390625,
+  "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4010955/",
+    "https://doi.org/10.1198/016214504000000539",
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html"
+  ],
+  "excluded": [
+    "Old matched-CNN versus old L1/SWA-CNN comparison",
+    "Historical JNE aggregate with no matched participant data",
+    "Resource metrics",
+    "Other comparisons between nonreference models beyond the four within-decoder representation contrasts and three declared other-minus-proposed gap contrasts"
+  ],
+  "previous_analysis_archive": "output/figures/archive/maxT-29-before-tbme-20260911T175420Z",
+  "original_contrast_record": "results/dpose_cnn_reference_comparison_protocol.json",
+  "pre_outcome_review": {
+    "agent": ".",
+    "model": "gpt-6-astra",
+    "result": "Valid under stated joint true-null sign invariance; strong FWER follows maximum monotonicity and exact reduced-data group test. CI inversion endpoints verified algebraically. No new DPose p-values computed during review."
+  },
+  "amended_at_utc": "2026-09-11T17:54:20.629304+00:00",
+  "contrast_amendment": "User authorized adding completed TBME baseline, matching resource measurements and updated paired statistics. Preserve all original29 contrasts; compare TBME against all16 existing models, adding16 hypotheses. Declared before calculating TBME p-values. Same exact joint max-T method; descriptive TBME and prior results were already inspected, so inference remains exploratory.",
+  "holm_analysis_archive": "output/figures/archive/global-holm-statistics-20260911T163629Z",
+  "direct_contrasts": [
+    {
+      "id": "proposed_tokens_vs_features",
+      "alternative": [
+        "dpose_v20_v1",
+        "tokens"
+      ],
+      "reference": [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ],
+      "label": "Proposed network: tokens versus encoder features",
+      "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+    },
+    {
+      "id": "matched_tcn_tokens_vs_features",
+      "kind": "representation",
+      "alternative": [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ],
+      "reference": [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ],
+      "label": "Matched TCN: tokens versus encoder features",
+      "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+    },
+    {
+      "id": "matched_transformer_tokens_vs_features",
+      "kind": "representation",
+      "alternative": [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ],
+      "reference": [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ],
+      "label": "Matched Transformer: tokens versus encoder features",
+      "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+    },
+    {
+      "id": "pretrained_qwen_tokens_vs_features",
+      "kind": "representation",
+      "alternative": [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ],
+      "reference": [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ],
+      "label": "Pretrained Qwen3: tokens versus encoder features",
+      "effect_direction": "Token error minus encoder-feature error (mm); positive favors encoder features."
+    }
+  ],
+  "historical_holm_protocol": {
+    "defined_at_utc": "2026-09-11T16:09:47.060891+00:00",
+    "reason": "User requested each existing CNN reference against all other experiments, including Qwen and proposed models.",
+    "scope": "Exploratory user-directed change of comparison question after earlier results were inspected; not preregistered.",
+    "references": [
+      [
+        "dpose_matched_v1",
+        "v19"
+      ],
+      [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ]
+    ],
+    "alternatives": [
+      [
+        "dpose_matched_v1",
+        "tcn_tokens"
+      ],
+      [
+        "dpose_matched_v1",
+        "tcn_continuous"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_tokens"
+      ],
+      [
+        "dpose_matched_v1",
+        "transformer_continuous"
+      ],
+      [
+        "dpose_v20_v1",
+        "tokens"
+      ],
+      [
+        "dpose_v20_continuous_v1",
+        "continuous"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_bypass"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_random"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "tokens_pretrained"
+      ],
+      [
+        "dpose_llm_full_v1",
+        "continuous_pretrained"
+      ],
+      [
+        "dpose_within_v1",
+        "raw"
+      ],
+      [
+        "dpose_within_v1",
+        "tokens"
+      ],
+      [
+        "dpose_within_v1",
+        "continuous"
+      ],
+      [
+        "dpose_transformer_v1",
+        "tokens"
+      ]
+    ],
+    "planned_contrasts": [
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_bypass"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_random"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_within_v1",
+          "raw"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_within_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_within_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_matched_v1",
+          "v19"
+        ],
+        [
+          "dpose_transformer_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_v20_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_bypass"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_random"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_within_v1",
+          "raw"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_within_v1",
+          "tokens"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_within_v1",
+          "continuous"
+        ]
+      ],
+      [
+        [
+          "dpose_raulnet_v1",
+          "raulnet_v19_q32"
+        ],
+        [
+          "dpose_transformer_v1",
+          "tokens"
+        ]
+      ]
+    ],
+    "family_size": 28,
+    "family": "One Holm family covering both CNN references and all 14 alternatives across main and supplement.",
+    "test": "Two-sided exact paired sign-flip test of mean error difference; all 512 participant sign patterns.",
+    "pairing_unit": "Nine participants; average three decoder seeds within participant first.",
+    "effect_direction": "Alternative error minus reference error in millimetres; negative favors alternative.",
+    "alpha": 0.05,
+    "minimum_two_sided_raw_p": 0.00390625,
+    "minimum_possible_smallest_holm_p": 0.109375,
+    "equivalence_test": false,
+    "excluded": [
+      "Reference-versus-reference comparison",
+      "Comparisons between nonreference models",
+      "Historical JNE aggregate with no matched participant data",
+      "Resource metrics",
+      "Incomplete archived TBME retraining"
+    ],
+    "previous_analysis_archive": "output/figures/archive/within-family-statistics-20260911T160947Z"
+  },
+  "reference_contrasts": [
+    {
+      "id": "matched_cnn_vs_tbme",
+      "reference": [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      "alternative": [
+        "dpose_matched_v1",
+        "v19"
+      ]
+    },
+    {
+      "id": "l1_swa_cnn_vs_tbme",
+      "reference": [
+        "dpose_tbme2024_v1",
+        "tbme2024_retrained"
+      ],
+      "alternative": [
+        "dpose_raulnet_v1",
+        "raulnet_v19_q32"
+      ]
+    }
+  ],
+  "tbme_pre_outcome_review": {
+    "agent": ".",
+    "model": "gpt-6-astra",
+    "result": "Pass:45 unique unordered hypotheses; draw added16 only on TBME stem,33 main plus12 supplementary. Same joint max-T proof; verify prior29 adjusted p-values do not decrease."
+  },
+  "previous_45_analysis_archive": "output/figures/archive/maxT-45-before-panel-c-20260911T191401Z",
+  "panel_c_amendment": {
+    "defined_at_utc": "2026-09-11T19:14:01.611296+00:00",
+    "reason": "User requested statistics for panel C after viewing its four paired representation effects.",
+    "scope": "Exploratory after inspected descriptive effects and prior 45-contrast outcomes; not preregistered. Add all three missing C contrasts before computing their new max-T results.",
+    "prior_family_size": 45,
+    "added_contrasts": [
+      "matched_tcn_tokens_vs_features",
+      "matched_transformer_tokens_vs_features",
+      "pretrained_qwen_tokens_vs_features"
+    ],
+    "final_family_size": 48,
+    "method_changed": false,
+    "participant_exclusions": 0,
+    "replication_unit": "Nine participants; average three seeds within each participant before subtraction/testing.",
+    "display": "Move the existing proposed direct annotation from A to C; show four C labels plus fourteen adapted-CNN annotations across A and supplement.",
+    "pre_outcome_review": {
+      "agent": ".",
+      "model": "gpt-6-astra",
+      "result": "Pass: 48 unique contrasts; feature reference yields consistent token-minus-feature signs. Preserve prior effects/raw p/intervals; recompute all adjusted p jointly and verify none decrease. Keep off-scale participant and exploratory caveats. No new p-values computed during review."
+    }
+  },
+  "gap_contrasts": [
+    {
+      "id": "matched_tcn_gap_vs_proposed",
+      "alternative": [
+        "representation_gap",
+        "matched_tcn"
+      ],
+      "reference": [
+        "representation_gap",
+        "proposed"
+      ],
+      "alternative_models": {
+        "tokens": [
+          "dpose_matched_v1",
+          "tcn_tokens"
+        ],
+        "features": [
+          "dpose_matched_v1",
+          "tcn_continuous"
+        ]
+      },
+      "reference_models": {
+        "tokens": [
+          "dpose_v20_v1",
+          "tokens"
+        ],
+        "features": [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      },
+      "label": "TCN (matched) token−feature gap versus proposed",
+      "display_label": "TCN",
+      "table_label": "TCN (matched)",
+      "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+    },
+    {
+      "id": "matched_transformer_gap_vs_proposed",
+      "alternative": [
+        "representation_gap",
+        "matched_transformer"
+      ],
+      "reference": [
+        "representation_gap",
+        "proposed"
+      ],
+      "alternative_models": {
+        "tokens": [
+          "dpose_matched_v1",
+          "transformer_tokens"
+        ],
+        "features": [
+          "dpose_matched_v1",
+          "transformer_continuous"
+        ]
+      },
+      "reference_models": {
+        "tokens": [
+          "dpose_v20_v1",
+          "tokens"
+        ],
+        "features": [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      },
+      "label": "Transformer (matched) token−feature gap versus proposed",
+      "display_label": "Transformer",
+      "table_label": "Transformer (matched)",
+      "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+    },
+    {
+      "id": "pretrained_qwen_gap_vs_proposed",
+      "alternative": [
+        "representation_gap",
+        "pretrained_qwen"
+      ],
+      "reference": [
+        "representation_gap",
+        "proposed"
+      ],
+      "alternative_models": {
+        "tokens": [
+          "dpose_llm_full_v1",
+          "tokens_pretrained"
+        ],
+        "features": [
+          "dpose_llm_full_v1",
+          "continuous_pretrained"
+        ]
+      },
+      "reference_models": {
+        "tokens": [
+          "dpose_v20_v1",
+          "tokens"
+        ],
+        "features": [
+          "dpose_v20_continuous_v1",
+          "continuous"
+        ]
+      },
+      "label": "Qwen3 (pretrained) token−feature gap versus proposed",
+      "display_label": "Qwen3",
+      "table_label": "Qwen3 (pretrained)",
+      "effect_direction": "Other decoder token-minus-feature error gap minus proposed gap (mm); positive indicates a smaller tokenization penalty for proposed."
+    }
+  ],
+  "previous_48_analysis_archive": "output/figures/archive/maxT-48-before-gap-comparison-20260911T192555Z",
+  "gap_comparison_amendment": {
+    "defined_at_utc": "2026-09-11T19:25:55.232945+00:00",
+    "reason": "User explicitly selected: Is proposed decoder token−feature error gap smaller than the other decoder gaps?",
+    "scope": "Exploratory after viewing descriptive gaps and the prior48 outcomes. All three main-figure comparators declared before computing new gap-comparison p-values.",
+    "estimand": "For each participant, (other token error − other feature error) − (proposed token error − proposed feature error), using three-seed means. Signed gaps, not absolute gaps.",
+    "method_changed": false,
+    "test_direction": "Two-sided, same max-|t| procedure; positive observed difference favors proposed.",
+    "prior_family_size": 48,
+    "added_contrasts": [
+      "matched_tcn_gap_vs_proposed",
+      "matched_transformer_gap_vs_proposed",
+      "pretrained_qwen_gap_vs_proposed"
+    ],
+    "final_family_size": 51,
+    "participant_exclusions": 0,
+    "display": "C keeps four decoder gap distributions; shared comparison stem uses proposed as reference and three labels test other-minus-proposed gaps. Four within-decoder tests stay in full table.",
+    "pre_outcome_review": {
+      "agent": ".",
+      "model": "gpt-6-astra",
+      "result": "Pass: positive other-minus-proposed signed gap favors proposed, not necessarily overall or absolute-gap accuracy. Three four-term paired contrasts give51 total; retain48 and all participants, same two-sided joint-symmetry method. C stem compares each gap with proposed; zero remains descriptive. No new p-values computed during review."
+    }
+  }
+}

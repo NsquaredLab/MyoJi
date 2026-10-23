@@ -1,0 +1,65 @@
+[project]
+name = "myoji"
+version = "0.1.0"
+description = "Discrete EMG tokens (SPAR and a learned causal tokenizer) for low-bitrate 3D hand-pose decoding"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE", "src/myoji/_vendor/LICENSE-GPL-3.0"]
+authors = [
+    { name = "Raul C. Sîmpetru", email = "raul.simpetru@fau.de" },
+    { name = "Amin Olamazadeh" },
+    { name = "Devon Rohlf" },
+    { name = "Vlad Cnejevici" },
+    { name = "Alessandro Del Vecchio", email = "alessandro.del.vecchio@fau.de" },
+]
+keywords = ["EMG", "electromyography", "HD-EMG", "tokenization", "hand pose", "myocontrol"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "h5py>=3.12",
+    "joblib>=1.4",
+    "numpy>=2.0",
+    "scipy>=1.15",
+    "torch>=2.6",
+]
+
+[project.urls]
+Homepage = "https://nsquaredlab.github.io/MyoJi/"
+Repository = "https://github.com/NsquaredLab/MyoJi"
+
+[project.optional-dependencies]
+myogestic = ["myogestic[examples,grpc]>=2.6.2"]
+
+[dependency-groups]
+dev = ["pytest>=8.0", "ruff>=0.12"]
+# Everything the paper/ code imports. emg2pose and BioCodec are installed separately (paper/README.md).
+paper = [
+    "colorcet>=3.1",
+    "lightning>=2.5",
+    "matplotlib>=3.9",
+    "pandas>=2.2",
+    "pillow>=10",
+    "scikit-learn>=1.6",
+    "scienceplots>=2.2",
+    "seaborn>=0.13",
+    "tabpfn==9.0.0",
+    "threadpoolctl>=3.5",
+    "torchaudio>=2.6",
+    "transformers==4.57.6",
+    "umap-learn>=0.5.11",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/myoji"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]  # paper/ is imported from the repository root, as `python -m paper...` does

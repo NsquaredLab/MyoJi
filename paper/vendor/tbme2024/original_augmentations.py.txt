@@ -1,0 +1,268 @@
+import numba
+import numpy as np
+import pywt
+from scipy import interpolate
+
+
+@numba.njit()
+def gaussian_noise(chunk: np.ndarray, target_snr__db: float = 5.0) -> np.ndarray:
+    """Add gaussian noise to the chunk with a target SNR in dB.
+
+    Parameters
+    ----------
+    chunk : np.ndarray
+        The chunk to add noise to
+    target_snr__db : float, optional
+        The target SNR in dB, by default 5.0
+
+    Returns
+    -------
+    np.ndarray
+        The chunk with added noise
+
+    References
+    ----------
+    https://stackoverflow.com/a/53688043
+
+    Tsinganos, P., Cornelis, B., Cornelis, J., Jansen, B., Skodras, A., 2020.
+    Data Augmentation of Surface Electromyography for Hand Gesture Recognition.
+    Sensors 20, 4892. https://doi.org/10.3390/s20174892
+    """
+
+    # noise_avg_per_channel_and_electrode__watts = np.sqrt(
+    #    np.power(10, ((10 * np.log10(np.square(chunk.astype(np.float64)).mean(axis=2))) - target_snr__db) / 10)
+    # )
+
+    # for loop that takes the mean of the squared chunk for the axis 2
+    squared_chunk = np.square(chunk.astype(np.float64))
+    mean_squared_chunk = np.zeros((chunk.shape[0], chunk.shape[1]))
+    for i in range(chunk.shape[2]):
+        mean_squared_chunk += squared_chunk[:, :, i]
+    mean_squared_chunk /= chunk.shape[2]
+
+    noise_avg_per_channel_and_electrode__watts = np.sqrt(
+        np.power(10, ((10 * np.log10(mean_squared_chunk + 1e-15)) - target_snr__db) / 10)
+    )
+
+    for channel_index in range(chunk.shape[0]):
+        for electrode_index in range(chunk.shape[1]):
+            chunk[channel_index, electrode_index] += np.random.normal(
+                loc=0.0,
+                scale=noise_avg_per_channel_and_electrode__watts[channel_index, electrode_index],
+                size=chunk.shape[2],
+            ).astype(np.int16)
+
+    return chunk
+
+
+def magnitude_warping(
+    chunk: np.ndarray,
+    nr_of_point_for_spline: int = 6,
+    gaussian_mean: float = 1.0,
+    gaussian_std: float = 0.35,
+    nr_of_grids: int = 5,
+    seed: float = 1801211219,
+) -> np.ndarray:
+    """Magnitude warping of the chunk.
+
+    Parameters
+    ----------
+    chunk : np.ndarray
+        The chunk to apply magnitude warping to
+    nr_of_point_for_spline : int, optional
+        The number of points for the spline, by default 6
+    gaussian_mean : float, optional
+        The mean of the gaussian distribution, by default 1.0
+    gaussian_std : float, optional
+        The standard deviation of the gaussian distribution, by default 0.35
+    nr_of_grids : int, optional
+        The number of grids to split the chunk into, by default 5
+    seed : float, optional
+        The seed for the random number generator, by default 1801211219
+
+    Returns
+    -------
+    np.ndarray
+        The chunk with applied magnitude warping
+
+    References
+    ----------
+    Tsinganos, P., Cornelis, B., Cornelis, J., Jansen, B., Skodras, A., 2020.
+    Data Augmentation of Surface Electromyography for Hand Gesture Recognition.
+    Sensors 20, 4892. https://doi.org/10.3390/s20174892
+
+    """
+
+    random_gens = [np.random.default_rng() for _ in range(nr_of_grids)]
+
+    return np.multiply(
+        chunk.astype(np.float64),
+        np.repeat(
+            np.repeat(
+                np.array(
+                    [
+                        interpolate.interp1d(
+                            np.linspace(
+                                start=0,
+                                stop=chunk.shape[-1],
+                                num=nr_of_point_for_spline,
+                            ),
+                            random_gens[i].normal(
+                                loc=gaussian_mean,
+                                scale=gaussian_std,
+                                size=nr_of_point_for_spline,
+                            ),
+                            kind="cubic",
+                        )(np.arange(chunk.shape[-1]))
+                        for i in range(nr_of_grids)
+                    ]
+                ),
+                repeats=chunk.shape[1] // nr_of_grids,
+                axis=0,
+            )[None, ...],
+            repeats=chunk.shape[0],
+            axis=0,
+        ),
+    )
+
+
+def signal_whitening(chunk: np.ndarray) -> np.ndarray:
+    return chunk
+
+
+def wavelet_decomposition(
+    chunk: np.ndarray,
+    b: float = 0.25,
+    wavelet: str = "db7",
+    level: int = 5,
+    nr_of_grids: int = 5,
+) -> np.ndarray:
+    """Wavelet decomposition of the chunk.
+
+    Parameters
+    ----------
+    chunk : np.ndarray
+        The chunk to apply wavelet decomposition to
+    b : float, optional
+        The b parameter for the wavelet decomposition, by default 0.25
+    wavelet : str, optional
+        The wavelet to use for the decomposition, by default "db7"
+    level : int, optional
+        The level of the decomposition, by default 5
+    nr_of_grids : int, optional
+        The number of grids to split the chunk into, by default 5
+
+    Returns
+    -------
+    np.ndarray
+        The chunk with applied wavelet decomposition
+
+    References
+    ----------
+    Tsinganos, P., Cornelis, B., Cornelis, J., Jansen, B., Skodras, A., 2020.
+    Data Augmentation of Surface Electromyography for Hand Gesture Recognition.
+    Sensors 20, 4892. https://doi.org/10.3390/s20174892
+    """
+    coefficients_per_grid = [
+        pywt.wavedec(
+            grid.astype(np.float64),
+            wavelet=wavelet,
+            level=level,
+            mode="reflect",
+            axis=2,
+        )
+        for grid in np.array_split(chunk, nr_of_grids, axis=1)
+    ]
+    return np.concatenate(
+        [
+            pywt.waverec(
+                [coefficients[0]] + [coefficients[i] * b for i in range(1, level + 1)],
+                wavelet=wavelet,
+                axis=2,
+            )
+            for coefficients in coefficients_per_grid
+        ],
+        axis=1,
+    )
+
+
+def emg_simulation_1(
+    chunk: np.ndarray,
+    f_h: float = 120.0,
+    f_l: float = 60.0,
+    nr_of_ms_for_mean_averaging: float = 5,
+) -> np.ndarray:
+    """EMG simulation 1 of the chunk.
+
+    Parameters
+    ----------
+    chunk : np.ndarray
+        The chunk to apply EMG simulation 1 to
+    f_h : float, optional
+        The high frequency for the EMG simulation, by default 120.0
+    f_l : float, optional
+        The low frequency for the EMG simulation, by default 60.0
+    nr_of_ms_for_mean_averaging : float, optional
+        The number of milliseconds for the mean averaging, by default 5
+
+    Returns
+    -------
+    np.ndarray
+        A simulated EMG chunk using the input one as reference
+
+    References
+    ----------
+    Tsinganos, P., Cornelis, B., Cornelis, J., Jansen, B., Skodras, A., 2020.
+    Data Augmentation of Surface Electromyography for Hand Gesture Recognition.
+    Sensors 20, 4892. https://doi.org/10.3390/s20174892
+    """
+    output_chunk = chunk.copy()
+
+    g = np.sqrt(
+        np.array([((f_h**2) * (f**2)) / ((f**2 + f_l**2) * ((f**2 + f_l**2) ** 2)) for f in range(500)])
+    )
+    g = np.fft.ifftshift(np.fft.irfft(np.concatenate([g, -g[::-1]])))
+
+    nr_of_samples_for_mean_averaging = np.rint(nr_of_ms_for_mean_averaging * 1e-3 * 2048).astype(int)
+
+    for grid in (
+        np.r_[:64],
+        np.r_[64:128],
+        np.r_[128:192],
+        np.r_[192:256],
+        np.r_[256:320],
+    ):
+        w = np.pad(
+            np.random.default_rng().multivariate_normal(
+                mean=[0] * 64, cov=np.cov(output_chunk[0, grid]), method="cholesky"
+            ),
+            pad_width=96,
+            mode="wrap",
+        )
+        for channel_index in range(output_chunk.shape[0]):
+            for electrode_index in grid:
+                output_chunk[channel_index, electrode_index] = np.add(
+                    np.multiply(
+                        np.convolve(w, g, mode="full")[1000 : 1000 + output_chunk.shape[-1]],
+                        (
+                            np.convolve(
+                                output_chunk[0, electrode_index],
+                                np.ones(nr_of_samples_for_mean_averaging),
+                                mode="same",
+                            )
+                            / nr_of_samples_for_mean_averaging
+                        ),
+                    ),
+                    np.random.default_rng().normal(loc=0, scale=0.1, size=output_chunk.shape[-1]),
+                )
+
+    return output_chunk
+
+
+AUGMENTATION_SELECTOR = {
+    "gaussian noise": gaussian_noise,
+    "magnitude warping": magnitude_warping,
+    "signal whitening": signal_whitening,
+    "wavelet decomposition": wavelet_decomposition,
+    "emg simulation 1": emg_simulation_1,
+}

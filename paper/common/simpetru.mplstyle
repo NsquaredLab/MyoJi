@@ -1,0 +1,74 @@
+# simpetru.mplstyle -- the paper's default -- what most figures used
+#
+# Copied from simpetru-figstyle 0.1.0 (styles/simpetru.mplstyle); settings unchanged.
+#
+# Layer it on top of SciencePlots:
+#     plt.style.use(["science", "ieee", "simpetru"])
+#
+# Type sizes below are seaborn's 'paper' context at font_scale=0.75,
+# resolved once rather than applied at draw time.
+
+# Figure and colour
+figure.dpi: 600
+image.cmap: RdPu
+axes.prop_cycle: cycler("color", ["570014", "8b0020", "d80032", "6d6f72", "939699", "2b2e4c", "5c618e"])
+
+# Editable text on export. The paper used svg.fonttype: path and
+# pdf.fonttype: type3, which outlines every label; these keep labels as real
+# text for Affinity and Illustrator. Appearance is identical.
+#
+# usetex is off on purpose, and pdf.fonttype below only takes effect because
+# of it: with `science`"s text.usetex: True, LaTeX -- not matplotlib -- sets
+# the type, and it embeds Type 1 fonts with builtin/custom encodings that
+# Affinity renders with collapsed spacing and overlapping glyphs ("Time (s)"
+# came out as "Time=(s)"). Without usetex the same labels embed as
+# Unicode-mapped CID TrueType, which every vector editor handles. Rendering
+# is visually identical; only LaTeX-only escapes (percent, hash) must be written
+# as plain characters, and \$...\$ math goes through mathtext instead.
+#
+# STIXGeneral leads the serif stack because it ships inside matplotlib: it is
+# the same file on the laptop and the workstation, so a figure rendered
+# remotely matches one rendered locally. "Times" does not exist on Linux and
+# "Times New Roman" comes from a different package per machine.
+text.usetex: False
+mathtext.fontset: stix
+font.family: serif
+font.serif: STIXGeneral, Times New Roman, Times, DejaVu Serif
+pdf.fonttype: 42
+ps.fonttype: 42
+svg.fonttype: none
+
+# Only the axes you read against. `science` draws a full box and mirrors ticks
+# onto the top and right.
+axes.spines.top: False
+axes.spines.right: False
+xtick.top: False
+ytick.right: False
+
+# So a plain fig.savefig() already does the right thing.
+savefig.dpi: 600
+savefig.bbox: tight
+savefig.pad_inches: 0
+savefig.transparent: True
+
+# From sns.plotting_context('paper', font_scale=0.75)
+axes.labelsize: 7.2
+axes.linewidth: 0.75   # deliberate override
+axes.titlesize: 7.2
+font.size: 7.2
+grid.linewidth: 1.0   # deliberate override
+legend.fontsize: 6.6
+legend.title_fontsize: 7.2
+lines.linewidth: 1.2
+lines.markersize: 4.8
+patch.linewidth: 0.8
+xtick.labelsize: 6.6
+xtick.major.size: 4.8
+xtick.major.width: 0.75   # deliberate override
+xtick.minor.size: 3.2
+xtick.minor.width: 0.75   # deliberate override
+ytick.labelsize: 6.6
+ytick.major.size: 4.8
+ytick.major.width: 0.75   # deliberate override
+ytick.minor.size: 3.2
+ytick.minor.width: 0.75   # deliberate override
