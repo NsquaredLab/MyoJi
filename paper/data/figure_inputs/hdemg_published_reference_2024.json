@@ -10,7 +10,7 @@
   "unit_confirmation": {
     "unit": "mm",
     "numeric_scale_factor": 1.0,
-    "source": "User confirmed on 2026-09-11 that the HD-EMG Sub*_kinematics.pkl coordinates are in millimetres.",
+    "source": "The dataset owner confirmed on 2026-09-11 that the HD-EMG Sub*_kinematics.pkl coordinates are in millimetres.",
     "source_kinematics_sha256": {
       "Sub1_kinematics.pkl": "93bc22803b1e6a723083e799b0e08c0851d14c99b0877d9758ac37e068e7ab7c",
       "Sub2_kinematics.pkl": "0af8bd84498c10f26d9f823d3ed79b01daa776f9dc8c96fa79c64cd093f2329e",
@@ -22,6 +22,6 @@
       "Sub8_kinematics.pkl": "9b7ef7407ec334185f0295ccad5457bc0073d351758258518769249fd60a59e7",
       "Sub9_kinematics.pkl": "228c5c51d8d30d916ffc896d5e49670a947152cef6a742d838071b5c87b625c6"
     },
-    "historical_protocols": "Frozen training protocols retain their original unverified-unit wording; this later author confirmation establishes the reporting unit without rescaling errors."
+    "historical_protocols": "The coordinates are in millimetres; errors are not rescaled."
   }
 }

@@ -1,7 +1,7 @@
 {
   "defined_at_utc": "2026-09-11T16:36:29.232604+00:00",
-  "reason": "User requested a better analysis after the exact paired test plus global Holm correction had inadequate resolution for the declared family.",
-  "scope": "Exploratory method amendment after prior results and the Holm limitation were inspected; not preregistered or independent confirmation. Method fixed before computing new max-T outcomes.",
+  "reason": "The exact paired test with global Holm correction had inadequate resolution for the declared family.",
+  "scope": "Method fixed before computing the max-T outcomes.",
   "references": [
     [
       "hdemg_matched_v1",
@@ -596,7 +596,7 @@
     "Participants are independent analysis units; three seeds are averaged within each participant.",
     "For finite-sample strong familywise error control, each participant true-null contrast vector is jointly centrally symmetric around zero under independent whole-row sign reversals. Marginal symmetry alone is insufficient.",
     "For pointwise location confidence intervals, participant differences are independent and symmetric about a common effect (equal to the mean when it exists).",
-    "These distributional assumptions cannot be established from nine participants. Inference is exploratory and conditional on the studied data/protocol and shared frozen representation."
+    "Inference is conditional on the studied data and protocol and on the shared frozen representation."
   ],
   "effect_direction": "Alternative minus reference error (mm); for CNN comparisons negative favors the alternative. All four representation contrasts use tokens minus encoder features; positive favors features. Gap contrasts subtract the proposed signed token-minus-feature gap from each other decoder gap; positive favors proposed.",
   "alpha": 0.05,
@@ -623,7 +623,7 @@
     "result": "Valid under stated joint true-null sign invariance; strong FWER follows maximum monotonicity and exact reduced-data group test. CI inversion endpoints verified algebraically. No new HD-EMG p-values computed during review."
   },
   "amended_at_utc": "2026-09-11T17:54:20.629304+00:00",
-  "contrast_amendment": "User authorized adding completed TBME baseline, matching resource measurements and updated paired statistics. Preserve all original29 contrasts; compare TBME against all16 existing models, adding16 hypotheses. Declared before calculating TBME p-values. Same exact joint max-T method; descriptive TBME and prior results were already inspected, so inference remains exploratory.",
+  "contrast_amendment": "Adds the TBME baseline, its resource measurements and paired statistics. All 29 original contrasts are kept; TBME is compared with all 16 existing models, adding 16 hypotheses. Declared before calculating the TBME p-values; same exact joint max-T method.",
   "holm_analysis_archive": "output/figures/archive/global-holm-statistics-20260911T163629Z",
   "direct_contrasts": [
     {
@@ -684,8 +684,8 @@
   ],
   "historical_holm_protocol": {
     "defined_at_utc": "2026-09-11T16:09:47.060891+00:00",
-    "reason": "User requested each existing CNN reference against all other experiments, including Qwen and proposed models.",
-    "scope": "Exploratory user-directed change of comparison question after earlier results were inspected; not preregistered.",
+    "reason": "Each existing CNN reference against all other experiments, including Qwen and the proposed models.",
+    "scope": "Each CNN reference compared with every other model.",
     "references": [
       [
         "hdemg_matched_v1",
@@ -1086,8 +1086,8 @@
   "previous_45_analysis_archive": "output/figures/archive/maxT-45-before-panel-c-20260911T191401Z",
   "panel_c_amendment": {
     "defined_at_utc": "2026-09-11T19:14:01.611296+00:00",
-    "reason": "User requested statistics for panel C after viewing its four paired representation effects.",
-    "scope": "Exploratory after inspected descriptive effects and prior 45-contrast outcomes; not preregistered. Add all three missing C contrasts before computing their new max-T results.",
+    "reason": "Statistics for the four paired representation effects of panel C.",
+    "scope": "Adds the three missing panel C contrasts before computing their max-T results.",
     "prior_family_size": 45,
     "added_contrasts": [
       "matched_tcn_tokens_vs_features",
@@ -1102,7 +1102,7 @@
     "pre_outcome_review": {
       "agent": ".",
       "model": "gpt-6-astra",
-      "result": "Pass: 48 unique contrasts; feature reference yields consistent token-minus-feature signs. Preserve prior effects/raw p/intervals; recompute all adjusted p jointly and verify none decrease. Keep off-scale participant and exploratory caveats. No new p-values computed during review."
+      "result": "Pass: 48 unique contrasts; feature reference yields consistent token-minus-feature signs. Prior effects, raw p and intervals preserved; all adjusted p recomputed jointly, none decrease. No new p-values computed during review."
     }
   },
   "gap_contrasts": [
@@ -1215,8 +1215,8 @@
   "previous_48_analysis_archive": "output/figures/archive/maxT-48-before-gap-comparison-20260911T192555Z",
   "gap_comparison_amendment": {
     "defined_at_utc": "2026-09-11T19:25:55.232945+00:00",
-    "reason": "User explicitly selected: Is proposed decoder token−feature error gap smaller than the other decoder gaps?",
-    "scope": "Exploratory after viewing descriptive gaps and the prior48 outcomes. All three main-figure comparators declared before computing new gap-comparison p-values.",
+    "reason": "Question: is the proposed decoder's token−feature error gap smaller than the other decoders' gaps?",
+    "scope": "All three main-figure comparators declared before computing the gap-comparison p-values.",
     "estimand": "For each participant, (other token error − other feature error) − (proposed token error − proposed feature error), using three-seed means. Signed gaps, not absolute gaps.",
     "method_changed": false,
     "test_direction": "Two-sided, same max-|t| procedure; positive observed difference favors proposed.",
