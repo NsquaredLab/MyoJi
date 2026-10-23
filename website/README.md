@@ -29,7 +29,7 @@ bottom right (or the arrow, page and space keys) move one slide; phones scroll n
 3. The SPAR patch: each electrode with its right and lower neighbours.
 4. Decoded hand pose: participant 6's fist from SPAR tokens and from continuous SPAR.
 5. What changes the error: tokenization against calibration, electrode coverage, neighbour information and
-   untrained recordings, beside the emg2pose results.
+   unseen recordings, beside the emg2pose results.
 6. Movement through token space: the UMAP of participant 1's token histories.
 7. Paper and materials.
 
