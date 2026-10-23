@@ -1,5 +1,12 @@
 # MyoJi
 
+<a href="https://nsquaredlab.github.io/MyoJi/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/project-page-dark.gif">
+    <img alt="The MyoJi project page: 320 electrodes, 209,715 bits of raw EMG or 3,200 bits of tokens per update" src="docs/project-page-light.gif">
+  </picture>
+</a>
+
 MyoJi is tokenization for EMG. The name joins *myo* (muscle) and *emoji*. Like an emoji, each
 token is one small symbol that stands for a whole pattern, here 20 ms of one electrode's EMG.
 
