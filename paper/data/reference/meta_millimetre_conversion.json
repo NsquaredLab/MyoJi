@@ -12,7 +12,7 @@
   ],
   "source": {
     "path": "results/paper_completion_v1/results.json",
-    "sha256": "d77a5e64d4d72bff0a9be2af1d61be9140609c2dab7f5ebcc741bdbd929d1810"
+    "sha256": "b2c1a73886dce8269e4360ead924ed5b6021ea413503e14d776bedd22c8d9c7c"
   },
   "hand_model": {
     "git_commit": "5f6f62b1a0a08426adffe55900842e75a8adb38c",
