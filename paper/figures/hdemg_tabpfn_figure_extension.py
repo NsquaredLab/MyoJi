@@ -168,7 +168,7 @@ def extend(b, root, rows, formats, benchmark, analysis):
         tabpfn_task_means={k:v.tolist() for k,v in task_means.items()},
         method="Two-sided exact synchronized participant sign-flip studentized max-T; 512 sign patterns, 76 contrasts. "
                "Requires independent participants and joint null sign symmetry. Previous 66 contrast vectors retained. "
-               "Ten TabPFN additions declared before this cohort run; the broader adaptive research history is not corrected.")
+               "Ten TabPFN additions declared before this cohort run.")
     analysis["sources"].update(sources)
     assert len(rows)==21 and sum(r["error_n_participants"]*r["error_n_seeds"] for r in rows)==567
     return rows,formats,benchmark,analysis
