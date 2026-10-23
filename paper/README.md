@@ -43,8 +43,7 @@ uv run python -m paper.figures.plot_supp_figures         # Figs. S1–S3, to pap
 ```
 
 Supplementary Data 1-9 (`data/supplementary/`) hold every plotted value and summary result. The
-other figures redraw from the campaign outputs; the steps that read the authors' intermediate files
-are listed [at the end](#steps-that-need-the-authors-intermediate-outputs).
+other figures redraw from the campaign outputs.
 
 ## Setup
 
@@ -57,7 +56,7 @@ uv sync --group paper                      # from the repository root
 | HD-EMG recordings `Sub{n}_emg.pkl`, `Sub{n}_kinematics.pkl` | the authors, on reasonable request | `MYOJI_HDEMG=<folder>` |
 | emg2pose | public; `uv run python -m paper.emg2pose.prepare_emg2pose_online` builds the metadata and a byte-range index so recordings stream on demand | `MYOJI_EMG2POSE=<folder>` |
 | emg2pose code (hand model) | `git clone https://github.com/facebookresearch/emg2pose` (commit `5f6f62b`), then `uv pip install -e emg2pose` | |
-| trained tokenizers and SPAR codebooks | train your own (see the end of this page) | `MYOJI_ASSETS=<folder>` |
+| trained tokenizers and SPAR codebooks | train your own ([README](../README.md#training-your-own-models)); scripts read `learned/tokenizer.pt`, `learned/tokenizer-full.pt` and `spar/codebooks-1024.npz` | `MYOJI_ASSETS=<folder>` |
 | BioCodec (codec comparison only) | `git clone https://github.com/klean2050/BioCodec-release` (commit `575bf6e`) | `MYOJI_BIOCODEC=<clone>` |
 | Qwen3-0.6B-Base (one receiver) | Hugging Face, revision `da87bfb608c14b7cf20ba1ce41287e8de496c0cd`, into the LLM pilot run folder's `model/` | |
 | TabPFN v3.5 weights (one receiver) | downloaded by `tabpfn==9.0.0` on first use | `--model-path` |
@@ -74,8 +73,9 @@ records the windows, settings, seeds, and the SHA-256 of the data and of every s
 campaign executes. Later stages stop if any of these change. Finished fits are skipped, so a
 campaign can be resumed. Some campaigns build on earlier run folders and check their hashes too.
 
-A few campaigns require the original GPU model or software versions. Their error messages name
-the requirement.
+A few campaigns require the original GPU model or software versions, and some figure and firmware
+steps check their inputs against the paper's files by hash. Their error messages name the
+requirement.
 
 ## Order
 
@@ -280,33 +280,3 @@ The full commands are in `embedded/*/README.md`.
 ### `vendor/`
 
 Third-party code, pinned by hash (see `THIRD_PARTY.md`): RaulNet V19, the One Euro filter and the TBME 2024 CNN.
-
-## Steps that need the authors' intermediate outputs
-
-These steps read the authors' intermediate files or check files against the authors' hashes:
-- The trained models. Steps that load them from `MYOJI_ASSETS` use models you train:
-  `pretraining/train_mixed_sources`, then `myoji.learned.export_checkpoint` with `calibration_samples=1000`
-  for `learned/tokenizer.pt` (the pretraining checkpoint itself is `learned/tokenizer-full.pt`).
-  The SPAR campaigns fit the codebooks; `spar/codebooks-1024.npz` holds them per participant as
-  `subject_XX/{codebook,feature_mean,feature_scale,mask}`. The firmware fixtures
-  (`firmware/raw_tokenizer_benchmark/prepare.py`) accept only the authors' tokenizer, by hash.
-- The participant-level test predictions. `hdemg/hdemg_movement_analysis` checks the
-  authors' prediction files by hash (`data/figure_inputs/hdemg_movement_source_receipt.json`).
-  `hdemg/hdemg_absolute_change_analysis` checks the movement analysis computed from them. Run on the
-  authors' run folders, both reproduce the published records.
-- The decoded movement cycles of an earlier inference run are read by:
-  - the SPAR latency benchmark used in Fig. 4;
-  - the movement replay (`hdemg/replay_hdemg_spar_figure_video`);
-  - the EMG strip in Fig. 1 (`figures/make_teaser`, through `figures/export_token_explorer_context`).
-  The same holds for `figures/build_tokenizer_mechanism` and `figures/hdemg_spar_figure_extension`, which read
-  participant 1's excerpt `results/hdemg_spar_simple_full_v1/subject_01/figure-video-inputs.npz`.
-- `emg2pose/build_pose_paper_assets` checks that the emg2pose millimetre conversion
-  (`data/reference/meta_millimetre_conversion.json`) belongs to the authors'
-  `paper_completion_v1/results.json`. It also reads a paired-participant audit of the matched
-  receivers (`results/hdemg_matched_v1/paired_participant_audit.json`) that no script writes.
-- The hand renders in Fig. 1 (`figures/render_teaser_hands.py`) run inside Blender with a commercial hand
-  model.
-- `hdemg/run_hdemg_v20_noise_followup` records the GPU model of the adapted-CNN evaluation from its job
-  log. Locally, write that log yourself:
-  `uv run python -m paper.receivers.run_hdemg_raulnet evaluate --root paper/results/hdemg_raulnet_v1 2>&1 | tee paper/results/hdemg_raulnet_v1/evaluate-local.out`,
-  then append the output of `nvidia-smi --query-gpu=name,pci.bus_id --format=csv,noheader` to that file.
