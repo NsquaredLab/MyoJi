@@ -4,7 +4,7 @@ Panel A of the pose-recovery figure (participant 1, eight movements, each island
 viewed face-on in a 3-D UMAP and placed at the MDS of native centroid distances)
 repeated for growing history windows: the frame alone, then the frame plus the
 tokens 6, 12, ... updates earlier, up to 960 ms. Each panel carries the movements'
-mean routes and the mean loop roundness (4*pi*area / perimeter^2; 1 = circle).
+mean routes and the mean loop circularity (4*pi*area / perimeter^2; 1 = circle).
 
     uv run python -m paper.figures.make_token_history_supplement
 """
@@ -112,7 +112,7 @@ def main():
         for sp in ax.spines.values():
             sp.set_visible(False)
         title = "Single update" if w == 0 else f"{w} ms of history"
-        ax.set_title(f"{title}, roundness {np.mean(rs):.2f}", fontsize=9, pad=2)
+        ax.set_title(f"{title}, circularity {np.mean(rs):.2f}", fontsize=9, pad=2)
         receipt[f"{w}_ms"] = dict(lags=list(range(6, w // 20 + 1, 6)), roundness=dict(zip(NAMES, rs)),
                                   mean_roundness=float(np.mean(rs)))
     handles = [plt.Line2D([], [], marker="o", lw=0, ms=5, color=c, label=n) for n, c in zip(NAMES, COLOURS)]

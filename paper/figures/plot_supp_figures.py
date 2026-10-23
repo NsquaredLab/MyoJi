@@ -130,7 +130,7 @@ def alternatives():
     ax.set_xticks([1, 10, 100, 1000], ['1', '10', '100', '1k']); ax.minorticks_off()
     rule(ax, RAW_FP32_KB_S, 'Raw EMG', 4, 'left')
     rows_only(ax)
-    ax.set_xlabel('Packet Rate\n(kB/s)', fontsize=9.5, labelpad=2)
+    ax.set_xlabel('Data Rate\n(kB/s)', fontsize=9.5, labelpad=2)
     save(fig, 'supp_alternatives_rate')
 
     fig, ax = panel(140.4, 208.8, (.08, ROWS[0], .86, ROWS[1]))
