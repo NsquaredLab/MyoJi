@@ -493,7 +493,7 @@ def main():
     # encoding key rather than as one of the movements.
     key = "#555555"
     handles = [Line2D([], [], color=key, lw=.7, alpha=.35, label="Repetition"),
-               Line2D([], [], color=key, lw=1.15, label="Mean route"),
+               Line2D([], [], color=key, lw=1.15, label="Mean Trajectory"),
                Line2D([], [], color=key, lw=0, marker="o", ms=5, mec="white", mew=.7, label="Open hand"),
                Line2D([], [], color=key, lw=0, marker=">", ms=5, label="Direction")]
     if not AFF:
@@ -553,7 +553,7 @@ def main():
     ax_c.set_xticks(xs, xlab)
     ax_c.set_yticks([4, 6, 8, 10])                                        # the two rules carry the scale here
     ax_c.tick_params(axis="x", length=0, pad=4, labelsize=8)
-    ax_c.set_ylabel("Pose Recovery Error (mm)", labelpad=4, fontsize=9.5, color="black")
+    ax_c.set_ylabel("Pose Retrieval Error (mm)", labelpad=4, fontsize=9.5, color="black")
 
     # ---- D: the decoder itself, as the paired change against continuous features,
     # with 95 % participant-bootstrap intervals and the seed-to-seed spread of the

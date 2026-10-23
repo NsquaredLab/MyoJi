@@ -171,7 +171,7 @@ def draw(r, mm_per_palm):
             color = next(c for l, _, _, c in ARMS if l == a['label'])
             packet.scatter(a['packet_kB_s'], a['y'], s=22, color=color, zorder=3)
     packet.set(xscale='log', xlim=(.8, 1600))
-    packet.set_xlabel('Packet Rate (kB/s)', **LABEL)
+    packet.set_xlabel('Data Rate (kB/s)', **LABEL)
     packet.set_xticks([1, 10, 100, 1000], ['1', '10', '100', '1,000'])
     reference_rule(packet, raw_reference)
     packet.text(raw_reference * .88, .015, 'Raw float32 EMG', rotation=90, fontsize=8.5,

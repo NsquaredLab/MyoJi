@@ -5,6 +5,8 @@ message: >-
 type: software
 license: AGPL-3.0-or-later
 version: 0.1.0
+repository-code: 'https://github.com/NsquaredLab/MyoJi'
+url: 'https://nsquaredlab.github.io/MyoJi/'
 authors:
   - family-names: Sîmpetru
     given-names: Raul C.
@@ -34,7 +36,7 @@ keywords:
   - myocontrol
 preferred-citation:
   type: unpublished
-  title: EMG Tokenization Preserves 3D Hand-Pose Decoding at a Fraction of the Bitrate
+  title: EMG Tokenization Preserves Movement Information at a Fraction of the Bitrate
   year: 2026
   authors:
     - family-names: Sîmpetru

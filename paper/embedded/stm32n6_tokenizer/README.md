@@ -1,4 +1,4 @@
-# STM32N6 tokenizer benchmark, original port
+# STM32N6 tokenizer benchmark, original implementation
 
 This firmware runs both frozen tokenizers end to end on the Cortex-M55 CPU of
 a NUCLEO-N657X0-Q board at 600 MHz, in FP32 with instruction and data caches on
@@ -7,7 +7,7 @@ the frontend, searches all 1,024 codes and packs 10-bit IDs. It reuses the
 [`../raw_tokenizers`](../raw_tokenizers) kernels unchanged. `build.py`
 generates `spar_runtime.c` from `spar.c`, changing only the channel count and
 montage into arguments and adding a cycle-counter poll per channel. This port
-is the baseline of Fig. 6 in the paper. The optimized port is in
+is the baseline of Fig. 7 in the paper. The optimized implementation is in
 [`../stm32n6_optimized`](../stm32n6_optimized).
 
 | File | Contents |
@@ -153,7 +153,7 @@ attempt per route and channel count for the current ELF, whatever its
 validation outcome, and pins each run's receipt and CSV by SHA-256.
 
 `plot.py` draws the validated runs to
-`paper/output/figures/stm32n6_tokenizer/`. Fig. 6 is drawn from this manifest
+`paper/output/figures/stm32n6_tokenizer/`. Fig. 7 is drawn from this manifest
 by [`../stm32n6_optimized`](../stm32n6_optimized).
 
 The paper's measurements also ship in

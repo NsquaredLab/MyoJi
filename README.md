@@ -3,7 +3,7 @@
 Emoji for muscles: discrete EMG tokens that keep 3D hand-pose decoding while sending a fraction
 of the bitrate.
 
-This is the code for *EMG Tokenization Preserves 3D Hand-Pose Decoding at a Fraction of the
+This is the code for *EMG Tokenization Preserves Movement Information at a Fraction of the
 Bitrate* (Sîmpetru, Olamazadeh, Rohlf, Cnejevici and Del Vecchio). Every electrode becomes one
 token every 20 ms (10 bits with 1,024 codes), from one of two causal tokenizers fitted without
 pose labels:

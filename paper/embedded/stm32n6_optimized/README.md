@@ -1,9 +1,9 @@
-# STM32N6 tokenizer benchmark, optimized port
+# STM32N6 tokenizer benchmark, optimized implementation
 
 This port runs the same benchmark as
 [`../stm32n6_tokenizer`](../stm32n6_tokenizer) on the same board. The
 differences are faster kernels (`fast_kernels.c`) and a build-time rewrite of
-the SPAR runtime in `build.py`. It produces Fig. 6 of the paper: the number of
+the SPAR runtime in `build.py`. It produces Fig. 7 of the paper: the number of
 SPAR channels tokenized within the 20 ms update rises from 23 in the original
 port to 63 in this one. The setup is identical:
 
@@ -18,8 +18,8 @@ port to 63 in this one. The setup is identical:
 
 | Build | SPAR transform and Jacobi `hypotf` | Relation to the released port |
 |---|---|---|
-| default | CMSIS-DSP Helium real FFT (`arm_rfft_fast_f32`) and `sqrtf(x*x+y*y)` | Not bit-exact. This is the firmware in Fig. 6. |
-| `STM32N6_EXACT=1` | The frozen radix-2 FFT and libm `hypotf` (on the board, newlib's `__ieee754_hypotf` core, which returns the same value) | Bit-exact with the original port |
+| default | CMSIS-DSP Helium real FFT (`arm_rfft_fast_f32`) and `sqrtf(x*x+y*y)` | Not bit-exact. This is the firmware in Fig. 7. |
+| `STM32N6_EXACT=1` | The frozen radix-2 FFT and libm `hypotf` (on the board, newlib's `__ieee754_hypotf` core, which returns the same value) | Bit-exact with the original implementation |
 
 The remaining changes give identical results in both builds:
 
@@ -58,7 +58,7 @@ upstream and modified hashes and the changed lines.
 
 Medians over 16 measured updates on one board:
 
-| Configuration | Original port | Bit-exact build | Default build |
+| Configuration | Original implementation | Bit-exact build | Default build |
 |---|---:|---:|---:|
 | SPAR, largest channel count meeting 20 ms with host agreement | 23 | 46 | **63** |
 | SPAR, 320 channels | 276.7 ms | 135.7 ms | 102.3 ms |
@@ -100,7 +100,7 @@ on the resulting tokens:
   10.8120 mm, a difference of −0.0005 mm (95 % participant bootstrap −0.0010
   to −0.0001; exact sign-flip p = 0.055).
 - **Frozen fixture:** both builds reproduce all 960 released SPAR IDs, and the
-  bit-exact build reproduces the original port's features exactly.
+  bit-exact build reproduces the original implementation's features exactly.
 
 `replay63.py` repeats the replay on the first 63 electrodes, using the refitted
 63-electrode codebooks and decoders:
@@ -136,8 +136,8 @@ This port has three further requirements:
 - **arm64 host:** the default host build needs an arm64 host, because the
   CubeN6 CMSIS headers refuse x86. It was tested on arm64 macOS with Apple
   clang. `verify_fast.py` and `replay63.py` expect macOS `.dylib` names.
-- **Original-port library:** `verify_fast.py` compares against
-  `paper/results/stm32n6_tokenizer_v1/host.dylib`, so run the original port's
+- **Original library:** `verify_fast.py` compares against
+  `paper/results/stm32n6_tokenizer_v1/host.dylib`, so run the original implementation's
   `verify_host.py` first.
 
 `STM32N6_SRC` and `STM32N6_OUT` redirect the sources and outputs for throwaway
@@ -153,7 +153,7 @@ uv run python -m paper.firmware.stm32n6_optimized.verify_host
 uv run python -m paper.firmware.stm32n6_optimized.verify_fast
 ```
 
-`verify_host.py` runs the original port's checks. In the default build,
+`verify_host.py` runs the original implementation's checks. In the default build,
 however, it bounds the SPAR features (below 5e-2) instead of requiring
 equality. All 960 recorded SPAR IDs must still match.
 
@@ -169,7 +169,7 @@ equality. All 960 recorded SPAR IDs must still match.
   - relative spectrum deviation below 2e-3; 3.7e-4 was measured;
   - feature deviation below 5e-2; 1.2e-2 was measured;
   - all 960 released SPAR IDs must be reproduced.
-- **Synthetic driver runs:** compared with the original port's host library.
+- **Synthetic driver runs:** compared with the original implementation's host library.
   They must be identical in the bit-exact build and on the learned route.
 
 With `STM32N6_EXACT=1`, both scripts assert equality everywhere.
@@ -182,7 +182,7 @@ needs a current `host_verification.json` and `fast_verification.json` for the
 host library.
 
 Run the configurations one at a time, because there is only one board. The
-channel lists reproduce the frozen Fig. 6 manifests:
+channel lists reproduce the frozen Fig. 7 manifests:
 
 ```sh
 uv run python -m paper.firmware.stm32n6_optimized.build
@@ -222,7 +222,7 @@ map, receipt and sources.
 `--frames 3 --warmup 17`; the learned route also checks the IDs against
 `host_outputs.npz`.
 
-Draw Fig. 6 with:
+Draw Fig. 7 with:
 
 ```sh
 uv run python -m paper.firmware.stm32n6_optimized.plot
@@ -238,7 +238,7 @@ The paper's measurements also ship in `paper/data/firmware/`, laid out like
 `results/`. That copy holds the three manifests, plus each listed run's
 `receipt.json`, `frames.csv` and `output_validation.json`, with the ST-LINK
 serial and build paths removed from the receipts. A file in `results/` takes
-precedence; otherwise the shipped copy is read. Fig. 6 can therefore be redrawn
+precedence; otherwise the shipped copy is read. Fig. 7 can therefore be redrawn
 without the board.
 
 It writes `stm32n6-optimized.{pdf,svg,png}`, the caption (`caption.txt`,

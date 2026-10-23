@@ -27,6 +27,10 @@ dependencies = [
     "torch>=2.6",
 ]
 
+[project.urls]
+Homepage = "https://nsquaredlab.github.io/MyoJi/"
+Repository = "https://github.com/NsquaredLab/MyoJi"
+
 [project.optional-dependencies]
 myogestic = ["myogestic[examples,grpc]>=2.6.2"]
 
