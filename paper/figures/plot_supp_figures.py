@@ -92,10 +92,11 @@ def transfer_and_cohorts():
     sd4 = table('SD4_transfer_and_cohorts.csv', 'comparison')
     est = lambda k: tuple(num(sd4[k][c]) for c in ('token_minus_continuous_mm', 'ci95_lower_mm', 'ci95_upper_mm'))
     cohorts = ['Official test', 'Unseen participants', 'Held-out sessions']
+    shown = {'Official test': 'Official-test subset'}  # SD4 keys stay as they are
     for name, w, left, keys, labels in (
             ('supp_transfer', 248.4, .2, ['SPAR: separate participants', 'Learned: separate participants'],
              ['SPAR', 'Learned']),
-            ('supp_cohorts', 262.8, .46, cohorts, [f"{k} ({sd4[k]['participants']})" for k in cohorts])):
+            ('supp_cohorts', 262.8, .46, cohorts, [f"{shown.get(k, k)} ({sd4[k]['participants']})" for k in cohorts])):
         fig, ax = panel(w, 126, (left, .3, .95 - left, .66))
         differences(ax, [est(k) for k in keys], labels, (-.7, .7), 'Tokens − Continuous (mm)')
         ax.set_xticks([-.5, 0, .5])
