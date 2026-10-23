@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FIGURES = ROOT / "output/figures"
 PDFS = ROOT / "output/pdf"
 STEM = "hdemg-all-variants"
+STYLE = Path(__file__).parents[1] / "common/paper_plot_style.py"
 SUBJECTS = set(range(1, 10))
 SEEDS = {260911, 260912, 260913}
 SOURCES: dict[str, str] = {}
@@ -338,7 +339,7 @@ def main() -> None:
         },
         "sources": SOURCES,
         "builder_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        "style_sha256": hashlib.sha256(Path(__file__).with_name("paper_plot_style.py").read_bytes()).hexdigest(),
+        "style_sha256": hashlib.sha256(STYLE.read_bytes()).hexdigest(),
         "output_sha256": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in outputs},
         "panels": panels,
     }
@@ -402,8 +403,8 @@ def main() -> None:
     existing_includes = include_path.read_text() if include_path.exists() else ""
     if include_line not in existing_includes:
         include_path.write_text(existing_includes + "\n% HD-EMG decoder comparison\n" + include_line + "\n")
-    for filename in ["build_hdemg_all_variants.py", "paper_plot_style.py"]:
-        (FIGURES / filename).write_bytes(Path(__file__).with_name(filename).read_bytes())
+    for source in [Path(__file__), STYLE]:
+        (FIGURES / source.name).write_bytes(source.read_bytes())
     print(json.dumps({"outputs": [str(path) for path in outputs], "variants": len(rows), "source_files": len(SOURCES)}, indent=2))
 
 

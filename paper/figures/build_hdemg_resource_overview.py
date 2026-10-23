@@ -27,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "output/figures"
 PDFS = ROOT / "output/pdf"
 STEM = "hdemg-resource-overview"
+STYLE = Path(__file__).parents[1] / "common/paper_plot_style.py"
 RESULTS = ROOT / "results/hdemg_resource_benchmark_v1/results.json"
 REFERENCE = OUT / "hdemg-all-variants.json"
 MB_PER_MINUTE_PER_KBIT_S = 60 * 1000 / 8 / 1e6
@@ -388,7 +389,7 @@ def main():
              "decoder_rows": rows, "sources": {str(p.relative_to(ROOT)): digest(p) for p in [RESULTS, REFERENCE]},
              "outputs": {str(p.relative_to(ROOT)): digest(p) for p in outputs},
              "builder_sha256": digest(Path(__file__)),
-             "style_sha256": digest(Path(__file__).with_name("paper_plot_style.py")),
+             "style_sha256": digest(STYLE),
              "figure_width_in": FIGURE_WIDTH_IN, "figure_height_in": FIGURE_HEIGHT_IN, "minimum_font_pt": 9,
              "timing_summary": {"center": "arithmetic mean latency in ms",
                                 "spread": "sample SD in ms, ddof=1", "n_calls_per_variant": 48,
@@ -398,8 +399,8 @@ def main():
                                  "decimal_places": 3, "rows": 16},
              "notes": "One labelled row per variant in source-verified experiment groups; raw baselines first, paired inputs adjacent, Qwen control/random/pretrained sequence. Fixed model sizes and all48call mean/SD values unchanged; no family averages or accuracy encoding."}
     (OUT / f"{STEM}.json").write_text(json.dumps(audit, indent=2) + "\n")
-    for filename in [Path(__file__).name, "paper_plot_style.py"]:
-        (OUT / filename).write_bytes(Path(__file__).with_name(filename).read_bytes())
+    for source in [Path(__file__), STYLE]:
+        (OUT / source.name).write_bytes(source.read_bytes())
     print(json.dumps({"outputs": [str(p) for p in outputs], "decoder_variants": len(rows),
                       "storage_formats": len(formats)}, indent=2))
 
