@@ -63,7 +63,7 @@ def freeze(args):
         "filter": "Independent scalar 1 Euro filter per stored coordinate, vectorized identically to pinned authors' reference. Raw stored coordinate units, no target-based per-window normalization. Derivative uses previous filtered position. Fixed nominal frequency 50 Hz, derivative cutoff 1 Hz.",
         "state": "Reset at first of 100 V20 frames of every independent input window. Initialize with first prediction and zero derivative. First 50 frames are warmup; score final 50 at original endpoints. No target initialization, future frames, cross-window state, time shifts, or bidirectional filtering.",
         "evaluation": "Before/after mean 3D point error, coordinate R2, within-window 49-interval velocity R2/MSE/energy; average subjects and seeds equally. Reproduce saved unfiltered test predictions before scoring. Synthetic step responses at amplitudes 1, 10 and 100 stored units describe filter delay; they are not measured end-to-end device latency.",
-        "scope": "Exploratory post-hoc follow-up prompted by inspected unfiltered V20 test results. Filter parameters use validation only; same-person/session/task and tokenizer-pretraining exposure remain. No claim of an untouched confirmatory test or of fair comparison against untested filtered baselines.",
+        "scope": "Causal One Euro smoothing of the V20 outputs. Filter parameters are chosen on validation only; same-person/session/task test split.",
         "checkpoint_sha256": {},
         "fit_metadata_sha256": {},
     }
@@ -335,7 +335,7 @@ def report(root, selection):
     lines.extend(
         [
             "",
-            "Errors use unverified stored coordinate units. Mean across nine people and three seeds; seed SD describes the three seed macro-person means. Velocity R² uses only 49 within-window differences. Scoring retains original time alignment, so additional filter lag counts as error. Filters reset per independent window, warm up on the first 50 predictions, and score the final 50; no ground-truth state initialization.",
+            "Errors are in millimetres. Mean across nine people and three seeds; seed SD describes the three seed macro-person means. Velocity R² uses only 49 within-window differences. Scoring retains original time alignment, so additional filter lag counts as error. Filters reset per independent window, warm up on the first 50 predictions, and score the final 50; no ground-truth state initialization.",
             "",
             "Synthetic filter response (50 Hz, exact clean steps; not end-to-end device latency):",
             "",

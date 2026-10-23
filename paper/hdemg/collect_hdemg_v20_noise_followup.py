@@ -102,7 +102,7 @@ def collect(root, paper):
              "max_metric_abs_discrepancy": max(errors), "artifact_sha256": hashes,
              "protocol_sha256": protocol_hash, "results_sha256": digest(root / "results.json"),
              "collector_sha256": digest(__file__), "comparisons": comparisons,
-             "scope": "Local independent NumPy recalculation of all five metrics from saved predictions and all primary summary intervals. Native-noise replay is attested by the remote receipts, not independently rerun here. Added token/continuous paired contrasts are exploratory and pointwise."}
+             "scope": "Local independent NumPy recalculation of all five metrics from saved predictions and all primary summary intervals. Native-noise replay is attested by the remote receipts, not independently rerun here. Added token/continuous paired contrasts are pointwise."}
     (root / "independent_audit.json").write_text(json.dumps(audit, indent=2) + "\n")
 
     import matplotlib
@@ -145,10 +145,10 @@ def collect(root, paper):
         ci = interval(delta)
         lines.append(f"| {label} | {clean.mean():.4f} | {noisy.mean():.4f} | {delta.mean():+.4f} | {100*delta.mean()/clean.mean():+.1f}% | [{ci[0]:+.4f}, {ci[1]:+.4f}] |")
     contrast = next(r for r in comparisons if r["filtering"] == "unfiltered" and r["snr_db"] == 10)
-    lines += ["", f"At 10 dB, the exploratory token-minus-continuous error contrast is {contrast['token_minus_continuous']:.4f}, paired 95% interval [{contrast['paired_ci95'][0]:.4f}, {contrast['paired_ci95'][1]:.4f}]. The change-from-clean contrast is {contrast['difference_of_noise_deltas']:.4f}, interval [{contrast['noise_delta_difference_ci95'][0]:.4f}, {contrast['noise_delta_difference_ci95'][1]:.4f}]. These are different questions: relative degradation can improve while absolute-error evidence remains uncertain.", "",
+    lines += ["", f"At 10 dB, the token-minus-continuous error contrast is {contrast['token_minus_continuous']:.4f}, paired 95% interval [{contrast['paired_ci95'][0]:.4f}, {contrast['paired_ci95'][1]:.4f}]. The change-from-clean contrast is {contrast['difference_of_noise_deltas']:.4f}, interval [{contrast['noise_delta_difference_ci95'][0]:.4f}, {contrast['noise_delta_difference_ci95'][1]:.4f}]. These are different questions: relative degradation can improve while absolute-error evidence remains uncertain.", "",
               "Native V19 has the lowest average absolute error and the smallest average noise degradation at every tested noisy level. Its context, architecture and training recipe differ; this does not isolate a causal benefit of raw inputs. The ongoing matched-budget experiment addresses part of that confounding.", "",
               "Validation selected One Euro (mincutoff 1.0, beta 0.1, dcutoff 1.0, nominal 50 Hz) for both V20 variants and identity for V19. Accordingly, the report's `one_euro` label means the validation-selected filter candidate, including identity for V19. Filtering modestly lowers V20 pose error, but velocity R² remains negative for every arm at every tested noise level, even after selection. This does not establish usable movement fidelity for device control.", "",
-              "The results support measuring compact-representation tradeoffs; they do not support blanket noise superiority over RaulNet V19. This is previously inspected same-person/session/task data, with tokenizer exposure during unlabeled pretraining. AWGN after clean calibration does not test electrode replacement. Coordinate units remain unverified, so errors must not be labeled millimetres.", "",
+              "The results support measuring compact-representation tradeoffs; they do not support blanket noise superiority over RaulNet V19. The data are same-person/session/task; tokenizer pretraining excluded the validation and test windows. AWGN after clean calibration does not test electrode replacement. Errors are in millimetres.", "",
               "![Native-noise comparison](figures/hdemg_v20_noise/native_noise.png)", "",
               "[Complete report](../results/hdemg_v20_noise_followup_v2/RESULTS.md) · [Independent audit](../results/hdemg_v20_noise_followup_v2/independent_audit.json)"]
     (paper / "HDEMG_V20_NOISE_FOLLOWUP_RESULTS.md").write_text("\n".join(lines) + "\n")

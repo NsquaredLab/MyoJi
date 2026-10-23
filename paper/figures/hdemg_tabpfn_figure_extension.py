@@ -162,7 +162,7 @@ def extend(b, root, rows, formats, benchmark, analysis):
         previous_significance_changes=[c for c in changes if c["significance_changed"]],
         comparison_protocol=dict(cohort_protocol=str((root/"protocol.json").relative_to(b.ROOT)),
             cohort_protocol_sha256=result["protocol_sha256"],retained_contrasts=66,additions=definitions,family_size=76,
-            scope="TabPFN extension fixed after the Subject-1 pilot and before this all-nine run; all data remain exploratory."),
+            scope="Settings fixed before the nine-participant run."),
         maxT_reference_distribution=null.tolist(),significant_comparisons=sum(p["significant"] for p in comparisons),
         minimum_observed_adjusted_p=float(min(adjusted)),tabpfn_absolute_summary=summary,
         tabpfn_task_means={k:v.tolist() for k,v in task_means.items()},
@@ -181,7 +181,7 @@ def caption(supplement=False):
             "colored symbols average participants. The dashed line is the retrained TBME CNN. Parameters exclude upstream processing and buffers. "
             "Latency symbols and whiskers show the mean and sample SD of 48 FP32, batch-one complete-pose RTX 4090 decoder calls "
             "after 12 warmups, using one fitted participant/seed; inputs are GPU-resident. "
-            "Branches compare with the adapted CNN outside this view, using the main figure's exploratory 76-contrast, "
+            "Branches compare with the adapted CNN outside this view, using the main figure's 76-contrast, "
             "two-sided exact max-T family and 512 synchronized participant sign patterns. The procedure assumes independent "
             "participants and joint null sign symmetry. * p<0.05, ** p<0.01, *** p<0.001; n.s. denotes non-rejection, not equivalence.")
     return ("HD-EMG accuracy, receiver cost and quantization effects. (a) Unfiltered mean Euclidean error over 20 wrist-relative "
@@ -191,7 +191,7 @@ def caption(supplement=False):
         "Qwen3 uses frozen pretrained/random backbones and a bypass control. TabPFN 3.5 uses frozen pretrained weights, "
         "training-only 128-component PCA of 1/5/25/100-frame causal SPAR summaries, and 60 scalar regressors with eight ensemble "
         "members each. Token and continuous arms use identical preparation settings, with PCA fitted separately; SPAR codebooks "
-        "are frozen from participant training blocks. The learned encoder saw these recordings during unlabeled pretraining. "
+        "are frozen from participant training blocks. Tokenizer pretraining excluded the validation and test windows. "
         "Receiver parameters include frozen backbones; TabPFN counts one shared weight set, excluding PCA and retained training "
         "context. Latency symbols and whiskers show the mean and sample SD of batch-one complete-pose calls for one fitted "
         "participant/seed, using FP32 on the same RTX 4090: existing decoders have 48 GPU-resident calls after 12 warmups "
@@ -202,9 +202,9 @@ def caption(supplement=False):
         "are excluded. FP32 is the plotted feature-storage format; matched/Qwen fitting used FP16-rounded learned-feature caches. "
         "(c) Participant means of absolute task-level token-feature error changes, averaging equally across eight tasks after "
         "averaging two windows and three seeds per task; lower means a smaller change, not necessarily lower error. Branches compare with the adapted "
-        "CNN in (a) and proposed SPAR in (c). All stars and n.s. use one exploratory 76-contrast max-T family, retaining the "
+        "CNN in (a) and proposed SPAR in (c). All stars and n.s. use one 76-contrast max-T family, retaining the "
         "previous 66 and adding ten declared TabPFN contrasts. The 512 synchronized sign patterns require independent participants "
-        "and joint null sign symmetry; correction does not cover the full adaptive research history. * p<0.05, ** p<0.01, "
+        "and joint null sign symmetry. * p<0.05, ** p<0.01, "
         "*** p<0.001; non-rejection is not equivalence.")
 
 

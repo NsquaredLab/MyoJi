@@ -101,7 +101,7 @@ def generated():
     # returns its value unchanged for every finite result, and +inf for the
     # overflow it flags. Calling the core directly drops a register save, an
     # out-of-line finitef and its branches from the Jacobi inner loop.
-    # ponytail: internal newlib symbol; drop this alias if the toolchain changes.
+    # Internal newlib symbol; drop this alias if the toolchain changes.
     if source.count('hypotf(')!=2: raise RuntimeError('Upstream hypotf use changed; re-check before aliasing')
     if EXACT:
         # Value-identical on both sides: the MCU alias skips only the errno wrapper.

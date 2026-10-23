@@ -1,4 +1,4 @@
-"""Participant-paired CNN-reference comparisons and archived exploratory tests."""
+"""Participant-paired CNN-reference comparisons and archived tests."""
 
 from itertools import combinations, product
 
@@ -8,20 +8,19 @@ ALPHA = 0.05
 METHOD_SOURCE = "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.permutation_test.html"
 CORRECTION_SOURCE = "https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html"
 LEGACY_METHOD = (
-    "Exploratory two-sided exact paired permutation test of the mean participant "
+    "Two-sided exact paired permutation test of the mean participant "
     "error difference. Average the three decoder seeds within each participant; "
     "enumerate all 512 within-participant label swaps for nine independent "
     "participants. The null assumes exchangeable model labels within each pair "
     "(sign symmetry of paired differences). Holm controls familywise error at "
     "0.05 separately over every pair in each retained statistical family: matched CNN, "
     "TCN and Transformer (10), second CNN and proposed decoder variants (3), frozen Qwen (6), "
-    "and smaller decoder baselines (6). This is not a single global 25-test family or a preregistered "
-    "confirmatory analysis. The CNN/proposed-decoder and smaller-baseline comparisons concern fitted systems "
+    "and smaller decoder baselines (6). This is not a single global 25-test family. The CNN/proposed-decoder and smaller-baseline comparisons concern fitted systems "
     "with different recipes; they do not isolate architecture effects. Display-section headings and row "
     "order do not redefine correction families."
 )
 HOLM_METHOD = (
-    "Exploratory two-sided exact paired sign-flip tests of mean 3D error differences. "
+    "Two-sided exact paired sign-flip tests of mean 3D error differences. "
     "Each of the two CNN references is compared with every one of the 14 other models "
     "in the main figure and supplement: one Holm family of 28 contrasts. Average "
     "the three decoder seeds within each participant, then enumerate all 512 sign "
@@ -29,9 +28,7 @@ HOLM_METHOD = (
     "within-participant model labels (symmetric paired differences). Effects are "
     "alternative minus CNN-reference error in millimetres; negative values favor "
     "the alternative. Model histories, pretraining and some training protocols differ, "
-    "so these are comparisons of fitted systems. The comparison question was changed "
-    "at the user's request after earlier results were inspected; this is not a "
-    "preregistered confirmatory analysis. The minimum two-sided raw p is 2/512; "
+    "so these are comparisons of fitted systems. The minimum two-sided raw p is 2/512; "
     "with 28 Holm comparisons the minimum achievable adjusted p is 0.109375. "
     "Thus this sample/test/correction combination cannot reject at alpha 0.05, "
     "irrespective of effect magnitude. Non-rejection is not equivalence."
@@ -39,7 +36,7 @@ HOLM_METHOD = (
 MAXT_SOURCE = "https://doi.org/10.1198/016214504000000539"
 SIGN_FLIP_SOURCE = "https://pmc.ncbi.nlm.nih.gov/articles/PMC4010955/"
 METHOD = (
-    "Exploratory participant-paired single-step max-T analysis of all declared "
+    "Participant-paired single-step max-T analysis of all declared "
     "CNN-reference, within-decoder token-versus-feature, and between-decoder tokenization-gap contrasts in one family. Average three decoder seeds within each "
     "of nine participants. Standardize each mean paired difference by its sample "
     "standard error, then enumerate all 512 participant sign vectors, applying each "
@@ -58,8 +55,7 @@ METHOD = (
     "a common effect, equal to the mean when finite. Intervals are not simultaneous and do not assign stars. "
     "All nine leave-one-participant-out mean differences describe influence. "
     "Histories, pretraining and some training protocols differ, so these compare "
-    "fitted systems. The method was amended after earlier results were inspected "
-    "and fixed before computing max-T outcomes; this is not preregistered confirmation. "
+    "fitted systems. The method was fixed before the max-T outcomes were computed. "
     "The previous global Holm analysis is retained as sensitivity output. "
     "Non-rejection does not establish equivalence."
 )

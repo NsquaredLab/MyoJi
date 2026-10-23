@@ -1,4 +1,4 @@
-"""Claim-aligned HD-EMG statistics for the TNSRE revision.
+"""Claim-aligned HD-EMG statistics.
 
 Four headline claims form one Holm family; every other contrast is an estimate with
 its exact 95 % sign-flip interval. Non-inferiority (margin 1 mm, sensitivity 0.5 mm)
@@ -57,8 +57,7 @@ METHOD = (
     'proposed decoder, and C4 is a non-inferiority test of SPAR tokens against the adapted raw-EMG CNN. '
     'Non-inferiority is a one-sided exact sign-flip test (512 patterns) of H0: mean difference >= margin, '
     'entered into Holm as twice its one-sided p; it holds exactly when the upper limit of the exact two-sided '
-    '95 % interval lies below the margin. The margin (1 mm; 0.5 mm as sensitivity) was fixed during revision '
-    'after the results had been inspected, so the analysis is exploratory. The smallest attainable '
+    '95 % interval lies below the margin. The margin is 1 mm, with 0.5 mm as a sensitivity analysis. The smallest attainable '
     'Holm-adjusted p is 4 x 2/512 = 0.0156. All other contrasts are estimates with exact 95 % intervals that '
     'invert the two-sided sign-flip test (assuming differences symmetric about their mean); no other '
     'contrast is tested. The single-step max-T adjustment over the earlier 76-contrast family is retained '

@@ -86,7 +86,7 @@ def freeze(args):
     ]
     paths = sorted(set(paths + list((REPO / "src/myoji").rglob("*.py"))))
     p = {
-        "scope": "Exploratory capacity/optimization-matched personalized same-session/task study on previously inspected splits. Tokenizer pretraining saw these recordings. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
+        "scope": "Capacity- and optimization-matched personalized same-session/task study. Tokenizer pretraining excluded the validation and test windows. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
         "subjects": list(range(1, 10)),
         "arms": list(ARMS),
         "seeds": list(SEEDS),

@@ -190,7 +190,7 @@ def freeze(args):
         protocol = {
             "name": "Meta whole-session transfer v1",
             "schema": 1,
-            "scope": "Exploratory known-person transfer to an unseen recording session, same hand and movement category; not proof of electrode replacement or identical trajectories.",
+            "scope": "Known-person transfer to an unseen recording session, same hand and movement category; not proof of electrode replacement or identical trajectories.",
             "base_cache": str(args.cache.resolve()),
             "base_cache_id": parent["cache_id"],
             "metadata_sha256": metadata_hash,
@@ -207,7 +207,7 @@ def freeze(args):
             "selection": "Metadata-only fixed hash tie-break, one session per eligible user, official-train cache only. Fresh decoder weights; validation remains official unseen-user validation. Best validation macro-user pose MAE, at most 50 epochs, patience 8.",
             "normalization": "Original causal per-window calibration: 1000 unlabelled EMG samples, then fixed centering/scaling/clipping. Target statistics fitted on retained training windows only.",
             "training": "Same two-layer width-256 causal transformer, eight slots, AdamW 3e-4, weight decay .01, velocity loss weight .1, batch 16. Raw baseline jointly learns the same encoder architecture from scratch.",
-            "inference": "Average decoder seeds within participant; 10000 paired participant bootstrap draws, seed 260908. Report pose error, velocity metrics and token/continuous error ratio. No untouched confirmatory test claim.",
+            "inference": "Average decoder seeds within participant; 10000 paired participant bootstrap draws, seed 260908. Report pose error, velocity metrics and token/continuous error ratio.",
             "original_official_test_reused_for_training": False,
             "source_sha256": source_hashes(args.root / "code"),
         }

@@ -18,8 +18,7 @@ evaluate  (a) Fixed-startup calibration: the 16 test windows normalized with the
 report    Participant-level aggregation with paired contrasts (exact sign-flip over 512
           patterns, 10,000-draw participant bootstrap, seed 260917).
 
-    ~/.local/bin/uv run --no-project --with torch --with h5py --with joblib --with scipy --with numpy \
-        uv run python -m paper.hdemg.hdemg_spar_transfer_checks census|evaluate|report --subjects 1 2 ...
+    uv run python -m paper.hdemg.hdemg_spar_transfer_checks census|evaluate|report --subjects 1 2 ...
 """
 from __future__ import annotations
 

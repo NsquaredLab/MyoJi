@@ -73,7 +73,7 @@ def freeze(args):
     assert counts == dict(train=64, val=16, test=16)
     p = dict(name="hdemg_spar_simple_pilot_v1", subjects=[1], seeds=list(SEEDS), arms=list(ARMS), windows=windows,
              split_counts=counts, geometry=layout.record(), geometry_status=args.geometry_status,
-             scope="Exploratory Subject-1 same-session chronological pilot; not participant-level statistical evidence.",
+             scope="Subject-1 same-session chronological pilot; not participant-level statistical evidence.",
              feature=dict(bands=DEFAULT_FREQUENCY_BANDS, input_hz=2000, analysis_samples=320, segment_ms=64., hop_ms=16.,
                           update_hz=50, frames_per_window=100, frame_end_samples=ENDS.tolist(),
                           compact_values_per_frame=layout.entries_per_band * 6, channel_vector_dim=18,

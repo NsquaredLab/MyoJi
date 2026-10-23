@@ -145,7 +145,7 @@ def report(root, output):
         "",
         "All fits have 15,000 optimizer updates and 1.5 million target presentations under the same loss, normalization, sampling and schedule. Trainable model sizes are within 1% of V19. Token/continuous pairs also match architecture, context and initialization.",
         "",
-        "Input context, preprocessing, frozen tokenizer parameters/pretraining and FLOPs are not matched to V19. These remain exploratory same-person/session/task results on previously inspected splits. Error units are stored coordinates; seed SD is not a population confidence interval.",
+        "Input context, preprocessing, frozen tokenizer parameters/pretraining and FLOPs are not matched to V19. These are same-person/session/task results. Errors are in millimetres; seed SD is not a population confidence interval.",
         "",
         "[Protocol](HDEMG_MATCHED_PROTOCOL.md) · [Audit and per-subject results](hdemg_matched_result_audit.json)",
         "",

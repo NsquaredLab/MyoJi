@@ -15,6 +15,7 @@ figures/make_teaser.py, so the frame selection lives in one place.
 """
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -25,7 +26,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "output/figures/teaser"   # = make_teaser.py's paths.OUTPUT / "figures/teaser"; Blender's Python does not see paper/common
 HANDS = OUT / "hands.json"
-KIT = Path.home() / "Downloads/limbKit_02.blend"
+KIT = Path(os.environ.get("MYOJI_HAND_MODEL", "limbKit_02.blend"))  # the commercial hand model, not distributed
 SUBJECT, MODIFIER = "handStylized", "GN-limbKit"
 # The palm side with the fingers up the frame: a closed fist shows its curled
 # fingers and thumb wrap here, where the back of the hand hides both.

@@ -53,7 +53,7 @@ def freeze(args):
     ]
     p = {
         "version": "hdemg-native-awgn-v1",
-        "scope": "Exploratory frozen-model noise evaluation on the previously inspected within-person/session/task HD-EMG test split. Tokenizer pretraining saw these recordings. No model fitting, tuning, or new-person claim.",
+        "scope": "Frozen-model noise evaluation on the within-person/session/task HD-EMG test split. Tokenizer pretraining excluded the validation and test windows. No model fitting, tuning, or new-person claim.",
         "reference": str(ref.resolve()),
         "data": str(args.data.resolve()),
         "checkpoint": str(args.checkpoint.resolve()),

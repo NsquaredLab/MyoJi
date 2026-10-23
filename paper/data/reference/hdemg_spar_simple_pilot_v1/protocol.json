@@ -3771,8 +3771,8 @@
   },
   "evaluation": "All six decoder fits and checkpoint hashes must pass before test scoring. Score the final 50 frames of each fixed test window; wrist-relative points 1..20, mean Euclidean error in mm (units confirmed by dataset owner). Report each seed and their mean/SD, not population significance.",
   "existing_comparison": "Original token and continuous V20 use a different 256-D learned representation, more decoder parameters and a different unlabeled pretraining data budget. Only the two new SPAR arms isolate quantization.",
-  "reference_protocol_sha256": "ea12db25066a4accedf686bda00239c6bc4a6c6617e82912b9b5763fa3ec41e0",
-  "reference_selection_sha256": "9059dbb3e143ac81b85856ea7b38f7d74c2fe12a9ec36a85760d1d709033b091",
+  "reference_protocol_sha256": "78201570f1f3b3028bfd9dde4d91140365f751b880f11ca5d01d4c69a89f8c93",
+  "reference_selection_sha256": "46c31339aa7810fa5459e0351dcff26204e9637580648fe7778306415264e8d3",
   "data_sha256": {
     "Sub1_emg.pkl": "3c4e6bb5c8a6f667bc621472e9dd19ba6465a1f621ce5bbfe971a84c1a100db2",
     "Sub1_kinematics.pkl": "93bc22803b1e6a723083e799b0e08c0851d14c99b0877d9758ac37e068e7ab7c"

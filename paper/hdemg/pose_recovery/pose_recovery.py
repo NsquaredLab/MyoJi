@@ -13,8 +13,7 @@ tokens would do, so a thousand replicates cost nothing.
 Runs where the recordings live (the workstation), sha-gated like cross_subject.py:
 
     cd <repository root>
-    ~/.local/bin/uv run --with numpy --with scipy --with joblib --with torch \
-        python -m paper.hdemg.pose_recovery.pose_recovery --subjects 1 2 3 4 5 6 7 8 9
+    uv run python -m paper.hdemg.pose_recovery.pose_recovery --subjects 1 2 3 4 5 6 7 8 9
 """
 from __future__ import annotations
 

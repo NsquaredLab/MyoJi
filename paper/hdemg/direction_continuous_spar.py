@@ -14,8 +14,7 @@ New family, declared now: tokens minus continuous SPAR (the direction cost of qu
 sign-flip over 512 patterns, 10,000-draw participant bootstrap (seed 260921). Continuous SPAR minus pose is
 reported descriptively. The original three-contrast family is unchanged. Runs where the recordings are:
 
-    ~/.local/bin/uv run --no-project --with numpy --with scipy --with joblib --with torch \
-        uv run python -m paper.hdemg.direction_continuous_spar run|report [--subjects ...]
+    uv run python -m paper.hdemg.direction_continuous_spar run|report [--subjects ...]
 """
 from __future__ import annotations
 

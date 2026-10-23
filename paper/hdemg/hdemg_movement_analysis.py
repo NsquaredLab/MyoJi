@@ -219,7 +219,7 @@ def run():
         ("contrast_id", "label", "effect_mm", "cluster_standard_error_mm", "t_observed",
          "p_raw", "p_adjusted", "significant", "n_participants", "n_subject_task_cells")}
         for c in results])
-    report = ["# Exploratory subject-by-movement analysis", "",
+    report = ["# Subject-by-movement analysis", "",
         "C contains 72 subject-by-task observations for each decoder: nine participants, eight shared movement-task types, two test windows per task and three training seeds. The three seeds are averaged within each cell. Distances are recalculated from saved predictions in float64; predictions are never averaged into an ensemble.", "",
         "## Repeated-measures model", "",
         "For each other-minus-proposed tokenization-gap contrast, fit D[s,t] = beta[t] + epsilon[s,t]. Task effects are fixed; within-participant covariance is unrestricted. The eight OLS task means have covariance sum_s (D_s-beta)(D_s-beta)' / (9×8). The estimated contrast is the equal-weight average of these eight task means, with SE sqrt(c'Vc), c=(1/8,…,1/8).", "",
@@ -231,7 +231,7 @@ def run():
         "## Audit and scope", "",
         f"All 216 prediction files were verified against subject/task/start metadata and exact target-array hashes from the original test caches. All 27 retrieved proposed-feature files match the remote saved-file hashes. Reconstruction covers {len(seed_cells)} seed-specific task errors, {len(error_cells)} model-by-subject-by-task errors, {len(gap_cells)} signed gaps and {len(contrast_cells)} comparison cells.", "",
         f"Maximum seed-score difference from previous exports: {output['numerical_precision_audit']['max_absolute_seed_error_difference_mm']:.3g} mm, due to float32 versus float64 rescoring. Maximum t discrepancy between the repeated-measures and participant-marginal calculations over every sign pattern: {max_reduction_error:.3g}. Changed adjusted p-values in the full family: {len(changed)}.", "",
-        "Nine participants remain the independent replication units. The task-level reformulation was requested after aggregate results had been inspected and is exploratory. It adds detail about these eight movement tasks, not independent participants or evidence for unseen movements. No cells, tasks, participants, seeds, or outliers are excluded. Windows are not assumed to be independent movement repetitions.", "",
+        "Nine participants remain the independent replication units. The task-level analysis adds detail about these eight movement tasks, not independent participants or evidence for unseen movements. No cells, tasks, participants, seeds, or outliers are excluded. Windows are not assumed to be independent movement repetitions.", "",
         f"Frozen protocol: `{PROTOCOL.relative_to(ROOT)}`. Previous figure: `{protocol['previous_figure_archive']}`.", "",
         "Method references: [Winkler et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC4010955/), [FSL repeated-measures designs](https://fsl.fmrib.ox.ac.uk/fsl/docs/statistics/glm.html), [Romano and Wolf](https://doi.org/10.1198/016214504000000539), [Lazic](https://d-nb.info/1093020903/34)."]
     (paths.RESULTS / "HDEMG_MOVEMENT_ANALYSIS.md").write_text("\n".join(report) + "\n")

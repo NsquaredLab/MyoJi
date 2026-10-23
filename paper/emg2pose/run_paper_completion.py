@@ -105,7 +105,7 @@ def freeze(args):
         "source_sha256": core.source_hashes(args.root / "code"),
         "cases": cases, "references": references,
         "new_head_fits": len(cases),
-        "scope": "Exploratory fixed comparisons on prepared Meta official and eleven same-day held-session partitions. No clinical, replacement, universal manifold or optimal-vocabulary claim.",
+        "scope": "Fixed comparisons on prepared Meta official and eleven same-day held-session partitions. No clinical, replacement, universal manifold or optimal-vocabulary claim.",
         "primary": "Participant-macro normalized-landmark error; head seeds averaged within participant. Paired VQ versus corresponding float32 continuous encoder for each tokenizer; original VQ versus each control; VQ versus adapted BioCodec with every encoder seed shown.",
         "statistics": "10000 paired participant bootstrap draws, fixed seed 260908. Intervals conditional on encoders; display encoder variation separately and average errors over all three encoder repetitions for VQ/continuous and VQ/six-book BioCodec. This averages errors, not ensemble predictions. No new equivalence margin; all planned comparisons retained, pointwise intervals without simultaneous coverage claim.",
         "fit": "Existing two-layer width256 causal transformer, 8 slots, 50 epochs maximum, patience8, batch16, AdamW 3e-4 wd.01, velocity weight.1, identical three head seeds. Natural feature dimensions affect input projection parameter counts; report them.",

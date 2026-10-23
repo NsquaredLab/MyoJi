@@ -110,7 +110,7 @@ def report(root, reference, output):
         f"| Token TCN (previous run) | {tcn['mean']:.3f} | {tcn['seed_sd']:.3f} |",
         f"| Personalized constant pose | {np.mean(baselines):.3f} | — |",
         "",
-        "Errors use stored coordinate units, not verified millimetres. Seed SD describes the three seed macro-subject averages, not population uncertainty. This is an exploratory architecture comparison on a previously inspected same-person/session/task test split; the tokenizer saw these recordings in pretraining. No unseen-person claim follows. Both architectures use the same training settings and data but have different parameter counts.",
+        "Errors are in millimetres. Seed SD describes the three seed macro-subject averages, not population uncertainty. This is an architecture comparison on a same-person/session/task test split; tokenizer pretraining excluded the validation and test windows. No unseen-person claim follows. Both architectures use the same training settings and data but have different parameter counts.",
         "",
         "| Subject | Transformer (seed mean) | TCN (seed mean) |",
         "|---|---:|---:|",

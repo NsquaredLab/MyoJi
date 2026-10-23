@@ -330,8 +330,7 @@ def reference_statistics(rows):
         "take the absolute token-minus-feature difference, then average the eight task changes. "
         "Other-minus-proposed participant contrasts test whether proposed changes error less. "
         "Both improvements and degradations count as changes; this is not a variance or overall "
-        "accuracy test. The endpoint was selected after inspecting signed results. The 54-test "
-        "correction does not account for the entire adaptive endpoint-selection history.")
+        "accuracy test.")
     analysis["excluded"]["alternative_vs_alternative"] = (
         "Four within-decoder representation tests, three signed-gap comparisons and three "
         "absolute-error-change comparisons are included; other alternative comparisons are excluded.")

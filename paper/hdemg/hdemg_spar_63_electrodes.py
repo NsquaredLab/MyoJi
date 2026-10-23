@@ -1,6 +1,6 @@
-"""SPAR decoding with the 63 electrodes that the optimized Cortex-M55 port processes within 20 ms.
+"""SPAR decoding with the 63 electrodes that the optimized Cortex-M55 implementation processes within 20 ms.
 
-Declared before running (2026-10-10); exploratory. Montage: the first 63 electrodes of the 320-channel
+Declared before running. Montage: the first 63 electrodes of the 320-channel
 layout, i.e. the first 8x8 forearm array without its last site, which is the board benchmark's 63-channel
 configuration. SPAR patches come from grid_layout with that site marked absent, exactly as for the
 unrecorded site of the 13x5 arrays (a missing right or lower neighbour is substituted and its coupling
@@ -10,8 +10,7 @@ calibration, train-only standardization, a 1,024-code Lloyd codebook per partici
 vectors of the 63 channels' training windows (seed 260911), and the same decoder, recipe and seeds. The
 257 absent channels enter the decoder as masked zeros, so its architecture and parameter count are unchanged.
 
-    ~/.local/bin/uv run --no-project --with torch --with h5py --with joblib --with scipy --with numpy \
-        uv run python -m paper.hdemg.hdemg_spar_63_electrodes run|report [--subjects 1 2 ...]
+    uv run python -m paper.hdemg.hdemg_spar_63_electrodes run|report [--subjects 1 2 ...]
 """
 from __future__ import annotations
 
@@ -52,7 +51,7 @@ def prepare(root, subject, device):
     p = json.loads((CAMPAIGN / f"subject_{subject:02d}/protocol.json").read_text())
     layout = layout63()
     p.update(name="hdemg_spar_63_electrodes_v1", geometry=layout.record(),
-             scope="Exploratory: first 63 electrodes of the 320-channel layout (first 8x8 forearm array without its "
+             scope="First 63 electrodes of the 320-channel layout (first 8x8 forearm array without its "
                    "last site); campaign windows, recipe and seeds; absent channels are masked zeros.")
     p["feature"]["compact_values_per_frame"] = layout.entries_per_band * 6
     pilot.write(root / "protocol.json", p)

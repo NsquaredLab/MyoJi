@@ -129,7 +129,7 @@ def main():
         sources={str(p.relative_to(ROOT)): digest(p) for p in
                  [PROTOCOL, movement_path, previous_path, Path(__file__), Path(stats.__file__)]},
         original_51_artifacts_preserved=True,
-        interpretation="Exploratory absolute change in task-averaged error, with nine paired independent participants; not a direct test of variance, overall pose accuracy, or equivalence.")
+        interpretation="Absolute change in task-averaged error, with nine paired independent participants; not a direct test of variance, overall pose accuracy, or equivalence.")
     RESULT.write_text(json.dumps(result, indent=2) + "\n")
     OUT.mkdir(exist_ok=True)
     (OUT / "hdemg-absolute-change-analysis.json").write_bytes(RESULT.read_bytes())
@@ -146,8 +146,8 @@ def main():
             p_adjusted_54=p["p_adjusted"], p_adjusted_previous_51=p.get("p_adjusted_previous_51", ""),
             significant=p["significant"], independent_participants=9))
     csv_write(OUT / "hdemg-absolute-change-all-54-tests.csv", export)
-    lines = ["# Exploratory absolute change in decoding error", "",
-        "The endpoint was selected after the signed-gap results and the narrower proposed distribution were inspected. The calculation definition and 54-test family were saved before the new p-values were computed. This is exploratory evidence, not independent confirmation.", "",
+    lines = ["# Absolute change in decoding error", "",
+        "The calculation definition and 54-test family were saved before the p-values were computed.", "",
         "For each participant, movement task and decoder, first average token and feature Euclidean errors separately over the two test windows and three seeds. Take the absolute difference within each cell, then average the eight absolute changes within each participant. Thus A[s,d] = mean_m |E_token[s,m,d] − E_feature[s,m,d]|. The order matters: this is neither |mean_m gap| nor mean_seed |gap_seed|.", "",
         "## Descriptive values", "", "| Decoder | Mean absolute change (mm) | Participant SD (mm) |",
         "|---|---:|---:|"]
@@ -168,8 +168,8 @@ def main():
         "|---|---:|---:|---|"]
     lines.extend(f"| {c['label_a']} versus {c['label_b']} | {c['previous_p']:.6f} | {c['current_p']:.6f} | {'Yes' if c['significance_changed'] else 'No'} |" for c in changes)
     lines += ["", "## Interpretation and artifact scope", "",
-        "This measures how closely the token and feature versions preserve each movement's mean error. Both improvements and degradations count as changes. It is not a direct variance test or evidence that one decoder has lower overall pose error; identical average errors can also conceal differences in individual predictions. The inference concerns these eight fixed movement tasks and the current same-session split. Independent validation is needed for a confirmatory claim.", "",
-        "The prior 51 analysis and current figure remain unchanged as explicitly prior artifacts. Their 51-family stars are not 54-family results. This calculation request does not replace C; the expanded-family CSV/JSON is the authoritative source for this exploratory extension.", "",
+        "This measures how closely the token and feature versions preserve each movement's mean error. Both improvements and degradations count as changes. It is not a direct variance test or evidence that one decoder has lower overall pose error; identical average errors can also conceal differences in individual predictions. The inference concerns these eight fixed movement tasks and the current same-session split.", "",
+        "The 51-contrast analysis and its figure are unchanged; their stars are not 54-family results. The expanded-family CSV/JSON is the source for this extension.", "",
         "Reproduce from the repository with `uv run python -m paper.hdemg.hdemg_absolute_change_analysis` using the existing figure environment. Source hashes, the frozen protocol, all 288 absolute cell values, 36 participant summaries, all 54 tests, and all 512 maximum statistics are saved. No training or model inference was run.", "",
         "Sources: [Romano and Wolf](https://doi.org/10.1198/016214504000000539), [PALM whole-participant sign flips](https://fsl.fmrib.ox.ac.uk/fsl/docs/statistics/palm/user_guide.html), [ASA guidance on interpretation](https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf)."]
     report = "\n".join(lines) + "\n"

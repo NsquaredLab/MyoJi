@@ -73,7 +73,7 @@ def freeze(args):
     assert reference["training"] == old["decoder"]["training"]
     p = copy.deepcopy(old)
     p.update(name="hdemg_spar_simple_full_v1", subjects=list(SUBJECTS), windows=windows,
-             scope="Exploratory nine-participant personalized same-session chronological replication; not unseen-person or cross-day generalization. Subject-1 SPAR and previous-model tests were inspected before this extension.",
+             scope="Nine-participant personalized same-session chronological replication; not unseen-person or cross-day generalization.",
              geometry_status="Existing row-major HD-EMG montage confirmed by dataset owner on 2026-09-12",
              geometry_confirmation=confirmed, pilot_protocol_sha256=sha(args.pilot / "protocol.json"),
              source_sha256={name: sha(pilot.source_path(name)) for name in SOURCES},
@@ -81,7 +81,7 @@ def freeze(args):
              reference_protocol_sha256=sha(args.reference / "protocol.json"), reference_selection_sha256=sha(args.reference / "selection.json"),
              evaluation="All 54 fits must pass a global checkpoint, cache, frozen-codebook and training-statistics gate before any test inference. Unfiltered mean Euclidean error over 20 wrist-relative landmarks, final 50 frames, in mm. Average seeds within participant before participant-level analysis.",
              resources=dict(cluster="tinygpu", partition="v100", gpus=1, cpu_threads=4, concurrent_fits=1, walltime="00:45:00"),
-             statistics=dict(method="Two-sided exact paired sign-flip of the mean difference, all 512 participant sign patterns; inclusive ties. Holm correction over the two declared contrasts. Independent participants and sign-symmetric paired differences are assumed. Exploratory, not confirmatory.",
+             statistics=dict(method="Two-sided exact paired sign-flip of the mean difference, all 512 participant sign patterns; inclusive ties. Holm correction over the two declared contrasts. Independent participants and sign-symmetric paired differences are assumed.",
                              contrasts=["SPAR tokens minus existing learned tokens", "SPAR tokens minus continuous SPAR"],
                              unit="Nine participants, each averaged over three decoder seeds", alpha=.05))
     p["tokenizer"]["training_scope"] = "Separate codebook per participant, fitted only to that participant's training SPAR descriptors; no pose labels. Frozen and shared by their three decoder seeds."

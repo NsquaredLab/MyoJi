@@ -113,7 +113,7 @@ def run(args):
              "| Comparison | VQ minus comparator | 95% interval | Participants |", "|---|---:|---:|---:|"]
     for name, r in pairs.items():
         lines.append(f"| {name} | {r['mean_difference']:.5f} | [{r['difference_ci95'][0]:.5f}, {r['difference_ci95'][1]:.5f}] | {len(r['users'])} |")
-    lines += ["", p["scope"], "", "These exploratory results require interpretation; completion is not a publication-readiness or equivalence decision."]
+    lines += ["", p["scope"], "", "Completion is not an equivalence decision."]
     for scope, support in supports.items():
         lines += ["", f"{scope}: {len(support['scored_participants'])}/{support['present_participants']} participants have scored labels; {support['windows_with_scored_labels']}/{support['windows']} windows contain at least one valid scored frame. Unscorable participant IDs: {support['unscorable_participants']}. No windows or training examples were removed."]
     (args.root / "RESULTS.md").write_text("\n".join(lines) + "\n")

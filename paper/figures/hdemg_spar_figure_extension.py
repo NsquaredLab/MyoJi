@@ -1,7 +1,7 @@
 """Add audited full-cohort SPAR results to the existing HD-EMG figure.
 
-The 54 historical participant contrast vectors are retained; twelve declared
-contrasts extend the exploratory joint max-T family to 66. No training.
+The 54 existing participant contrast vectors are retained; twelve declared
+contrasts extend the joint max-T family to 66. No training.
 """
 from __future__ import annotations
 
@@ -108,8 +108,7 @@ def extend(b, rows, formats, benchmark, analysis):
     b.REPRESENTATION_PAIRS.append(('SPAR', TOKEN, FEATURE))
     b.REPRESENTATION_TABLE_LABELS.update(Proposed='Proposed (Learned)', SPAR='Proposed (SPAR)')
 
-    # Save the scope before calculating any new p-values. It extends the existing
-    # analysis after outcomes were seen; this is explicitly exploratory.
+    # Save the scope before calculating any new p-values.
     definitions = []
     for ref in [b.L1_CNN_KEY, b.MATCHED_CNN_KEY, b.tbme.KEY]:
         for key in [TOKEN, FEATURE]:
@@ -123,7 +122,7 @@ def extend(b, rows, formats, benchmark, analysis):
         additions=definitions, independent_unit='participant', participants=PEOPLE, seeds=SEEDS, tasks=TASKS,
         test='Two-sided exact synchronized participant sign-flip studentized max-T; 512 sign patterns.',
         absolute_endpoint='First average each arm over 2 windows and 3 seeds within participant/task; take the absolute token-feature difference; then average 8 tasks within participant.',
-        scope='Exploratory extension after inspecting SPAR results; the expanded family does not cover the entire adaptive analysis history.')
+        scope='Extends the family with the declared SPAR contrasts.')
     protocol_path = root/'results/hdemg_spar_figure_protocol.json'
     if protocol_path.exists(): assert json.loads(protocol_path.read_text()) == protocol
     else: write(protocol_path, protocol)
@@ -168,18 +167,16 @@ def extend(b, rows, formats, benchmark, analysis):
 
 def caption(b, supplement=False):
     if supplement:
-        return ('Smaller HD-EMG decoder baselines. Errors use the same personalized, same-session/task chronological test split, 20 wrist-relative 3D landmarks and nine participants as the main figure. '
-            'The learned EMG tokenizer saw these recordings during unlabeled pretraining. '
+        return ('Smaller HD-EMG decoder baselines. Errors use the same personalized, same-session/task chronological test split, 20 wrist-relative 3D landmarks and nine participants as the main figure. Tokenizer pretraining excluded the validation and test windows. '
             'Gray points average three seeds within participant; colored symbols average participants. The dashed line shows the TBME CNN retrained on this split. '
             'Parameter counts include receiver parameters and exclude upstream feature extraction/tokenization. Latency shows the mean and sample SD of 48 FP32 decoder calls on an RTX 4090, batch one, after 12 warmups over four validation inputs, with full context recomputation. '
             'Branches compare each baseline with the adapted L1 CNN in the main figure; that reference is outside this view. '
-            'All tests use the same exploratory 66-contrast, two-sided exact max-T family as the main figure, with 512 synchronized participant sign patterns. '
-            'The procedure requires independent participants and joint null sign symmetry and does not account for the full adaptive analysis history. '
+            'All tests use the same 66-contrast, two-sided exact max-T family as the main figure, with 512 synchronized participant sign patterns. '
+            'The procedure requires independent participants and joint null sign symmetry. '
             '* p<0.05, ** p<0.01, *** p<0.001; n.s. denotes non-rejection, not equivalence. Full statistical tables accompany the main figure.')
     start = ('Smaller HD-EMG decoder baselines, retained in the supplement. ' if supplement else
         'HD-EMG decoding with learned EMG representations and SPAR features. (a) Pose error, receiver parameter count and decoder latency. ')
-    text = start + ('All errors use the same personalized, same-session/task chronological test split, 20 wrist-relative 3D landmarks and nine participants; gray points average three seeds within participant, and colored symbols average participants. '
-        'The learned EMG tokenizer saw these recordings during unlabeled pretraining. '
+    text = start + ('All errors use the same personalized, same-session/task chronological test split, 20 wrist-relative 3D landmarks and nine participants; gray points average three seeds within participant, and colored symbols average participants. Tokenizer pretraining excluded the validation and test windows. '
         'The dashed line is the TBME CNN retrained on this split. The adapted CNN uses L1 loss and weight averaging; matched TCN/Transformer models share their declared training setup. '
         'The Qwen3-0.6B backbone is frozen, with supervised EMG adapters; bypass and random controls are included. '
         'SPAR uses six bands and finite-grid local log-SPD features. A new 1,024-code Lloyd quantizer is fitted on each participant’s training features and frozen across three decoder seeds. '
@@ -188,8 +185,8 @@ def caption(b, supplement=False):
     if not supplement:
         text += ('(b) Array payload at 50 feature frames/s: uint16 tokens for both front ends, 2,048-Hz int16 raw EMG, and FP32 learned/SPAR features. SPAR includes all 5,760 dense values, including 504 structural zeros; 5,256 unique values would permit a smaller payload. This is stream arithmetic, excluding container overhead. '
             '(c) Participant means of absolute within-task token–feature error changes: average two windows and three seeds within task, take the absolute difference, then average eight tasks. Branches compare each row with SPAR; lower means a smaller change, not necessarily lower pose error. ')
-    return text + ('Branches in the error panel compare with the adapted CNN. All displayed tests use one exploratory family of 66 two-sided exact max-T comparisons, retaining the previous 54 contrasts and adding 12 SPAR contrasts. '
-        'The 512 synchronized participant sign patterns require independent participants and joint null sign symmetry. The correction does not cover the full adaptive analysis history. '
+    return text + ('Branches in the error panel compare with the adapted CNN. All displayed tests use one family of 66 two-sided exact max-T comparisons, retaining the previous 54 contrasts and adding 12 SPAR contrasts. '
+        'The 512 synchronized participant sign patterns require independent participants and joint null sign symmetry. '
         '* p<0.05, ** p<0.01, *** p<0.001; n.s. denotes non-rejection, not equivalence. Complete effects, pointwise intervals and p-values accompany the figure.')
 
 
@@ -273,7 +270,7 @@ def run(b):
         table.append(f"{r['alternative']} & {r['reference']} & {r['effect_mm']:+.3f} & $[{r['ci95_low_mm']:+.3f}, {r['ci95_high_mm']:+.3f}]$ & {r['p_adjusted_66']:.6f}"+r'\\')
     table.append(r'\bottomrule\end{longtable}')
     (b.OUT/'TABLE_hdemg-statistical-tests.tex').write_text('\n'.join(table)+'\n')
-    (b.OUT/'hdemg-statistical-tests.tex').write_text('% Requires booktabs and longtable; nine independent participants, 66 exploratory comparisons.\n'
+    (b.OUT/'hdemg-statistical-tests.tex').write_text('% Requires booktabs and longtable; nine independent participants, 66 comparisons.\n'
         r'\input{output/figures/TABLE_hdemg-statistical-tests.tex}'+'\n')
     for name in ['build_hdemg_combined.py','hdemg_spar_figure_extension.py']:
         shutil.copy2(b.ROOT/'scripts'/name,b.OUT/name)

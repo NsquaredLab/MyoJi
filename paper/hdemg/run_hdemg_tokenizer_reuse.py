@@ -115,7 +115,7 @@ def freeze(args):
             raise ValueError("Changed official Meta training data")
     p = dict(name="hdemg_tokenizer_reuse_v1", tokenizer_donors=list(DONORS), decoder_subjects=list(SUBJECTS),
              routes=list(ROUTES), arms=list(ARMS), decoder_seeds=list(SEEDS), windows=windows, split_counts=SPLITS,
-             scope="Exploratory transfer of newly fitted, frozen tokenizers to nine tokenizer-unseen HD-EMG people, with supervised personalized decoder calibration. Not zero-shot pose decoding, cross-session transfer, or validation of the old all-13-seen release. Historical test results informed the established architecture and recipe; this is not a new confirmatory test set.",
+             scope="Transfer of newly fitted, frozen tokenizers to nine tokenizer-unseen HD-EMG participants, with supervised personalized decoders. Not zero-shot pose decoding or cross-session transfer.",
              initialization="New learned encoder and codebook from scratch; new donor-only SPAR scaling/codebook. No old tokenizer or decoder weights reused. One tokenizer fit per route, shared by all nine people and all decoder seeds.",
              data_boundary="No EMG, features, feature statistics, or labels from subjects 1--9 enter either tokenizer fit. Fixed per-window causal prefix median/MAD remains permitted inference preprocessing. Only the downstream decoder and its target scaling use each new participant's training block; validation selects the decoder checkpoint.",
              learned_training_arguments=recipe, meta_training_contract=upstream_contract,

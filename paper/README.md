@@ -60,6 +60,7 @@ uv sync --group paper                      # from the repository root
 | BioCodec (codec comparison only) | `git clone https://github.com/klean2050/BioCodec-release` (commit `575bf6e`) | `MYOJI_BIOCODEC=<clone>` |
 | Qwen3-0.6B-Base (one receiver) | Hugging Face, revision `da87bfb608c14b7cf20ba1ce41287e8de496c0cd`, into the LLM pilot run folder's `model/` | |
 | TabPFN v3.5 weights (one receiver) | downloaded by `tabpfn==9.0.0` on first use | `--model-path` |
+| commercial hand model `limbKit_02.blend` (Fig. 1 hand renders only, inside Blender) | purchase separately | `MYOJI_HAND_MODEL=<file>` |
 | Switzer font (figures only) | Fontshare; optional, figures fall back to another sans-serif | `MYOJI_SWITZER_DIR` |
 
 The HD-EMG scripts check each recording's SHA-256 against the export used for the paper and stop

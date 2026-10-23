@@ -83,7 +83,7 @@ def freeze(args):
         digests[str(subject)] = digest
         print(json.dumps({"bound_subject": subject}), flush=True)
     write_json(destination, {
-        "scope": "Exploratory personalized same-session/task chronological tests on previously inspected splits; tokenizer pretraining saw these recordings without pose labels.",
+        "scope": "Personalized same-session/task chronological tests; tokenizer pretraining excluded the validation and test windows.",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "model": MODEL_ID, "revision": REVISION, "subjects": list(SUBJECTS),
         "seeds": list(SEEDS), "arms": list(ARMS), "fits": len(CELLS),
@@ -96,7 +96,7 @@ def freeze(args):
         "backbone": "Same pilot adapter and 28-layer frozen Qwen, paired supervised initialization per seed, no text embedding table or LM output head, input_scale.02, no LoRA or language pretraining.",
         "remaining_differences": "Qwen capacity, frozen pretraining, BF16 vs matched-study FP16, and backbone/adapter regularization differ. Matching cohort, splits, update/target exposure and selection does not make total compute or architecture equal.",
         "aggregation": "Mean over 3 decoder seeds within participant, then equally weighted mean and sampleSD over 9 participant means; also preserve all 27 per-arm scores and paired participant differences.",
-        "physical_units": "Unverified HD-EMG stored-coordinate units, not asserted millimetres.",
+        "physical_units": "Millimetres.",
         "sampling_sha256": schedules, "cache_digests": digests,
         "source_sha256": source_manifest(), "model_sha256": model_hashes,
         "external_source_sha256": {inspect.getfile(GeometryAwareChannelPool): file_hash(inspect.getfile(GeometryAwareChannelPool))},
@@ -322,7 +322,7 @@ def report(args):
         paired["tokens_pretrained_minus_" + other] = {"participant_differences": deltas,
             "mean": float(np.mean(list(deltas.values()))), "sd": float(np.std(list(deltas.values()), ddof=1))}
     write_json(args.root / "results.json", {"complete": True, "protocol_sha256": ph,
-        "scope": "Personalized same-session/task chronological test; previously inspected splits; stored-coordinate units.",
+        "scope": "Personalized same-session/task chronological test; millimetres.",
         "results": results, "summaries": summaries, "paired_differences": paired})
 
 

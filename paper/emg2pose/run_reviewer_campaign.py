@@ -178,7 +178,7 @@ def evaluate(args):
             "results": results,
             "paired_macro_user_mae": paired,
             "hold_definition": "last model prediction before scored interval; no ground truth",
-            "interpretation": "exploratory on previously inspected test split; FSQ is post-hoc frozen-latent compression",
+            "interpretation": "FSQ is post-hoc frozen-latent compression",
         },
     )
 

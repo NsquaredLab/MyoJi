@@ -7,8 +7,7 @@ overlaps a training window, i.e. the windows that fitted the SPAR standardizatio
 Before searching, the recomputed inputs are checked against the saved pose_recovery_sub*.npz.
 
     cd <repository root>
-    ~/.local/bin/uv run --no-project --with numpy --with scipy --with joblib --with torch==2.14.1 \
-        python -m paper.hdemg.pose_recovery.pose_recovery_heldout --subjects 1 2 3 4 5 6 7 8 9
+    uv run python -m paper.hdemg.pose_recovery.pose_recovery_heldout --subjects 1 2 3 4 5 6 7 8 9
 """
 from __future__ import annotations
 

@@ -1,6 +1,6 @@
-"""Raw EMG from only as many electrodes as the assumed link carries, decoded by the adapted CNN.
+"""Raw EMG from as many electrodes as the assumed Bluetooth LE throughput carries, decoded by the adapted CNN.
 
-Declared before running (2026-10-10); exploratory. At the assumed 1.4 Mbit/s application rate, int16 EMG at
+Declared before running. At the assumed 1.4 Mbit/s application rate, int16 EMG at
 2,048 Hz fits floor(1,400,000 / 32,768) = 42 channels. Montage: the first 42 electrodes of the 320-channel
 layout (first 8x8 forearm array, rows 1 to 5 and the first two electrodes of row 6), i.e. a subset of the
 63-electrode SPAR montage on the same array. The other 278 channels are set to zero before the raw and

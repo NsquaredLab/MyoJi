@@ -1,6 +1,6 @@
 """SPAR campaign with one calibration per recording, the deployable counterpart of the onset replay.
 
-Declared before running (2026-10-10); exploratory. Every window (training, validation and test) is
+Declared before running. Every window (training, validation and test) is
 normalized with the lower median and MAD of its recording's first 500 ms (1,000 resampled samples)
 instead of its own first 500 ms; everything downstream is refitted exactly as in the nine-participant
 campaign (results/hdemg_spar_simple_full_v1): train-only standardization, a 1,024-code Lloyd codebook per
@@ -11,8 +11,7 @@ Contrasts (nine participants, seeds averaged; exact sign-flip, Holm over the thr
 participant bootstrap, seed 260919): tokens minus continuous under onset calibration; onset minus
 per-window calibration for tokens; the same for continuous SPAR.
 
-    ~/.local/bin/uv run --no-project --with torch --with h5py --with joblib --with scipy --with numpy \
-        uv run python -m paper.hdemg.hdemg_spar_onset_calibration run|report [--subjects ...]
+    uv run python -m paper.hdemg.hdemg_spar_onset_calibration run|report [--subjects ...]
 """
 from __future__ import annotations
 
@@ -42,7 +41,7 @@ def prepare(root, subject, device):
     root.mkdir(parents=True, exist_ok=True)
     p = json.loads((E.CAMPAIGN / f"subject_{subject:02d}/protocol.json").read_text())
     p.update(name="hdemg_spar_onset_calibration_v1",
-             scope="Exploratory: every window normalized with its recording's first 500 ms; campaign windows, "
+             scope="Every window normalized with its recording's first 500 ms; campaign windows, "
                    "recipe and seeds; standardization, codebook and decoders refitted.")
     pilot.write(root / "protocol.json", p)
     layout = grid_layout(p["geometry"]["grids"])

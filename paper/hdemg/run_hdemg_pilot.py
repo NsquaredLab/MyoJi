@@ -82,7 +82,7 @@ def protocol(root, data, checkpoint):
             "retained_delay_ms": 20,
             "labels": "At floor(output end sample * 128/125), no label lag fitting or delay compensation.",
         },
-        "targets": "Stored points 1..20 minus stored point 0, flattened to 60 coordinates. Physical coordinate units and landmark anatomy unverified; report stored coordinate units, not mm or palm lengths.",
+        "targets": "Stored points 1..20 minus stored point 0, flattened to 60 coordinates. Coordinates are in millimetres.",
         "cache": "100 frames at ends 2039..5999. uint16 IDs, float16 continuous/rms features, float32 normalized raw and targets. Encode channels in fixed groups of 32. Checkpoint never updated.",
         "readout": {
             "kind": "tcn",
@@ -591,7 +591,7 @@ def evaluate(args):
         {
             "complete": True,
             "scope": p["scope"],
-            "units": "stored kinematic coordinate units; physical unit unverified",
+            "units": "millimetres",
             "results": results,
             "summary": summary,
             "constant_train_mean_baseline": baseline,

@@ -254,7 +254,7 @@ def main():
     )
     schedule = sampling_schedule()
     protocol = {
-        "scope": "One predetermined HD-EMG participant (01), one seed, training and validation only. Exploratory feasibility pilot, not paper test results.",
+        "scope": "One predetermined HD-EMG participant (01), one seed, training and validation only. Feasibility pilot, not paper test results.",
         "model": MODEL_ID, "revision": REVISION, "arms": list(ARMS), "subject": 1, "seed": SEED,
         "steps": STEPS, "windows_per_update": 2, "scored_endpoints_per_window": 50,
         "validation_opportunities": STEPS // VALIDATE_EVERY,

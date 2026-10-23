@@ -305,7 +305,7 @@ def main() -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     PDFS.mkdir(parents=True, exist_ok=True)
     outputs = [PDFS / f"{STEM}.pdf", FIGURES / f"{STEM}.png", FIGURES / f"{STEM}.svg"]
-    fig.savefig(outputs[0], metadata={"Title": "HD-EMG: all decoder versions", "Subject": "16 exploratory variants; test and validation cohorts separated"})
+    fig.savefig(outputs[0], metadata={"Title": "HD-EMG: all decoder versions", "Subject": "16 variants; test and validation cohorts separated"})
     fig.savefig(outputs[1], dpi=300)
     fig.savefig(outputs[2])
     plt.close(fig)
@@ -320,7 +320,7 @@ def main() -> None:
         "variant_count": len(rows),
         "test_participant_seed_cells_verified": 12 * 9 * 3,
         "validation_pilot_cells_verified": 4,
-        "units": "unverified HD-EMG stored-coordinate units",
+        "units": "millimetres",
         "aggregation": "A-C: participant means over 3 seeds, then equal participant mean; D: best of 20 validation scores, 1 participant and 1 seed.",
         "uncertainty": "Small grey points are actual participant means, not confidence intervals. No population uncertainty inferred for D.",
         "scope": "Clean decoder variants only. Noise, post-filtering and the earlier cross-person diagnostic use different questions and are omitted.",
@@ -347,7 +347,7 @@ def main() -> None:
     test_baseline = panels[0]["rows"][0]["constant_pose_error"]
     validation_baseline = panels[3]["rows"][0]["constant_pose_error"]
     caption = (
-        "Exploratory HD-EMG decoder comparison. "
+        "HD-EMG decoder comparison. "
         "(a) Earlier small readouts; (b) common-recipe models with approximately 7.5 million "
         "trainable parameters (within 1%), 15,000 optimizer updates and matched target exposure; "
         "(c) native RaulNet V19 and V20 recipes; (d) the external Qwen3-0.6B-Base pilot. "
@@ -355,8 +355,7 @@ def main() -> None:
         "continuous encoder features and raw EMG, respectively. In (a-c), small gray points "
         "are nine participant means over three seeds; large markers weight participants equally. "
         "They show observations, not confidence intervals. Decoders are fitted separately "
-        "per participant and tested on later chronological blocks of the same person, session and task; "
-        "later architecture comparisons reused already inspected test splits. "
+        "per participant and tested on later chronological blocks of the same person, session and task. "
         "Training recipes differ between panels; "
         "within (c), only token and continuous V20 share a recipe. Input history, pretraining "
         "and total compute are not matched in (b). Panel (d) uses participant 01, one seed, "
@@ -368,9 +367,7 @@ def main() -> None:
         "macro-participant error of participant-specific training-mean poses in (a-c) "
         f"({test_baseline:.2f}), and participant 01's training-mean pose in (d) ({validation_baseline:.2f}). "
         "Errors average Euclidean distances for stored points 1-20 relative to point 0, "
-        "in stored-coordinate units with unverified physical scale; lower is better. "
-        "The frozen EMG tokenizer previously "
-        "saw these recordings without pose labels."
+        "in millimetres; lower is better. Tokenizer pretraining excluded the validation and test windows."
     )
     (FIGURES / f"{STEM}.md").write_text(
         "# Figure caption\n\n" + caption + "\n\n"

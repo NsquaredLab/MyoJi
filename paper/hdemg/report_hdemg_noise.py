@@ -242,7 +242,7 @@ def report(root):
         "",
         "Native 2048-Hz independent-channel additive noise starts after a clean calibration prefix. No retraining. SNR is referenced to demeaned clean signal power in the perturbed interval. Noise arrays are retained for a future identical-input V19 comparison. Current results do not compare against V19.",
         "",
-        "Mean 3D error uses unverified stored coordinate units. Noise seeds and decoder seeds are averaged within each of nine participants. Intervals resample participants; no multiplicity correction. Velocity R² uses first differences within each scored window and the exact native endpoint intervals. Negative values are retained.",
+        "Mean 3D error is in millimetres. Noise seeds and decoder seeds are averaged within each of nine participants. Intervals resample participants; no multiplicity correction. Velocity R² uses first differences within each scored window and the exact native endpoint intervals. Negative values are retained.",
         "",
         "| Added noise SNR | Token TCN error | Continuous TCN error | Token agreement |",
         "|---|---:|---:|---:|",

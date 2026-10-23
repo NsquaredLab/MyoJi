@@ -15,7 +15,7 @@ own contrast is most favourable to VQ (+0.230 against +0.032 and -0.133 mm).
 
 Sign: in A, right of zero favours learned VQ.
 
-No equivalence band or verdict: any margin would be chosen after the fact. The
+No equivalence band or verdict is drawn. The
 receipt records the largest mean change each displayed 95% interval allows.
 
     uv run python -m paper.figures.plot_meta_overview

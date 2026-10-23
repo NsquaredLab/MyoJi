@@ -1,4 +1,4 @@
-"""Fig. 3C of the TNSRE version: signed effect of quantization for each decoder.
+"""Fig. 4C: signed effect of quantization for each decoder.
 
 Token error minus continuous-feature error, per participant (circles) and as the mean with
 its exact 95 % sign-flip interval, for the six paired decoders grouped by tokenizer, each

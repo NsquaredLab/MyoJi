@@ -180,7 +180,7 @@
   },
   "builder_sha256": {
     "build_hdemg_combined.py": "fada08694422fed0efc2369f5749db888feea454fe9731bcf7f94d9d3c1206b6",
-    "hdemg_figure_statistics.py": "f505d77097416295dbfa799a37f17d96c4846e2ddbf6f9a61aaa4e7e8609feed",
+    "hdemg_figure_statistics.py": "0f98359a148b60648f8704b3e1b0b09b372f32e22a693baf1c8072957fc3269a",
     "hdemg_tbme_figure_data.py": "b1d38f92b17a325a4e76488b52fbabc96e41a8176307003ab30bc94d51f3d754",
     "build_hdemg_all_variants.py": "447cecd27f984ef03d6f27ee5ac4d4e9f38278ff4032a05b4f37db333cd39913",
     "build_hdemg_resource_overview.py": "c446cbb72dc772d77e0ca8615bbc7890b8c42f9c16f8405201b1879fc3df0f58",
@@ -528,7 +528,7 @@
         }
       },
       "error_constant_pose": 21.48151206970215,
-      "error_scope": "Matched targets/splits, different native model/input/optimization recipes; exploratory same-person/session/task comparison; not equal compute.",
+      "error_scope": "Matched targets/splits, different native model/input/optimization recipes; same-person/session/task comparison; not equal compute.",
       "source_label": "Raw EMG RaulNet V19",
       "source_experiment_group": "Native V19 / V20",
       "source_experiment_group_id": "native",
@@ -817,7 +817,7 @@
         }
       },
       "error_constant_pose": 21.48151206970215,
-      "error_scope": "Exploratory capacity/optimization-matched personalized same-session/task study on previously inspected splits. Tokenizer pretraining saw these recordings. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
+      "error_scope": "Capacity- and optimization-matched personalized same-session/task study. Tokenizer pretraining excluded the validation and test windows. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
       "source_label": "TCN + tokens",
       "source_experiment_group": "Common training recipe",
       "source_experiment_group_id": "common",
@@ -1104,7 +1104,7 @@
         }
       },
       "error_constant_pose": 21.48151206970215,
-      "error_scope": "Exploratory capacity/optimization-matched personalized same-session/task study on previously inspected splits. Tokenizer pretraining saw these recordings. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
+      "error_scope": "Capacity- and optimization-matched personalized same-session/task study. Tokenizer pretraining excluded the validation and test windows. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
       "source_label": "TCN + continuous",
       "source_experiment_group": "Common training recipe",
       "source_experiment_group_id": "common",
@@ -1359,7 +1359,7 @@
         }
       },
       "error_constant_pose": 21.48151206970215,
-      "error_scope": "Exploratory capacity/optimization-matched personalized same-session/task study on previously inspected splits. Tokenizer pretraining saw these recordings. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
+      "error_scope": "Capacity- and optimization-matched personalized same-session/task study. Tokenizer pretraining excluded the validation and test windows. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
       "source_label": "Transformer + tokens",
       "source_experiment_group": "Common training recipe",
       "source_experiment_group_id": "common",
@@ -1614,7 +1614,7 @@
         }
       },
       "error_constant_pose": 21.48151206970215,
-      "error_scope": "Exploratory capacity/optimization-matched personalized same-session/task study on previously inspected splits. Tokenizer pretraining saw these recordings. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
+      "error_scope": "Capacity- and optimization-matched personalized same-session/task study. Tokenizer pretraining excluded the validation and test windows. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
       "source_label": "Transformer + continuous",
       "source_experiment_group": "Common training recipe",
       "source_experiment_group_id": "common",
@@ -1837,7 +1837,7 @@
         }
       },
       "error_constant_pose": 21.48151113575649,
-      "error_scope": "Personalized same-session/task chronological test; previously inspected splits; stored-coordinate units.",
+      "error_scope": "Personalized same-session/task chronological test; millimetres.",
       "resource_architecture_matches_full_campaign": true,
       "resource_checkpoint_scope": "Earlier pilot checkpoint of the identical architecture; standardized FP32 cost benchmark, not a timing of the final BF16 cohort.",
       "error_precision": "Native CUDA BF16 autocast; FP32 supervised adapter/head; Qwen weights stored BF16 and frozen. No TF32.",
@@ -2371,7 +2371,7 @@
         }
       },
       "error_constant_pose": 21.48151113575649,
-      "error_scope": "Personalized same-session/task chronological test; previously inspected splits; stored-coordinate units.",
+      "error_scope": "Personalized same-session/task chronological test; millimetres.",
       "resource_architecture_matches_full_campaign": true,
       "resource_checkpoint_scope": "Earlier pilot checkpoint of the identical architecture; standardized FP32 cost benchmark, not a timing of the final BF16 cohort.",
       "error_precision": "Native CUDA BF16 autocast; FP32 supervised adapter/head; Qwen weights stored BF16 and frozen. No TF32.",
@@ -2907,7 +2907,7 @@
         }
       },
       "error_constant_pose": 21.48151113575649,
-      "error_scope": "Personalized same-session/task chronological test; previously inspected splits; stored-coordinate units.",
+      "error_scope": "Personalized same-session/task chronological test; millimetres.",
       "resource_architecture_matches_full_campaign": true,
       "resource_checkpoint_scope": "Earlier pilot checkpoint of the identical architecture; standardized FP32 cost benchmark, not a timing of the final BF16 cohort.",
       "error_precision": "Native CUDA BF16 autocast; FP32 supervised adapter/head; Qwen weights stored BF16 and frozen. No TF32.",
@@ -3443,7 +3443,7 @@
         }
       },
       "error_constant_pose": 21.48151113575649,
-      "error_scope": "Personalized same-session/task chronological test; previously inspected splits; stored-coordinate units.",
+      "error_scope": "Personalized same-session/task chronological test; millimetres.",
       "resource_architecture_matches_full_campaign": true,
       "resource_checkpoint_scope": "Earlier pilot checkpoint of the identical architecture; standardized FP32 cost benchmark, not a timing of the final BF16 cohort.",
       "error_precision": "Native CUDA BF16 autocast; FP32 supervised adapter/head; Qwen weights stored BF16 and frozen. No TF32.",
@@ -3709,7 +3709,7 @@
         }
       },
       "error_constant_pose": 21.481511221991646,
-      "error_scope": "Exploratory architecture comparison on the previously inspected personalized, same-session/task chronological HD-EMG split. The frozen tokenizer saw these recordings during unlabeled pretraining. Not unseen-person/session/task performance.",
+      "error_scope": "Architecture comparison on the personalized, same-session/task chronological HD-EMG split. Tokenizer pretraining excluded the validation and test windows. Not unseen-person/session/task performance.",
       "source_label": "V20 + tokens",
       "source_experiment_group": "Native V19 / V20",
       "source_experiment_group_id": "native",
@@ -3973,7 +3973,7 @@
         }
       },
       "error_constant_pose": 21.481511221991646,
-      "error_scope": "Exploratory architecture comparison on the previously inspected personalized, same-session/task chronological HD-EMG split. The frozen tokenizer saw these recordings during unlabeled pretraining. Not unseen-person/session/task performance.",
+      "error_scope": "Architecture comparison on the personalized, same-session/task chronological HD-EMG split. Tokenizer pretraining excluded the validation and test windows. Not unseen-person/session/task performance.",
       "source_label": "V20 + continuous",
       "source_experiment_group": "Native V19 / V20",
       "source_experiment_group_id": "native",
@@ -4206,7 +4206,7 @@
         }
       },
       "error_constant_pose": 21.48151206970215,
-      "error_scope": "Exploratory capacity/optimization-matched personalized same-session/task study on previously inspected splits. Tokenizer pretraining saw these recordings. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
+      "error_scope": "Capacity- and optimization-matched personalized same-session/task study. Tokenizer pretraining excluded the validation and test windows. Match trainable capacity (within 1%), target exposure, updates and recipe; not input context, total system parameters, pretraining or FLOPs.",
       "source_label": "Raw EMG RaulNet V19",
       "source_experiment_group": "Common training recipe",
       "source_experiment_group_id": "common",
@@ -4431,7 +4431,7 @@
         }
       },
       "error_constant_pose": null,
-      "error_scope": "Exploratory same-person/session/task system comparison on a previously inspected split; architecture and native input retained, training/evaluation adapted. Not a reproduction of the published 7.54 mm score or an equal-compute comparison. Tokenizer pretraining included these recordings without pose labels.",
+      "error_scope": "Same-person/session/task system comparison; architecture and native input retained, training/evaluation adapted. Not a reproduction of the published 7.54 mm score or an equal-compute comparison. Tokenizer pretraining excluded the validation and test windows.",
       "source_label": "CNN (Sîmpetru 2024, TBME; retrained)",
       "source_experiment_group": "Retrained TBME CNN",
       "source_experiment_group_id": "tbme_reference",
@@ -4457,7 +4457,7 @@
     "latency": 0
   },
   "statistics": {
-    "method": "Exploratory participant-paired single-step max-T analysis of all declared CNN-reference, within-decoder token-versus-feature, and between-decoder tokenization-gap contrasts in one family. Average three decoder seeds within each of nine participants. Standardize each mean paired difference by its sample standard error, then enumerate all 512 participant sign vectors, applying each participant sign synchronously to all contrasts. Recompute each t statistic and retain the largest absolute t per sign vector. Each adjusted p is the inclusive tail proportion of this maximum distribution beyond the observed absolute t; no additional Holm correction is applied. Finite-sample strong familywise error control requires independent participants and joint central sign symmetry of their true-null contrast vectors. Marginal symmetry alone is insufficient; these assumptions cannot be established with nine participants. Effects are alternative minus reference error in millimetres; negative favors the alternative. All four direct representation contrasts use tokens minus encoder features, so positive favors features. Gap contrasts subtract proposed's token-minus-feature gap from the other decoder's gap, so positive favors proposed. Exact 95% pointwise location intervals invert the univariate sign-flip test, assuming independent differences symmetric about a common effect, equal to the mean when finite. Intervals are not simultaneous and do not assign stars. All nine leave-one-participant-out mean differences describe influence. Histories, pretraining and some training protocols differ, so these compare fitted systems. The method was amended after earlier results were inspected and fixed before computing max-T outcomes; this is not preregistered confirmation. The previous global Holm analysis is retained as sensitivity output. Non-rejection does not establish equivalence.",
+    "method": "Participant-paired single-step max-T analysis of all declared CNN-reference, within-decoder token-versus-feature, and between-decoder tokenization-gap contrasts in one family. Average three decoder seeds within each of nine participants. Standardize each mean paired difference by its sample standard error, then enumerate all 512 participant sign vectors, applying each participant sign synchronously to all contrasts. Recompute each t statistic and retain the largest absolute t per sign vector. Each adjusted p is the inclusive tail proportion of this maximum distribution beyond the observed absolute t; no additional Holm correction is applied. Finite-sample strong familywise error control requires independent participants and joint central sign symmetry of their true-null contrast vectors. Marginal symmetry alone is insufficient; these assumptions cannot be established with nine participants. Effects are alternative minus reference error in millimetres; negative favors the alternative. All four direct representation contrasts use tokens minus encoder features, so positive favors features. Gap contrasts subtract proposed's token-minus-feature gap from the other decoder's gap, so positive favors proposed. Exact 95% pointwise location intervals invert the univariate sign-flip test, assuming independent differences symmetric about a common effect, equal to the mean when finite. Intervals are not simultaneous and do not assign stars. All nine leave-one-participant-out mean differences describe influence. Histories, pretraining and some training protocols differ, so these compare fitted systems. The method was fixed before the max-T outcomes were computed. The previous global Holm analysis is retained as sensitivity output. Non-rejection does not establish equivalence.",
     "method_id": "exact_paired_single_step_maxT",
     "alpha": 0.05,
     "replication_unit": "participant",

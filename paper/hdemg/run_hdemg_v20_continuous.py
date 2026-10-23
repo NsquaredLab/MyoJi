@@ -57,7 +57,7 @@ def freeze(args):
             "question": "Is token V20 within 5% of continuous V20 mean 3D error?",
             "maximum_error_ratio": 1.05,
             "criterion": "Upper endpoint of paired participant bootstrap 95% percentile interval for ratio of macro-person errors below 1.05; 10000 draws, seed 260930.",
-            "limitation": "Exploratory engineering tolerance chosen before this continuous test; not clinical equivalence. Prior token test results were already inspected.",
+            "limitation": "Engineering tolerance chosen before this continuous test; not clinical equivalence.",
         },
     )
     p.pop("reference_predictions_sha256", None)
@@ -349,7 +349,7 @@ def compare(args):
             ),
             "participant_bootstrap_ratio_ci95": interval,
             "within_predeclared_5_percent_margin": interval[1] < 1.05,
-            "inference": "Exploratory same-session comparison; no clinical equivalence or independent-session claim.",
+            "inference": "Same-session comparison; no clinical equivalence or independent-session claim.",
         },
     )
 

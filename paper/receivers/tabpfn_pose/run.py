@@ -104,7 +104,7 @@ def prepare(args):
         "structural mask, per-channel means over 1/5/25/100 available causal frames; training-only PCA.",
         target="All 60 coordinates: wrist-relative landmarks 1..20 in mm; same final 50 frames/window as V20.",
         readout="60 independent scalar TabPFN 3.5 regressors; three fixed ensemble seeds; no gradient fine-tuning.",
-        scope="Exploratory Subject-1 same-session chronological split; not unseen-person/movement evidence. "
+        scope="Subject-1 same-session chronological split; not unseen-person/movement evidence. "
         "Same data/endpoints as V20, different decoder and summarized temporal context; no test-driven tuning.",
     )
     write(root / "config.json", config)

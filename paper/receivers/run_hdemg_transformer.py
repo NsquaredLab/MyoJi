@@ -46,7 +46,7 @@ def freeze(args):
     p["arms"] = list(ARMS)
     p["readout"].update(kind="transformer", layers=2)
     p["scope"] = (
-        "Exploratory transformer architecture follow-up on the same personalized, same-session/task chronological split. Previous TCN test results have already been inspected. Tokenizer saw these recordings during pretraining. Not unseen-person/session/task performance or an untouched confirmatory test."
+        "Transformer architecture on the same personalized, same-session/task chronological split. Tokenizer pretraining excluded the validation and test windows. Not unseen-person/session/task performance."
     )
     p["models"] = (
         "Frozen tokenizer and codebook; learned 256-to-64 projection, fixed-montage spatial pooling into four slots, 2-layer causal temporal transformer with width 64, 4 heads, feedforward width 128 and fixed sinusoidal positions over 100 frames, then 60-coordinate output. Separate decoder per subject and seed; 27 fits. No raw EMG, pose history, task IDs or calibration metadata reach the decoder."

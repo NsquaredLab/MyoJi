@@ -57,7 +57,7 @@ def freeze(args):
         base / "receivers/report_hdemg_raulnet.py",
     ]
     p = {
-        "scope": "Exploratory personalized same-person/session/task baseline on the previously inspected chronological token-decoder split. Same supervised targets and split, different input/context/model/training recipe. No unseen-person claim or equal-compute claim.",
+        "scope": "Personalized same-person/session/task baseline on the chronological token-decoder split. Same supervised targets and split, different input/context/model/training recipe. No unseen-person claim or equal-compute claim.",
         "subjects": list(SUBJECTS),
         "seeds": list(SEEDS),
         "files": old["files"],
@@ -69,7 +69,7 @@ def freeze(args):
         "model_source_sha256": SOURCE_SHA256,
         "model_config": CONFIG,
         "inputs": "320 native 2048-Hz samples ending at each scored token timestamp; raw plus MyoVerse-equivalent four-pass 20-Hz lowpass (Q=.707, native torchaudio clamp behavior), window-local zero state. Native per-grid/window V19 normalization. No token prefix clipping/normalization or 20-ms tokenizer FIR delay. All input samples are at or before the target endpoint and inside the original assigned 3-second window.",
-        "targets": "Exact 60-coordinate instantaneous targets from final 50 frames of each reference window; no window target averaging. Stored coordinate units, physical unit unverified. No target standardization for native V19 L1 recipe.",
+        "targets": "Exact 60-coordinate instantaneous targets from final 50 frames of each reference window; no window target averaging. Millimetres. No target standardization for native V19 L1 recipe.",
         "training": {
             "epochs": 150,
             "sampled_endpoints_per_epoch": 10000,

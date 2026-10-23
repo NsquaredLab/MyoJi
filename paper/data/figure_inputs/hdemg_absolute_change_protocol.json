@@ -30,7 +30,7 @@
   "source_movement_analysis": "results/hdemg_movement_analysis.json",
   "source_movement_analysis_sha256": "84c935f1fd85462d0b7a1b3a02ba84f0d22e8fdd13bac02735ae7a3a737c3609",
   "previous_analysis": "results/hdemg_cnn_maxT_analysis.json",
-  "previous_analysis_sha256": "99f20420ba9e0bdad6993f66470877bb2eece33211172ebb80f4cceebcbd6dc6",
+  "previous_analysis_sha256": "8239987f11fb04ce1ab99d0b071aef50da6864b87b3ae3a65eef957888524e11",
   "endpoint": "For each subject, movement task and decoder, first average the Euclidean landmark errors over two test windows and three seeds for tokens and features separately. Take the absolute difference of these two errors within the cell. Finally average the eight absolute cell differences within each participant.",
   "formula": "a[s,m,d] = abs(E_token[s,m,d] - E_feature[s,m,d]); A[s,d] = mean_m a[s,m,d]",
   "not_computed": "Not absolute value of a participant-averaged signed gap, not average absolute seed-specific gaps, not a prediction-ensemble metric, and not direct distance between token and feature predictions.",

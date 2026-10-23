@@ -92,7 +92,7 @@ def learned_tokens(window: np.ndarray, fs: float, tokenizer) -> np.ndarray:
     ``tokenizer`` is a ``myoji.learned.Tokenizer``; the window needs 980 ms at
     2 kHz (500 ms calibration plus the 480 ms causal context).
     """
-    # ponytail: re-encodes the whole window every tick; feed a TokenStream from the stream
+    # Re-encodes the whole window every tick; feed a TokenStream from the stream
     # buffer instead if 50 Hz x channels outruns the CPU.
     x = at_2khz(window, fs)
     if x.shape[-1] < tokenizer.minimum_samples:

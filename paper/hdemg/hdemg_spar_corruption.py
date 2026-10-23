@@ -1,6 +1,6 @@
-"""Frozen SPAR pipelines under the learned route's noise and electrode-dropout protocol.
+"""Frozen SPAR pipelines under the learned tokenizer's noise and electrode-dropout protocol.
 
-Declared before running (2026-10-10); exploratory. Nothing is fitted: each participant's frozen
+Declared before running. Nothing is fitted: each participant's frozen
 standardization, codebook and three decoders per arm (hdemg_spar_transfer_checks.load_participant).
 Corruption uses the frozen helpers unchanged: hdemg_noise.native_bounds / unit_noise / perturb_native /
 resampled_window (SNR 40, 30, 20, 10 dB; noise seeds 260921-260923; noise added to the native 2,048 Hz
@@ -9,13 +9,12 @@ scattered electrodes and one or two whole arrays; seeds 260931-260933; channels 
 dropped_channels called with subject 0, as run_hdemg_dropout.py does). Calibration comes from the clean
 first 1,000 resampled samples; resampling is the campaign's causal Kaiser FIR.
 
-Families, as for the learned route (plot_noise_robustness.py): per-participant error increase from clean,
+Families, as for the learned tokenizer (plot_noise_robustness.py): per-participant error increase from clean,
 averaged over decoder seeds and corruption draws; noise family = SPAR-token minus continuous-SPAR increase
 at the four SNRs (4 contrasts); dropout family = the same at the five dropout conditions (5 contrasts);
 exact sign-flip over 512 patterns, Holm within each family; 10,000-draw participant bootstrap, seed 260930.
 
-    ~/.local/bin/uv run --no-project --with torch --with h5py --with joblib --with scipy --with numpy \
-        uv run python -m paper.hdemg.hdemg_spar_corruption run|report|table [--subjects ...]
+    uv run python -m paper.hdemg.hdemg_spar_corruption run|report|table [--subjects ...]
 """
 from __future__ import annotations
 

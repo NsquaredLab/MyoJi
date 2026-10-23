@@ -64,7 +64,7 @@
     "retained_delay_ms": 20,
     "labels": "At floor(output end sample * 128/125), no label lag fitting or delay compensation."
   },
-  "targets": "Stored points 1..20 minus stored point 0, flattened to 60 coordinates. Physical coordinate units and landmark anatomy unverified; report stored coordinate units, not mm or palm lengths.",
+  "targets": "Stored points 1..20 minus stored point 0, flattened to 60 coordinates. Coordinates are in millimetres.",
   "cache": "Per-subject cache: 100 frames ends 2039..5999; uint16 IDs, float16 continuous, float32 normalized raw and targets; fixed 32-channel encoder batch. Frozen original release. Exact matching first windows reused from original training cache after validation.",
   "readout": {
     "kind": "tcn",

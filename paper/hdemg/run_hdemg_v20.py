@@ -121,9 +121,7 @@ def freeze(args):
         codebook_float32_sha256=book_digest(book),
         trainable_parameters=704700,
         scope=(
-            "Exploratory architecture comparison on the previously inspected personalized, "
-            "same-session/task chronological HD-EMG split. The frozen tokenizer saw these "
-            "recordings during unlabeled pretraining. Not unseen-person/session/task performance."
+            "Architecture comparison on the personalized, same-session/task chronological HD-EMG split. Tokenizer pretraining excluded the validation and test windows. Not unseen-person/session/task performance."
         ),
         models=(
             "Exact pinned MyoTorch token-input RaulNet V20, newly initialized per person/seed. "

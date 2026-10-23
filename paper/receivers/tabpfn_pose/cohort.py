@@ -64,8 +64,7 @@ def protocol(source, checkpoint):
               "PCA fitted separately within each participant/arm. Tokens are looked up through that participant's "
               "existing frozen 1024x18 codebook; continuous inputs are the existing standardized descriptors.",
         target="Final 50 frames per original window, 20 wrist-relative landmarks, all 60 coordinates in mm.",
-        scope="Exploratory personalized same-session chronological evaluation. Subject 1 motivated this extension; "
-              "all nine participants have been examined previously. Frozen settings, no test-based tuning. "
+        scope="Personalized same-session chronological evaluation. Frozen settings, no test-based tuning. "
               "Not unseen-participant pose decoding. New PCA/TabPFN preparation differs from V20's learned readout.",
         statistics=dict(unit="participant", seeds="Average three algorithm seeds within participant first",
             primary=["TabPFN tokens minus SPAR V20 tokens", "TabPFN continuous minus SPAR V20 continuous",

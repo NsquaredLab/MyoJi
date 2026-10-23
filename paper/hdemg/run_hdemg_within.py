@@ -41,7 +41,7 @@ def freeze(args):
     inventory = json.loads((args.pilot / "selection.json").read_text())["inventory"]
     p = copy.deepcopy(previous)
     p.update(
-        scope="Exploratory follow-up: personalized decoders, later chronological blocks within the same subject/task/session. Only original pilot training subjects 1–9. All subjects and recordings were previously seen by the frozen tokenizer; not unseen-person, new-session or new-task generalization. Prior pilot training labels and diagnostic summaries have been inspected.",
+        scope="Personalized decoders on later chronological blocks within the same participant, task and session; participants 1–9. Not unseen-person, new-session or new-task generalization.",
         subjects=list(SUBJECTS),
         splits={s: list(SUBJECTS) for s in ("train", "val", "test")},
         arms=list(ARMS),

@@ -7,8 +7,7 @@ The frozen pipeline (run_hdemg_spar_simple / run_hdemg_spar_full) is reused unch
 the run is gated: for the original test windows it must reproduce the cached features,
 tokens and the stored test predictions.
 
-    ~/.local/bin/uv run --no-project --with torch --with h5py --with joblib --with scipy \
-        uv run python -m paper.hdemg.run_p1_continuous
+    uv run python -m paper.hdemg.run_p1_continuous
 """
 import json
 import sys

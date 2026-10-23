@@ -50,7 +50,7 @@ def freeze(args):
         raise ValueError("Native cache and tokenizer protocol source data differ")
     p = dict(
         created_at=now(), model_label="Published CNN (TBME 2024, retrained)",
-        scope="Exploratory same-person/session/task system comparison on a previously inspected split; architecture and native input retained, training/evaluation adapted. Not a reproduction of the published 7.54 mm score or an equal-compute comparison. Tokenizer pretraining included these recordings without pose labels.",
+        scope="Same-person/session/task system comparison; architecture and native input retained, training/evaluation adapted. Not a reproduction of the published 7.54 mm score or an equal-compute comparison. Tokenizer pretraining excluded the validation and test windows.",
         cells=[[s, seed] for s in SUBJECTS for seed in SEEDS], subjects=list(SUBJECTS), seeds=list(SEEDS),
         model_config=CONFIG, initialized_from="scratch, separately for every participant and seed",
         source_sha256={str(p.relative_to(base)): sha(p) for p in sources(base)},

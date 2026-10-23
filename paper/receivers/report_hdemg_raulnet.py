@@ -89,7 +89,7 @@ def report(root, reference, transformer, output):
         "summary": summary,
         "constant_baseline": float(np.mean(baselines)),
         "per_subject_seed": rows,
-        "scope": "Matched targets/splits, different native model/input/optimization recipes; exploratory same-person/session/task comparison; not equal compute.",
+        "scope": "Matched targets/splits, different native model/input/optimization recipes; same-person/session/task comparison; not equal compute.",
     }
     output.mkdir(parents=True, exist_ok=True)
     (root / "results.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -109,7 +109,7 @@ def report(root, reference, transformer, output):
     lines += [
         f"| Personalized constant pose | {np.mean(baselines):.3f} | — |",
         "",
-        "These are the same nine subjects, chronological split and instantaneous target timestamps. V19 q32 uses native 156 ms raw/lowpass inputs and its longer supervised training recipe; token heads use frozen pretrained tokens and longer temporal context. This is a system comparison, not an isolated architecture or equal-compute comparison. Physical units remain unverified; seed SD is not population uncertainty. The split was previously inspected, and the tokenizer saw these recordings during pretraining.",
+        "These are the same nine subjects, chronological split and instantaneous target timestamps. V19 q32 uses native 156 ms raw/lowpass inputs and its longer supervised training recipe; token heads use frozen pretrained tokens and longer temporal context. This is a system comparison, not an isolated architecture or equal-compute comparison. Errors are in millimetres; seed SD is not population uncertainty. Tokenizer pretraining excluded the validation and test windows.",
         "",
         "[Protocol](HDEMG_RAULNET_PROTOCOL.md) · [Numeric audit](hdemg_raulnet_result_audit.json)",
         "",

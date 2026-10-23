@@ -134,7 +134,7 @@ def freeze(args):
         "hardware_replay_amendment": "V1 stopped on validation for subject 7 seed 260911: 7.2842674363 on V100 versus recorded 7.2846288681 from RTX 3080. Replay tolerances remain atol=2e-4, rtol=4e-6. Validate each V19 participant on its original training GPU model; require all nine hash-bound validation receipts before filter selection. Run V19 clean/noisy test inference on the original test-evaluation GPU model. No filter was selected and no follow-up test/noise prediction was exported before this amendment.",
         "native_warmup": "Regenerate all 100 native 320-sample endpoint windows. Process first/last 50 separately in the original flattened 64-endpoint batches, preserving scored clean V19 batching and numerical replay.",
         "statistics": "Absolute pose and movement errors plus paired clean deltas. Average decoder seeds/noise repetitions within person; bootstrap people, 10000 draws, seed 260930. Velocity diagnostics use nominal 50 Hz as in the filter study. Token agreement remains secondary.",
-        "limitations": "Previously inspected same-person/session/task test split; tokenizer saw recordings. V19 has a different input context and larger training recipe. AWGN after clean startup is not electrode displacement or general deployment robustness. Stored target units are unverified.",
+        "limitations": "Same-person/session/task test split; tokenizer pretraining excluded the validation and test windows. V19 has a different input context and larger training recipe. AWGN after clean startup is not electrode displacement or general deployment robustness.",
     }
     write(path, p)
     print(

@@ -14,6 +14,7 @@ MODULES = sorted(
     "paper." + ".".join(p.relative_to(PAPER).with_suffix("").parts)
     for p in PAPER.rglob("*.py")
     if p.name != "__init__.py" and "__pycache__" not in p.parts
+    and p.relative_to(PAPER).parts[0] not in ("results", "output")  # run outputs, not code
 )
 
 
