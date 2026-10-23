@@ -5,6 +5,8 @@ from pathlib import Path
 
 import pytest
 
+pytest.importorskip("matplotlib", reason="the paper/ modules need `uv sync --group paper`")
+
 PAPER = Path(__file__).resolve().parents[1] / "paper"
 # Optional or external: installed separately (paper/README.md) or only inside Blender.
 OPTIONAL = {"emg2pose", "bpy", "mathutils", "tabpfn", "threadpoolctl", "biocodec", "seaborn", "umap"}
