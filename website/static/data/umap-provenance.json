@@ -17,13 +17,13 @@
     "random_state": 42,
     "repulsion_strength": 0.05,
     "spread": 1.0,
-    "view": "3-D UMAP, each island face-on (mean-route plane), placed at MDS of native centroid distances"
+    "view": "3-D UMAP, each island face-on (mean-trajectory plane), placed at MDS of native centroid distances"
   },
   "sources": {
     "umap_sub01_tokens.npz": "214b2e6b7e41a4d53c1ed3301bb5129ccb05bb3ce2ee6900cf225fe5ebccf6cb",
     "history_supplement.npz": "ffaa80a8235f942f609199deed0692f23e59f7371ed0250cabcda6f0c6171dc3"
   },
   "routes": "20 phase-bin medians per complete repetition, averaged across repetitions; circular Gaussian sigma=.5 bins, periodic cubic spline. The spline explicitly joins the endpoints.",
-  "display": "Saved 3D UMAP, each movement projected into its mean-route plane; groups positioned separately. Every history window is independently fitted and arranged. Full point bounds plus 7% padding, equal axis scale.",
-  "timing": "Normalized repetition phase, played over 8 seconds; a mean route, not one recorded trial or real-time playback."
+  "display": "Saved 3D UMAP, each movement projected into its mean-trajectory plane; groups positioned separately. Every history window is independently fitted and arranged. Full point bounds plus 7% padding, equal axis scale.",
+  "timing": "Normalized repetition phase, played over 8 seconds; a mean trajectory, not one recorded trial or real-time playback."
 }

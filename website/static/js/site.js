@@ -48,8 +48,8 @@
       $('#raw-fill').style.width = `${(100 * raw / rawMax).toFixed(2)}%`;
       $('#packed-fill').style.width = `${Math.max(.3, 100 * packed / rawMax).toFixed(2)}%`;
       $('#fit-text').textContent = raw <= link
-        ? `Raw EMG fits the assumed link at ${n} electrodes (up to 42); tokens fit up to 2,800. Payload only.`
-        : 'Raw EMG exceeds the assumed link above 42 electrodes; tokens fit up to 2,800. Payload only.';
+        ? `Raw EMG fits this throughput at ${n} electrodes (up to 42); tokens fit up to 2,800. Payload only.`
+        : 'Raw EMG exceeds this throughput above 42 electrodes; tokens fit up to 2,800. Payload only.';
       layout();
       paint();
     };

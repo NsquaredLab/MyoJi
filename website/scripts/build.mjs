@@ -99,7 +99,7 @@ initial.ranking.forEach((id,i)=>{
  art+=text(588,y+11,String(id),'font-size="12"')+`<rect x="624" y="${y}" width="${c.distance/max*106}" height="12" rx="2" fill="${i===0?'#5a8069':'#d7ded8'}"/>`+text(738,y+11,c.distance.toFixed(2),'font-size="12"');
 });
 art+=text(588,344,'Nearest entry: 93','font-size="12" fill="#42624c"');
-art+=text(861,106,'Only the index crosses the link','class="note"')+rect(889,126,90,65,'fill="#ecf3ed" stroke="#b8cdbd"')+text(912,170,'93','font-size="36" fill="#42624c" font-weight="600"')+text(990,166,'10 bits','font-size="14"');
+art+=text(861,106,'Only the index is transmitted','class="note"')+rect(889,126,90,65,'fill="#ecf3ed" stroke="#b8cdbd"')+text(912,170,'93','font-size="36" fill="#42624c" font-weight="600"')+text(990,166,'10 bits','font-size="14"');
 initial.bits.split('').forEach((v,i)=>{art+=rect(866+i*21,207,18,24,`fill="${v==='1'?'#42624c':'#f4f5f1'}"`)+text(872+i*21,223,v,`font-size="12" fill="${v==='1'?'white':'#626b75'}"`);});
 art+=text(861,261,'↓ Look up codebook entry 93','class="note"')+cells(initial.candidates.find(c=>c.id===93).vector,866,274,204,51,32)+text(861,347,'Vector → hand-pose decoder','class="note"');
 writeFileSync(join(root,'static/images/tokenizer.svg'),`<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="400" viewBox="0 0 1120 400" fill="#222b27" role="img" aria-label="Recorded EMG is encoded into 256 features, matched to codebook entry 93, and transmitted as the ten-bit index 0001011101. The receiver looks up its codebook vector."><style>${embeddedFonts}text{font-family:'Switzer Variable',Arial,sans-serif}.note{font-size:13px;fill:#616161}</style>${art}</svg>`);

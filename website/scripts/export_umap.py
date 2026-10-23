@@ -28,7 +28,7 @@ for ms in history['windows_ms']:
             groups = [points[mask & (phase >= a) & (phase < b)] for a, b in zip(bins[:-1], bins[1:])]
             if all(len(g) for g in groups):
                 aligned.append([np.median(g, axis=0) for g in groups])
-        # Match the main figure's mean route: per-cycle bin medians, then mean
+        # Match the main figure's mean trajectory: per-cycle bin medians, then mean
         # across repetitions; circular Gaussian sigma .5 and periodic spline.
         mean = np.mean(aligned, axis=0)
         offsets = np.arange(-3, 4)
@@ -51,11 +51,11 @@ provenance = dict(
     sources={name: hashlib.sha256((SOURCE/name).read_bytes()).hexdigest()
              for name in ('umap_sub01_tokens.npz', 'history_supplement.npz')},
     routes='20 phase-bin medians per complete repetition, averaged across repetitions; circular Gaussian sigma=.5 bins, periodic cubic spline. The spline explicitly joins the endpoints.',
-    display='Saved 3D UMAP, each movement projected into its mean-route plane; groups positioned separately. Every history window is independently fitted and arranged. Full point bounds plus 7% padding, equal axis scale.',
-    timing='Normalized repetition phase, played over 8 seconds; a mean route, not one recorded trial or real-time playback.',
+    display='Saved 3D UMAP, each movement projected into its mean-trajectory plane; groups positioned separately. Every history window is independently fitted and arranged. Full point bounds plus 7% padding, equal axis scale.',
+    timing='Normalized repetition phase, played over 8 seconds; a mean trajectory, not one recorded trial or real-time playback.',
 )
 out = dict(names=names, colors=colors, labels=label.tolist(), windows=windows, provenance=provenance)
 OUT.mkdir(parents=True, exist_ok=True)
 (OUT/'umap.json').write_text(json.dumps(out, separators=(',', ':')) + '\n')
 (OUT/'umap-provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
-print(f'Exported {len(label):,} updates, {len(windows)} saved history views; 19 mean-route repetitions per movement.')
+print(f'Exported {len(label):,} updates, {len(windows)} saved history views; 19 mean-trajectory repetitions per movement.')

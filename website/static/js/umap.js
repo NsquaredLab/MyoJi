@@ -146,7 +146,7 @@
     drawCloud(c,box,ms,isDark,-1,1.5);drawRoutes(c,box,ms,p,isDark,-1,1.8);
     c.fillStyle=theme.muted;c.font='400 24px "Switzer Variable"';c.fillText('Repetition phase',1440,350);
     c.fillStyle=theme.ink;c.font='500 124px "Switzer Variable"';c.fillText(`${Math.round(p*100)}%`,1432,490);
-    c.font='400 26px "Switzer Variable"';c.fillText('Phase-aligned mean routes',1440,565);
+    c.font='400 26px "Switzer Variable"';c.fillText('Phase-aligned mean trajectories',1440,565);
     c.fillStyle=theme.muted;c.font='400 23px "Switzer Variable"';c.fillText('19 repetitions per movement',1440,609);
     c.fillText('Playback slowed',1440,645);
     data.names.forEach((name,i)=>{const x=74+i*220;c.fillStyle=inks[i];c.beginPath();c.arc(x,934,5,0,Math.PI*2);c.fill();c.fillStyle=theme.ink;c.font='400 23px "Switzer Variable"';c.fillText(name,x+15,941);});
