@@ -130,7 +130,7 @@ def main():
     fig, axes = plt.subplots(1, 2, figsize=(7.16, 3.0))
     fig.subplots_adjust(left=.1, right=.975, bottom=.19, top=.95, wspace=.33)
     # Learned encoder in grey: blue means continuous features in Figures 3 and 6.
-    routes={'spar':('#d80032','o','SPAR'), 'learned':('#7a7a7a','s','Learned Encoder')}
+    routes={'spar':('#d80032','o','SPAR'), 'learned':('#7a7a7a','s','Learned Tokenizer')}
     # Channel counts are swept densely to locate boundaries, which leaves the set
     # uneven. Plot a geometric ladder so the points are equally spaced on the log
     # axes, keeping each series' endpoints and the quoted limit. Every measured
@@ -188,7 +188,7 @@ def main():
 
     # B: the cost model, from every measured configuration. Per-channel cost is
     # flat once the montage fills, so the update time is proportional to channels.
-    STAGES=[('frontend','Frontend','#d80032','white'),
+    STAGES=[('frontend','Feature Extraction','#d80032','white'),
             ('quantizer','Codebook Search','#ef7f99',INK),
             ('preprocessing','Window + Normalize','#f9d2dc',INK)]
     opt=series('optimized','spar')
@@ -282,14 +282,14 @@ def main():
         +f'{largest["optimized"]["spar"]}'+r' channels.} '
         r'Both C ports ran the frozen tokenizers on one NUCLEO-N657X0-Q (600\,MHz, FP32, caches enabled, '
         r'no neural accelerator) with synthetic 2\,kHz input and 160\,ms windows. One update comprises the '
-        r'window shift, normalization, frontend, exhaustive 1,024-code assignment and 10-bit packing; '
+        r'window shift, normalization, feature extraction, exhaustive 1,024-code assignment and 10-bit packing; '
         r'acquisition, BLE transmission and pose decoding are excluded. '
         r'\textbf{A:} compute time per update versus channel count for the optimized (filled markers, solid '
         r'lines) and original ports (open markers, dashed lines); a geometric subset of the measured counts '
         r'is shown. The dashed horizontal line marks the 20\,ms update interval. Labels give the largest '
         r'channel count for which every update finished within this interval ('
         +f'{largest["optimized"]["spar"]} optimized, {largest["original"]["spar"]} original'
-        r'). The learned encoder required '+f'{learned_one["median_ms"]:.0f}'+r'\,ms for a single channel. '
+        r'). The learned tokenizer required '+f'{learned_one["median_ms"]:.0f}'+r'\,ms for a single channel. '
         r'Markers show medians over 16 updates after 16 warm-up updates; minimum--maximum whiskers are '
         r'mostly hidden by the markers. '
         r'\textbf{B:} per-channel compute time of the optimized SPAR port by processing stage; stage labels '
