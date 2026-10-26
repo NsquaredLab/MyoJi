@@ -131,4 +131,4 @@ outputs.
 ## Licence and citation
 
 AGPL-3.0-or-later; vendored third-party code keeps its licence ([THIRD_PARTY.md](THIRD_PARTY.md)).
-If you use myoji, please cite the paper ([CITATION.cff](CITATION.cff)).
+If you use myoji, please cite the paper, [arXiv:2610.32674](https://arxiv.org/abs/2610.32674) ([CITATION.cff](CITATION.cff)).

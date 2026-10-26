@@ -35,9 +35,16 @@ keywords:
   - hand pose
   - myocontrol
 preferred-citation:
-  type: unpublished
+  type: article
   title: EMG Tokenization Preserves Movement Information at a Fraction of the Bitrate
+  journal: arXiv
   year: 2026
+  doi: 10.48550/arXiv.2610.32674
+  url: 'https://arxiv.org/abs/2610.32674'
+  identifiers:
+    - type: other
+      value: 'arXiv:2610.32674'
+      description: arXiv identifier
   authors:
     - family-names: Sîmpetru
       given-names: Raul C.

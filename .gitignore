@@ -29,5 +29,3 @@ website/static/images/tokenizer.svg
 # Switzer is fetched from Fontshare at build time; its licence does not allow redistribution here.
 website/static/fonts/Switzer-*.woff2
 
-# The manuscript and supplement are added with the preprint.
-website/static/pdfs/

@@ -1,6 +1,5 @@
 <!doctype html>
-<!-- data-pdfs="later" hides the paper and supplement links until the preprint is out; remove it then. -->
-<html lang="en" data-pdfs="later">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +34,7 @@
     <a href="#results">Results</a>
     <a href="#space">Token space</a>
     <a href="#paper">Paper</a>
-    <a class="pdf pdf-link" href="static/pdfs/paper.pdf">PDF ↗</a>
+    <a class="pdf pdf-link" href="https://arxiv.org/pdf/2610.32674">PDF ↗</a>
     <a class="gh" href="https://github.com/NsquaredLab/MyoJi"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a>
     <button type="button" class="theme-button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false"><span aria-hidden="true">◐</span></button>
   </nav>
@@ -48,7 +47,7 @@
       <h1>EMG Tokenization Preserves Movement Information at a Fraction of the Bitrate</h1>
       <p class="authors"><a href="https://orcid.org/0000-0003-0455-0168">Raul C. Sîmpetru</a>, <a href="https://orcid.org/0009-0002-6830-5559">Amin Olamazadeh</a>, <a href="https://orcid.org/0000-0003-1601-0046">Devon Rohlf</a>, <a href="https://orcid.org/0000-0003-2291-5941">Vlad Cnejevici</a> and <a href="https://orcid.org/0000-0002-7118-5554">Alessandro Del Vecchio</a></p>
       <p class="affil">Friedrich-Alexander-Universität Erlangen-Nürnberg</p>
-      <p class="hero-links pdf-link"><a href="static/pdfs/paper.pdf">Paper ↗</a><a href="static/pdfs/supplement.pdf">Supplement ↗</a></p>
+      <p class="hero-links pdf-link"><a href="https://arxiv.org/abs/2610.32674">Paper ↗</a><a href="https://arxiv.org/pdf/2610.32674#page=12">Supplement ↗</a></p>
       <p class="bits-label"><span data-n>320</span> electrodes, one 20 ms update</p>
       <p class="bits-name">Raw 16-bit EMG</p>
       <p class="bits"><span id="raw-bits">209,715</span><small>bits</small></p>
@@ -202,22 +201,25 @@
   <div class="sec-head"><h2 id="paper-title">Paper and materials</h2></div>
   <div class="paper-grid">
     <div class="resources">
-      <a class="pdf-link" href="static/pdfs/paper.pdf"><b>Manuscript</b><span>PDF · 11 pages ↗</span></a>
-      <a class="pdf-link" href="static/pdfs/supplement.pdf"><b>Supplementary material</b><span>PDF ↗</span></a>
+      <a class="pdf-link" href="https://arxiv.org/abs/2610.32674"><b>Manuscript</b><span>arXiv:2610.32674 · 11 pages ↗</span></a>
+      <a class="pdf-link" href="https://arxiv.org/pdf/2610.32674#page=12"><b>Supplementary material</b><span>Pages 12–23 of the arXiv PDF ↗</span></a>
       <a href="tokenizer.html"><b>Tokenizer, step by step</b><span>Interactive figure ↗</span></a>
       <a href="umap.html"><b>Movement through token space</b><span>Interactive figure ↗</span></a>
       <a href="static/videos/umap-history.mp4" download><b>Presentation videos</b><span>MP4 · 1920 × 1080 ↓</span></a>
     </div>
     <div>
       <div class="cite-head"><span class="label">Citation</span><button type="button" id="copy-citation">Copy BibTeX</button></div>
-      <pre class="bib"><code id="bibtex"><span class="t">@unpublished</span><span class="p">{</span><span class="k">simpetru2026emgtokenization</span><span class="p">,</span>
-  <span class="f">title</span>  <span class="p">= {</span>EMG Tokenization Preserves Movement
-            Information at a Fraction of the Bitrate<span class="p">},</span>
-  <span class="f">author</span> <span class="p">= {</span>Sîmpetru, Raul C. <span class="p">and</span> Olamazadeh, Amin <span class="p">and</span>
-            Rohlf, Devon <span class="p">and</span> Cnejevici, Vlad <span class="p">and</span>
-            Del Vecchio, Alessandro<span class="p">},</span>
-  <span class="f">year</span>   <span class="p">= {</span><span class="y">2026</span><span class="p">},</span>
-  <span class="f">note</span>   <span class="p">= {</span>Manuscript<span class="p">}</span>
+      <pre class="bib"><code id="bibtex"><span class="t">@misc</span><span class="p">{</span><span class="k">simpetru2026emgtokenization</span><span class="p">,</span>
+  <span class="f">title</span>         <span class="p">= {</span>EMG Tokenization Preserves Movement
+                   Information at a Fraction of the Bitrate<span class="p">},</span>
+  <span class="f">author</span>        <span class="p">= {</span>Sîmpetru, Raul C. <span class="p">and</span> Olamazadeh, Amin <span class="p">and</span>
+                   Rohlf, Devon <span class="p">and</span> Cnejevici, Vlad <span class="p">and</span>
+                   Del Vecchio, Alessandro<span class="p">},</span>
+  <span class="f">year</span>          <span class="p">= {</span><span class="y">2026</span><span class="p">},</span>
+  <span class="f">eprint</span>        <span class="p">= {</span>2610.32674<span class="p">},</span>
+  <span class="f">archivePrefix</span> <span class="p">= {</span>arXiv<span class="p">},</span>
+  <span class="f">primaryClass</span>  <span class="p">= {</span>eess.SP<span class="p">},</span>
+  <span class="f">doi</span>           <span class="p">= {</span>10.48550/arXiv.2610.32674<span class="p">}</span>
 <span class="p">}</span></code></pre>
       <span class="sr-only" role="status" id="copy-status"></span>
     </div>
@@ -225,7 +227,7 @@
   <footer class="site-footer">
   <b>EMG Tokenization</b>
   <div>Department of Artificial Intelligence in Biomedical Engineering<br>Friedrich-Alexander-Universität Erlangen-Nürnberg</div>
-  <div>Unpublished manuscript. Interactive tokenizer figure built with <a href="https://github.com/wheresryan22/anatomy">Anatomy</a>. Set in Switzer and IBM Plex Mono.</div>
+  <div>Preprint: <a href="https://arxiv.org/abs/2610.32674">arXiv:2610.32674</a>. Interactive tokenizer figure built with <a href="https://github.com/wheresryan22/anatomy">Anatomy</a>. Set in Switzer and IBM Plex Mono.</div>
   </footer>
 </section>
 </main>

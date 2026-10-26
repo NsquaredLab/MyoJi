@@ -33,7 +33,7 @@ bottom right (or the arrow, page and space keys) move one slide; phones scroll n
 6. Movement through token space: the UMAP of participant 1's token histories.
 7. Paper and materials.
 
-The manuscript and supplement links are hidden (`data-pdfs="later"` on `<html>`) until the preprint is posted.
+The paper links point to the arXiv record, arXiv:2610.32674; the supplement link opens page 12 of the same PDF.
 
 ## Data
 
